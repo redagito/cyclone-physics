@@ -36,8 +36,8 @@ void MassAggregateApplication::display()
 
 	glColor3f(0, 0, 0);
 
-	cyclone::ParticleWorld::Particles& particles = world.getParticles();
-	for (cyclone::ParticleWorld::Particles::iterator p = particles.begin();
+	cyclone::Particles& particles = world.getParticles();
+	for (cyclone::Particles::iterator p = particles.begin();
 		p != particles.end();
 		p++)
 	{

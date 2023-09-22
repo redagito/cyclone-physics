@@ -126,17 +126,17 @@ public:
 	/**
 	* Holds a pointer to the particles we might be attracting.
 	*/
-	cyclone::Particle* particles;
+	cyclone::Particle* particles = nullptr;
 
 	/**
 	 * The maximum force used to push the particles apart.
 	 */
-	cyclone::real maxReplusion;
+	cyclone::real maxReplusion = 0.f;
 
 	/**
 	 * The maximum force used to pull particles together.
 	 */
-	cyclone::real maxAttraction;
+	cyclone::real maxAttraction = 0.f;
 
 	/**
 	 * The separation between particles where there is no force.
@@ -147,19 +147,19 @@ public:
 	 * The force with which to float the head particle, if it is
 	 * joined to others.
 	 */
-	cyclone::real floatHead;
+	cyclone::real floatHead = 0.f;
 
 	/**
 	 * The maximum number of particles in the blob before the head
 	 * is floated at maximum force.
 	 */
-	unsigned maxFloat;
+	unsigned maxFloat = 0.f;
 
 	/**
 	 * The separation between particles after which they 'break' apart and
 	 * there is no force.
 	 */
-	cyclone::real maxDistance;
+	cyclone::real maxDistance = 0.f;
 
 	virtual void updateForce(
 		cyclone::Particle* particle,
