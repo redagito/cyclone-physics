@@ -18,7 +18,7 @@
 #ifndef CYCLONE_FGEN_H
 #define CYCLONE_FGEN_H
 
-#include "body.h"
+#include "cyclone/RigidBody.h"
 #include "pfgen.h"
 #include <vector>
 

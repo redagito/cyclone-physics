@@ -1,3 +1,5 @@
+#pragma once
+
 /*
  * Interface file for the fine grained collision detection system.
  *
@@ -22,8 +24,6 @@
  * collision tests typically use the intersection tests as an early
  * out.
  */
-#ifndef CYCLONE_COLLISION_FINE_H
-#define CYCLONE_COLLISION_FINE_H
 
 #include "contacts.h"
 
@@ -308,5 +308,3 @@ namespace cyclone {
 
 
 } // namespace cyclone
-
-#endif // CYCLONE_COLLISION_FINE_H

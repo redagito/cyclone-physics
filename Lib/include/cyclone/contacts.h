@@ -1,3 +1,5 @@
+#pragma once
+
 /*
  * Interface file for the contact resolution system.
  *
@@ -23,10 +25,8 @@
  * algorithm but can be unstable when the contacts are highly
  * inter-related.
  */
-#ifndef CYCLONE_CONTACTS_H
-#define CYCLONE_CONTACTS_H
 
-#include "body.h"
+#include "cyclone/RigidBody.h"
 
 namespace cyclone {
 
@@ -439,5 +439,3 @@ namespace cyclone {
     };
 
 } // namespace cyclone
-
-#endif // CYCLONE_CONTACTS_H

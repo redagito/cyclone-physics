@@ -10,9 +10,10 @@
  * software licence.
  */
 
-#include <cyclone/body.h>
-#include <memory.h>
-#include <assert.h>
+#include "cyclone/RigidBody.h"
+
+#include <memory>
+#include <cassert>
 
 using namespace cyclone;
 

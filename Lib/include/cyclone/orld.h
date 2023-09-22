@@ -1,3 +1,5 @@
+#pragma once
+
 /*
  * Interface file for the rigid body world structure.
  *
@@ -19,7 +21,7 @@
 #ifndef CYCLONE_WORLD_H
 #define CYCLONE_WORLD_H
 
-#include "body.h"
+#include "cyclone/RigidBody.h"
 #include "contacts.h"
 
 namespace cyclone {
@@ -115,5 +117,3 @@ namespace cyclone {
     };
 
 } // namespace cyclone
-
-#endif // CYCLONE_PWORLD_H

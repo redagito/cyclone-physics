@@ -13,7 +13,7 @@
 #include "core.h"
 #include "random.h"
 #include "particle.h"
-#include "body.h"
+#include "cyclone/RigidBody.h"
 #include "pcontacts.h"
 #include "pworld.h"
 #include "collide_fine.h"

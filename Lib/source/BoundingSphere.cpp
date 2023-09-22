@@ -1,3 +1,6 @@
+#include "cyclone/BoundingSphere.h"
+
+using namespace cyclone;
 /*
  * Implementation file for the coarse collision detector.
  *
@@ -10,25 +13,21 @@
  * software licence.
  */
 
-#include <cyclone/collide_coarse.h>
-
-using namespace cyclone;
-
-BoundingSphere::BoundingSphere(const Vector3 &centre, real radius)
+BoundingSphere::BoundingSphere(const Vector3& centre, real radius)
 {
     BoundingSphere::centre = centre;
     BoundingSphere::radius = radius;
 }
 
-BoundingSphere::BoundingSphere(const BoundingSphere &one,
-                               const BoundingSphere &two)
+BoundingSphere::BoundingSphere(const BoundingSphere& one,
+    const BoundingSphere& two)
 {
     Vector3 centreOffset = two.centre - one.centre;
     real distance = centreOffset.squareMagnitude();
     real radiusDiff = two.radius - one.radius;
 
     // Check if the larger sphere encloses the small one
-    if (radiusDiff*radiusDiff >= distance)
+    if (radiusDiff * radiusDiff >= distance)
     {
         if (one.radius > two.radius)
         {
@@ -55,23 +54,23 @@ BoundingSphere::BoundingSphere(const BoundingSphere &one,
         centre = one.centre;
         if (distance > 0)
         {
-            centre += centreOffset * ((radius - one.radius)/distance);
+            centre += centreOffset * ((radius - one.radius) / distance);
         }
     }
 
 }
 
-bool BoundingSphere::overlaps(const BoundingSphere *other) const
+bool BoundingSphere::overlaps(const BoundingSphere* other) const
 {
     real distanceSquared = (centre - other->centre).squareMagnitude();
-    return distanceSquared < (radius+other->radius)*(radius+other->radius);
+    return distanceSquared < (radius + other->radius) * (radius + other->radius);
 }
 
-real BoundingSphere::getGrowth(const BoundingSphere &other) const
+real BoundingSphere::getGrowth(const BoundingSphere& other) const
 {
     BoundingSphere newSphere(*this, other);
 
     // We return a value proportional to the change in surface
     // area of the sphere.
-    return newSphere.radius*newSphere.radius - radius*radius;
+    return newSphere.radius * newSphere.radius - radius * radius;
 }

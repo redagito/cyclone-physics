@@ -1,3 +1,5 @@
+#pragma once
+
 /*
  * Interface file for core components and functions.
  *
@@ -1249,5 +1251,3 @@ namespace cyclone {
 	};
 
 }
-
-#endif // CYCLONE_CORE_H

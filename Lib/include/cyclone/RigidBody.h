@@ -1,3 +1,5 @@
+#pragma once
+
 /*
  * Interface file for the rigid body class.
  *
@@ -16,10 +18,8 @@
   * This file contains the definitions for the rigid body class, the
   * basic building block of all the physics system.
   */
-#ifndef CYCLONE_BODY_H
-#define CYCLONE_BODY_H
 
-#include "core.h"
+#include "cyclone/core.h"
 
 namespace cyclone {
 
@@ -974,5 +974,3 @@ namespace cyclone {
 	};
 
 } // namespace cyclone
-
-#endif // CYCLONE_BODY_H

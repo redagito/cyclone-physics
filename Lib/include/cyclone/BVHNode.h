@@ -1,89 +1,7 @@
-/*
- * Interface file for the coarse collision detection system.
- *
- * Part of the Cyclone physics system.
- *
- * Copyright (c) Icosagon 2003. All Rights Reserved.
- *
- * This software is distributed under licence. Use of this software
- * implies agreement with all terms and conditions of the accompanying
- * software licence.
- */
+#pragma once
 
-/**
- * @file
- *
- * This file contains the coarse collision detection system.  It is
- * used to return pairs of objects that may be in contact, which can
- * then be tested using fined grained methods.
- */
-#ifndef CYCLONE_COLLISION_COARSE_H
-#define CYCLONE_COLLISION_COARSE_H
-
-#include <vector>
-#include <cstddef>
-#include "contacts.h"
-
-namespace cyclone {
-
-    /**
-     * Represents a bounding sphere that can be tested for overlap.
-     */
-    struct BoundingSphere
-    {
-        Vector3 centre;
-        real radius;
-
-    public:
-        /**
-         * Creates a new bounding sphere at the given centre and radius.
-         */
-        BoundingSphere(const Vector3 &centre, real radius);
-
-        /**
-         * Creates a bounding sphere to enclose the two given bounding
-         * spheres.
-         */
-        BoundingSphere(const BoundingSphere &one, const BoundingSphere &two);
-
-        /**
-         * Checks if the bounding sphere overlaps with the other given
-         * bounding sphere.
-         */
-        bool overlaps(const BoundingSphere *other) const;
-
-        /**
-         * Reports how much this bounding sphere would have to grow
-         * by to incorporate the given bounding sphere. Note that this
-         * calculation returns a value not in any particular units (i.e.
-         * its not a volume growth). In fact the best implementation
-         * takes into account the growth in surface area (after the
-         * Goldsmith-Salmon algorithm for tree construction).
-         */
-        real getGrowth(const BoundingSphere &other) const;
-
-        /**
-         * Returns the volume of this bounding volume. This is used
-         * to calculate how to recurse into the bounding volume tree.
-         * For a bounding sphere it is a simple calculation.
-         */
-        real getSize() const
-        {
-            return ((real)1.333333) * R_PI * radius * radius * radius;
-        }
-    };
-
-    /**
-     * Stores a potential contact to check later.
-     */
-    struct PotentialContact
-    {
-        /**
-         * Holds the bodies that might be in contact.
-         */
-        RigidBody* body[2];
-    };
-
+namespace cyclone
+{
     /**
      * A base class for nodes in a bounding volume hierarchy.
      *
@@ -382,7 +300,4 @@ namespace cyclone {
             }
         }
     }
-
-} // namespace cyclone
-
-#endif // CYCLONE_COLLISION_FINE_H
+}
