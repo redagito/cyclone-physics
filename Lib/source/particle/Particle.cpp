@@ -10,8 +10,9 @@
  * software licence.
  */
 
-#include <assert.h>
-#include <cyclone/particle.h>
+#include <cassert>
+
+#include "cyclone/particle/Particle.h"
 
 using namespace cyclone;
 

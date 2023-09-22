@@ -24,7 +24,7 @@
 #ifndef CYCLONE_PCONTACTS_H
 #define CYCLONE_PCONTACTS_H
 
-#include "particle.h"
+#include "cyclone/particle/Particle.h"
 
 namespace cyclone {
 

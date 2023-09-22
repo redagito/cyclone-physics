@@ -1,3 +1,5 @@
+#pragma once
+
 /*
  * Interface file for the force generators.
  *
@@ -15,115 +17,17 @@
  *
  * This file contains the interface and sample force generators.
  */
-#ifndef CYCLONE_PFGEN_H
-#define CYCLONE_PFGEN_H
 
 #include "core.h"
-#include "particle.h"
+#include "cyclone/particle/Particle.h"
+#include "cyclone/particle/ParticleForceGenerator.h"
 #include <vector>
 
 namespace cyclone {
 
-    /**
-     * A force generator can be asked to add a force to one or more
-     * particles.
-     */
-    class ParticleForceGenerator
-    {
-    public:
 
-        /**
-         * Overload this in implementations of the interface to calculate
-         * and update the force applied to the given particle.
-         */
-        virtual void updateForce(Particle *particle, real duration) = 0;
-    };
 
-    /**
-     * A force generator that applies a gravitational force. One instance
-     * can be used for multiple particles.
-     */
-    class ParticleGravity : public ParticleForceGenerator
-    {
-        /** Holds the acceleration due to gravity. */
-        Vector3 gravity;
 
-    public:
-
-        /** Creates the generator with the given acceleration. */
-        ParticleGravity(const Vector3 &gravity);
-
-        /** Applies the gravitational force to the given particle. */
-        virtual void updateForce(Particle *particle, real duration);
-    };
-
-    /**
-     * A force generator that applies a drag force. One instance
-     * can be used for multiple particles.
-     */
-    class ParticleDrag : public ParticleForceGenerator
-    {
-        /** Holds the velocity drag coeffificent. */
-        real k1;
-
-        /** Holds the velocity squared drag coeffificent. */
-        real k2;
-
-    public:
-
-        /** Creates the generator with the given coefficients. */
-        ParticleDrag(real k1, real k2);
-
-        /** Applies the drag force to the given particle. */
-        virtual void updateForce(Particle *particle, real duration);
-    };
-
-    /**
-     * A force generator that applies a Spring force, where
-     * one end is attached to a fixed point in space.
-     */
-    class ParticleAnchoredSpring : public ParticleForceGenerator
-    {
-    protected:
-        /** The location of the anchored end of the spring. */
-        Vector3 *anchor;
-
-        /** Holds the sprint constant. */
-        real springConstant;
-
-        /** Holds the rest length of the spring. */
-        real restLength;
-
-    public:
-        ParticleAnchoredSpring();
-
-        /** Creates a new spring with the given parameters. */
-        ParticleAnchoredSpring(Vector3 *anchor,
-                               real springConstant,
-                               real restLength);
-
-        /** Retrieve the anchor point. */
-        const Vector3* getAnchor() const { return anchor; }
-
-        /** Set the spring's properties. */
-        void init(Vector3 *anchor,
-                  real springConstant,
-                  real restLength);
-
-        /** Applies the spring force to the given particle. */
-        virtual void updateForce(Particle *particle, real duration);
-    };
-
-    /**
-    * A force generator that applies a bungee force, where
-    * one end is attached to a fixed point in space.
-    */
-    class ParticleAnchoredBungee : public ParticleAnchoredSpring
-    {
-    public:
-        /** Applies the spring force to the given particle. */
-        virtual void updateForce(Particle *particle, real duration);
-    };
 
     /**
      * A force generator that fakes a stiff spring force, and where
@@ -292,5 +196,3 @@ namespace cyclone {
         void updateForces(real duration);
     };
 }
-
-#endif // CYCLONE_PFGEN_H

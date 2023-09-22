@@ -11,6 +11,10 @@
  */
 
 #include <cyclone/pfgen.h>
+#include "cyclone/particle/ParticleGravity.h"
+#include "cyclone/particle/ParticleDrag.h"
+#include "cyclone/particle/ParticleAnchoredSpring.h"
+#include "cyclone/particle/ParticleAnchoredBungee.h"
 
 using namespace cyclone;
 

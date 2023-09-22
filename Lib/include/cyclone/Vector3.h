@@ -44,13 +44,8 @@ namespace cyclone
 			: x(x), y(y), z(z) {}
 
 		const static Vector3 GRAVITY;
-		const static Vector3 HIGH_GRAVITY;
 		const static Vector3 UP;
 		const static Vector3 RIGHT;
-		const static Vector3 OUT_OF_SCREEN;
-		const static Vector3 X;
-		const static Vector3 Y;
-		const static Vector3 Z;
 
 		// ... Other Vector3 code as before ...
 

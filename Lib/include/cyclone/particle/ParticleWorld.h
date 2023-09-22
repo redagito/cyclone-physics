@@ -1,3 +1,5 @@
+#pragma once
+
 /*
  * Interface file for the particle / mass aggregate world structure.
  *
@@ -16,11 +18,9 @@
  * This file contains the definitions for a structure to hold any number o
  * particle masses, and their connections.
  */
-#ifndef CYCLONE_PWORLD_H
-#define CYCLONE_PWORLD_H
 
-#include "pfgen.h"
-#include "plinks.h"
+#include "cyclone/pfgen.h"
+#include "cyclone/plinks.h"
 
 namespace cyclone {
 
@@ -145,5 +145,3 @@ namespace cyclone {
     };
 
 } // namespace cyclone
-
-#endif // CYCLONE_PWORLD_H
