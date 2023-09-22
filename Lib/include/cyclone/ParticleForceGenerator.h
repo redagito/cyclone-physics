@@ -1,7 +1,11 @@
 #pragma once
 
+#include "cyclone/precision.h"
+
 namespace cyclone 
 {
+    class Particle;
+
     /**
      * A force generator can be asked to add a force to one or more
      * particles.
