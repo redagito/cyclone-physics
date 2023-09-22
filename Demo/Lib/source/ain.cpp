@@ -10,11 +10,8 @@
  * software licence.
  */
 
-// Include appropriate OpenGL headers.
-#include "cyclonedemo/ogl_headers.h"
-
 // Include the general application structure.
-#include "cyclonedemo/app.h"
+#include "cyclonedemo/Application.h"
 
 // Include the timing functions
 #include "cyclonedemo/timing.h"

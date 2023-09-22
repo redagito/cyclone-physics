@@ -1,3 +1,5 @@
+#pragma once
+
 /*
  * Timing functions.
  *
@@ -15,8 +17,6 @@
  *
  * Holds the timing system for the physics demos.
  */
-#ifndef CYCLONE_DEMO_TIMING_H
-#define CYCLONE_DEMO_TIMING_H
 
 /**
  * Represents all the information that the demo might need about the
@@ -105,8 +105,3 @@ private:
     TimingData(const TimingData &) = default;
     TimingData& operator=(const TimingData&) = delete;
 };
-
-
-#endif // CYCLONE_DEMO_TIMING_H
-
-
