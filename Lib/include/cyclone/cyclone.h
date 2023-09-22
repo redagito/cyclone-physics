@@ -11,7 +11,7 @@
  */
 #include "precision.h"
 #include "core.h"
-#include "random.h"
+#include "Random.h"
 #include "particle.h"
 #include "cyclone/RigidBody.h"
 #include "pcontacts.h"

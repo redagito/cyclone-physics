@@ -1,3 +1,5 @@
+#pragma once
+
 /*
  * Interface file for joints between rigid bodies.
  *
@@ -16,8 +18,6 @@
  * This file contains the definitions for joints that link together
  * different rigid bodies.
  */
-#ifndef CYCLONE_JOINTS_H
-#define CYCLONE_JOINTS_H
 
 #include "contacts.h"
 
@@ -72,5 +72,3 @@ namespace cyclone {
     };
 
 } // namespace cyclone
-
-#endif // CYCLONE_JOINTS_H

@@ -1,5 +1,7 @@
 #pragma once
 
+#include <cmath>
+
 #include "cyclone/precision.h"
 
 // TODO Use glm instead

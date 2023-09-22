@@ -18,8 +18,6 @@
  * This file contains the definitions for a structure to hold any
  * number of rigid bodies, and to manage their simulation.
  */
-#ifndef CYCLONE_WORLD_H
-#define CYCLONE_WORLD_H
 
 #include "cyclone/RigidBody.h"
 #include "contacts.h"
