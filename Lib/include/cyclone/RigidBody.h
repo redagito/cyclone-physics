@@ -19,7 +19,7 @@
   * basic building block of all the physics system.
   */
 
-#include "cyclone/core.h"
+#include "cyclone/Core.h"
 #include "cyclone/Matrix3.h"
 #include "cyclone/Vector3.h"
 #include "cyclone/Quaternion.h"

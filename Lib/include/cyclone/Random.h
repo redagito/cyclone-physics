@@ -18,7 +18,7 @@
  * This file contains the definitions for a random number generator.
  */
 
-#include "cyclone/core.h"
+#include "cyclone/Core.h"
 #include "cyclone/Vector3.h"
 #include "cyclone/Quaternion.h"
 
