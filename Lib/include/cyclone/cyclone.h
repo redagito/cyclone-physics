@@ -19,4 +19,4 @@
 #include "collide_fine.h"
 #include "contacts.h"
 #include "fgen.h"
-#include "joints.h"
+#include "Joint.h"
