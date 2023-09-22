@@ -3,8 +3,8 @@
 The Physics engine that accompanies the book "Game Physics Engine Development" by Ian Millington.
 This version uses a modern conan/cmake based build system and should build out of the box on Windows and Linux systems.
 
-The tag v1.0 represents a mostly untouched original code base with a modern build system. It was tested (build and ran all demos) on Windows (10) and Linux (Ubuntu 22.04).
-The Ballistics and BigBallistics demo had issues firing the balls on Linux but everything else builds and works as expected.
+The tag v1.0 represents a mostly untouched original code base with a modern build system. It was tested (built and ran all demos) on Windows 10 and Linux Ubuntu 22.04.
+The Ballistics and BigBallistics demo have issues firing the balls on Linux but everything else builds and works as expected.
 Any development beyond this tag will be more intrusive.
 
 ## Requirements
