@@ -20,6 +20,10 @@
   */
 
 #include "cyclone/core.h"
+#include "cyclone/Matrix3.h"
+#include "cyclone/Vector3.h"
+#include "cyclone/Quaternion.h"
+#include "cyclone/Matrix4.h"
 
 namespace cyclone {
 

@@ -1,3 +1,5 @@
+#pragma once
+
 /*
  * Interface file for code that changes when the core's precision is
  * altered.
@@ -22,10 +24,8 @@
  * @note All the contents of this file need to be changed to compile
  * Cyclone at a different precision.
  */
-#ifndef CYCLONE_PRECISION_H
-#define CYCLONE_PRECISION_H
 
-#include <float.h>
+#include <cfloat>
 
 namespace cyclone {
 
@@ -83,5 +83,3 @@ namespace cyclone {
     #define R_PI 3.14159265358979
 #endif
 }
-
-#endif // CYCLONE_PRECISION_H

@@ -13,10 +13,10 @@ using namespace cyclone;
  * software licence.
  */
 
-BoundingSphere::BoundingSphere(const Vector3& centre, real radius)
+BoundingSphere::BoundingSphere(const Vector3& cent, real rad)
 {
-    BoundingSphere::centre = centre;
-    BoundingSphere::radius = radius;
+    centre = cent;
+    radius = rad;
 }
 
 BoundingSphere::BoundingSphere(const BoundingSphere& one,

@@ -1,6 +1,7 @@
 #pragma once
 
 #include "cyclone/core.h"
+#include "cyclone/Vector3.h"
 
 namespace cyclone {
     

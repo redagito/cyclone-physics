@@ -1,3 +1,5 @@
+#pragma once
+
 /*
  * Interface file for the random number generator.
  *
@@ -15,10 +17,10 @@
  *
  * This file contains the definitions for a random number generator.
  */
-#ifndef CYCLONE_RANDOM_H
-#define CYCLONE_RANDOM_H
 
-#include "core.h"
+#include "cyclone/core.h"
+#include "cyclone/Vector3.h"
+#include "cyclone/Quaternion.h"
 
 namespace cyclone {
 
@@ -130,5 +132,3 @@ namespace cyclone {
     };
 
 } // namespace cyclone
-
-#endif // CYCLONE_BODY_H

@@ -15,7 +15,7 @@
 #include "particle.h"
 #include "cyclone/RigidBody.h"
 #include "pcontacts.h"
-#include "pworld.h"
+#include "ParticleWorld.h"
 #include "collide_fine.h"
 #include "contacts.h"
 #include "fgen.h"

@@ -11,7 +11,7 @@
  */
 
 #include <cstddef>
-#include <cyclone/pworld.h>
+#include <cyclone/ParticleWorld.h>
 
 using namespace cyclone;
 
