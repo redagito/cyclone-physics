@@ -20,7 +20,9 @@
  */
 
 #include "cyclone/RigidBody.h"
-#include "contacts.h"
+#include "cyclone/contact/Contact.h"
+#include "cyclone/contact/ContactResolver.h"
+#include "cyclone/contact/ContactGenerator.h"
 
 namespace cyclone {
     /**
@@ -35,21 +37,21 @@ namespace cyclone {
          * True if the world should calculate the number of iterations
          * to give the contact resolver at each frame.
          */
-        bool calculateIterations;
+        bool calculateIterations = false;
 
         /**
          * Holds a single rigid body in a linked list of bodies.
          */
         struct BodyRegistration
         {
-            RigidBody *body;
-            BodyRegistration * next;
+            RigidBody *body = nullptr;
+            BodyRegistration * next = nullptr;
         };
 
         /**
          * Holds the head of the list of registered bodies.
          */
-        BodyRegistration *firstBody;
+        BodyRegistration *firstBody = nullptr;
 
         /**
          * Holds the resolver for sets of contacts.
@@ -61,26 +63,26 @@ namespace cyclone {
          */
         struct ContactGenRegistration
         {
-            ContactGenerator *gen;
-            ContactGenRegistration *next;
+            ContactGenerator *gen = nullptr;
+            ContactGenRegistration *next = nullptr;
         };
 
         /**
          * Holds the head of the list of contact generators.
          */
-        ContactGenRegistration *firstContactGen;
+        ContactGenRegistration *firstContactGen = nullptr;
 
         /**
          * Holds an array of contacts, for filling by the contact
          * generators.
          */
-        Contact *contacts;
+        Contact *contacts = nullptr;
 
         /**
          * Holds the maximum number of contacts allowed (i.e. the size
          * of the contacts array).
          */
-        unsigned maxContacts;
+        unsigned maxContacts = 0;
 
     public:
         /**

@@ -19,9 +19,11 @@
  * different rigid bodies.
  */
 
-#include "contacts.h"
+#include "cyclone/contact/ContactGenerator.h"
+#include "cyclone/Vector3.h"
 
 namespace cyclone {
+    class RigidBody;
 
     /**
      * Joints link together two rigid bodies and make sure they do not

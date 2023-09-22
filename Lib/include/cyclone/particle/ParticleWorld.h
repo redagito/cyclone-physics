@@ -19,7 +19,6 @@
  * particle masses, and their connections.
  */
 
-#include "cyclone/pfgen.h"
 #include "cyclone/plinks.h"
 #include "cyclone/particle/ParticleForceRegistry.h"
 
