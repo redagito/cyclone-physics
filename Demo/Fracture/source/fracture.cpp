@@ -10,12 +10,10 @@
  * software licence.
  */
 
-#include <cyclone/cyclone.h>
-#include <cyclonedemo/ogl_headers.h>
-#include <cyclonedemo/app.h>
-#include <cyclonedemo/timing.h>
+#include <cyclonedemo/RigidBodyApplication.h>
+#include <cyclonedemo/Timing.h>
 
-#include <stdio.h>
+#include <cstdio>
 
 #define MAX_BLOCKS 9
 
