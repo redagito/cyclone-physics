@@ -8,7 +8,7 @@ namespace cyclone {
     /**
      * Represents a bounding sphere that can be tested for overlap.
      */
-    struct BoundingSphere
+    class BoundingSphere
     {
         Vector3 centre;
         real radius;

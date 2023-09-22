@@ -14,16 +14,16 @@ namespace cyclone
 	{
 	protected:
 		/** The location of the anchored end of the spring. */
-		Vector3* anchor;
+		Vector3* anchor = nullptr;
 
 		/** Holds the sprint constant. */
-		real springConstant;
+		real springConstant = 0.f;
 
 		/** Holds the rest length of the spring. */
-		real restLength;
+		real restLength = 0.f;
 
 	public:
-		ParticleAnchoredSpring();
+		ParticleAnchoredSpring() = default;
 
 		/** Creates a new spring with the given parameters. */
 		ParticleAnchoredSpring(Vector3* anchor,

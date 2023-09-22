@@ -21,6 +21,7 @@
 
 #include "cyclone/pfgen.h"
 #include "cyclone/plinks.h"
+#include "cyclone/particle/ParticleForceRegistry.h"
 
 namespace cyclone {
 
@@ -44,7 +45,7 @@ namespace cyclone {
          * True if the world should calculate the number of iterations
          * to give the contact resolver at each frame.
          */
-        bool calculateIterations;
+        bool calculateIterations = false;
 
         /**
          * Holds the force generators for the particles in this world.
@@ -64,13 +65,13 @@ namespace cyclone {
         /**
          * Holds the list of contacts.
          */
-        ParticleContact *contacts;
+        ParticleContact *contacts = nullptr;
 
         /**
          * Holds the maximum number of contacts allowed (i.e. the
          * size of the contacts array).
          */
-        unsigned maxContacts;
+        unsigned maxContacts = 0;
 
     public:
 
@@ -135,7 +136,7 @@ namespace cyclone {
      */
     class GroundContacts : public cyclone::ParticleContactGenerator
     {
-        cyclone::ParticleWorld::Particles *particles;
+        cyclone::ParticleWorld::Particles* particles = nullptr;
 
     public:
         void init(cyclone::ParticleWorld::Particles *particles);

@@ -45,7 +45,6 @@ namespace cyclone
 
 		const static Vector3 GRAVITY;
 		const static Vector3 UP;
-		const static Vector3 RIGHT;
 
 		// ... Other Vector3 code as before ...
 
