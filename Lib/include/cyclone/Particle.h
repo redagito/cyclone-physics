@@ -20,7 +20,7 @@
   * assemblies.
   */
 
-#include "cyclone/core.h"
+#include "cyclone/Core.h"
 #include "cyclone/Vector3.h"
 
 namespace cyclone {
