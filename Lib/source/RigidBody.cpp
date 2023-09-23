@@ -12,8 +12,8 @@
 
 #include "cyclone/RigidBody.h"
 
-#include <memory>
 #include <cassert>
+#include <cstring>
 
 using namespace cyclone;
 
