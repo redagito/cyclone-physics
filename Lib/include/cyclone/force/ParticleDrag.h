@@ -12,17 +12,17 @@ namespace cyclone
     class ParticleDrag : public ParticleForceGenerator
     {
         /** Holds the velocity drag coeffificent. */
-        real k1;
+        double k1;
 
         /** Holds the velocity squared drag coeffificent. */
-        real k2;
+        double k2;
 
     public:
 
         /** Creates the generator with the given coefficients. */
-        ParticleDrag(real k1, real k2);
+        ParticleDrag(double k1, double k2);
 
         /** Applies the drag force to the given particle. */
-        virtual void updateForce(Particle* particle, real duration);
+        virtual void updateForce(Particle* particle, double duration);
     };
 }

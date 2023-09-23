@@ -2,7 +2,7 @@
 
 using namespace cyclone;
 
-Matrix3 Matrix3::linearInterpolate(const Matrix3& a, const Matrix3& b, real prop)
+Matrix3 Matrix3::linearInterpolate(const Matrix3& a, const Matrix3& b, double prop)
 {
     Matrix3 result;
     for (unsigned i = 0; i < 9; i++) {

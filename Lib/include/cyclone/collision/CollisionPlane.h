@@ -1,7 +1,6 @@
 #pragma once
 
 #include "cyclone/Vector3.h"
-#include "cyclone/Precision.h"
 
 namespace cyclone
 {
@@ -21,6 +20,6 @@ namespace cyclone
 		/**
 		 * The distance of the plane from the origin.
 		 */
-		real offset = 0.f;
+		double offset = 0.f;
 	};
 }

@@ -2,7 +2,7 @@
 
 using namespace cyclone;
 
-real Matrix4::getDeterminant() const
+double Matrix4::getDeterminant() const
 {
     return -data[8] * data[5] * data[2] +
         data[4] * data[9] * data[2] +
@@ -15,9 +15,9 @@ real Matrix4::getDeterminant() const
 void Matrix4::setInverse(const Matrix4& m)
 {
     // Make sure the determinant is non-zero.
-    real det = getDeterminant();
+    double det = getDeterminant();
     if (det == 0) return;
-    det = ((real)1.0) / det;
+    det = ((double)1.0) / det;
 
     data[0] = (-m.data[9] * m.data[6] + m.data[5] * m.data[10]) * det;
     data[4] = (m.data[8] * m.data[6] - m.data[4] * m.data[10]) * det;

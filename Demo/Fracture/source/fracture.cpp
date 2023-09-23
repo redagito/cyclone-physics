@@ -66,7 +66,7 @@ public:
 		body->setRotation(cyclone::Vector3(0, 0, 0));
 		halfSize = extents;
 
-		cyclone::real mass = halfSize.x * halfSize.y * halfSize.z * 8.0f;
+		double mass = halfSize.x * halfSize.y * halfSize.z * 8.0f;
 		body->setMass(mass);
 
 		cyclone::Matrix3 tensor;
@@ -88,7 +88,7 @@ public:
 	 * Calculates and sets the mass and inertia tensor of this block,
 	 * assuming it has the given constant density.
 	 */
-	void calculateMassProperties(cyclone::real invDensity)
+	void calculateMassProperties(double invDensity)
 	{
 		// Check for infinite mass
 		if (invDensity <= 0)
@@ -100,8 +100,8 @@ public:
 		else
 		{
 			// Otherwise we need to calculate the mass
-			cyclone::real volume = halfSize.magnitude() * 2.0;
-			cyclone::real mass = volume / invDensity;
+			double volume = halfSize.magnitude() * 2.0;
+			double mass = volume / invDensity;
 
 			body->setMass(mass);
 
@@ -166,7 +166,7 @@ public:
 		target->exists = false;
 
 		// Work out the inverse density of the old block
-		cyclone::real invDensity =
+		double invDensity =
 			halfSize.magnitude() * 8 * body->getInverseMass();
 
 		// Now split the block into eight.
@@ -257,7 +257,7 @@ class FractureDemo : public RigidBodyApplication
 	virtual void generateContacts();
 
 	/** Processes the objects in the simulation forward in time. */
-	virtual void updateObjects(cyclone::real duration);
+	virtual void updateObjects(double duration);
 
 	/** Resets the position of all the blocks. */
 	virtual void reset();
@@ -314,9 +314,9 @@ void FractureDemo::generateContacts()
 
 	// Set up the collision data structure
 	cData.reset(maxContacts);
-	cData.friction = (cyclone::real)0.9;
-	cData.restitution = (cyclone::real)0.2;
-	cData.tolerance = (cyclone::real)0.1;
+	cData.friction = (double)0.9;
+	cData.restitution = (double)0.2;
+	cData.tolerance = (double)0.1;
 
 	// Perform collision detection
 	cyclone::Matrix4 transform, otherTransform;
@@ -423,7 +423,7 @@ void FractureDemo::update()
 	}
 }
 
-void FractureDemo::updateObjects(cyclone::real duration)
+void FractureDemo::updateObjects(double duration)
 {
 	for (Block* block = blocks; block < blocks + MAX_BLOCKS; block++)
 	{

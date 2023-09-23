@@ -33,7 +33,7 @@ namespace cyclone
 		* is used), through 0 (where the base-class tensor value is
 		* used) to +1 (where the maxTensor value is used).
 		*/
-		real controlSetting;
+		double controlSetting;
 
 	private:
 		/**
@@ -58,11 +58,11 @@ namespace cyclone
 		to +1 (where the maxTensor value is used). Values outside that
 		* range give undefined results.
 		*/
-		void setControl(real value);
+		void setControl(double value);
 
 		/**
 		 * Applies the force to the given rigid body.
 		 */
-		virtual void updateForce(RigidBody* body, real duration);
+		virtual void updateForce(RigidBody* body, double duration);
 	};
 }

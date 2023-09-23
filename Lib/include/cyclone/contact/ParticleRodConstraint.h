@@ -1,7 +1,6 @@
 #pragma once
 
 #include "cyclone/contact/ParticleConstraint.h"
-#include "cyclone/Precision.h"
 
 namespace cyclone
 {
@@ -16,7 +15,7 @@ namespace cyclone
 		/**
 		* Holds the length of the rod.
 		*/
-		real length = 0.f;
+		double length = 0.f;
 
 	public:
 		/**

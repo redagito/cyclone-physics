@@ -8,7 +8,7 @@ namespace cyclone {
 	/**
 	 * Holds an inertia tensor, consisting of a 3x3 row-major matrix.
 	 * This matrix is not padding to produce an aligned structure, since
-	 * it is most commonly used with a mass (single real) and two
+	 * it is most commonly used with a mass (single double) and two
 	 * damping coefficients to make the 12-element characteristics array
 	 * of a rigid body.
 	 */
@@ -18,9 +18,7 @@ namespace cyclone {
 		/**
 		 * Holds the tensor matrix data in array form.
 		 */
-		real data[9];
-
-		// ... Other Matrix3 code as before ...
+		double data[9];
 
 		/**
 		 * Creates a new matrix.
@@ -44,8 +42,8 @@ namespace cyclone {
 		/**
 		 * Creates a new matrix with explicit coefficients.
 		 */
-		Matrix3(real c0, real c1, real c2, real c3, real c4, real c5,
-			real c6, real c7, real c8)
+		Matrix3(double c0, double c1, double c2, double c3, double c4, double c5,
+			double c6, double c7, double c8)
 		{
 			data[0] = c0; data[1] = c1; data[2] = c2;
 			data[3] = c3; data[4] = c4; data[5] = c5;
@@ -56,7 +54,7 @@ namespace cyclone {
 		 * Sets the matrix to be a diagonal matrix with the given
 		 * values along the leading diagonal.
 		 */
-		void setDiagonal(real a, real b, real c)
+		void setDiagonal(double a, double b, double c)
 		{
 			setInertiaTensorCoeffs(a, b, c);
 		}
@@ -64,8 +62,8 @@ namespace cyclone {
 		/**
 		 * Sets the value of the matrix from inertia tensor values.
 		 */
-		void setInertiaTensorCoeffs(real ix, real iy, real iz,
-			real ixy = 0, real ixz = 0, real iyz = 0)
+		void setInertiaTensorCoeffs(double ix, double iy, double iz,
+			double ixy = 0, double ixz = 0, double iyz = 0)
 		{
 			data[0] = ix;
 			data[1] = data[3] = -ixy;
@@ -80,7 +78,7 @@ namespace cyclone {
 		 * a rectangular block aligned with the body's coordinate
 		 * system with the given axis half-sizes and mass.
 		 */
-		void setBlockInertiaTensor(const Vector3& halfSizes, real mass)
+		void setBlockInertiaTensor(const Vector3& halfSizes, double mass)
 		{
 			Vector3 squares = halfSizes.componentProduct(halfSizes);
 			setInertiaTensorCoeffs(0.3f * mass * (squares.y + squares.z),
@@ -191,20 +189,20 @@ namespace cyclone {
 		 */
 		void setInverse(const Matrix3& m)
 		{
-			real t4 = m.data[0] * m.data[4];
-			real t6 = m.data[0] * m.data[5];
-			real t8 = m.data[1] * m.data[3];
-			real t10 = m.data[2] * m.data[3];
-			real t12 = m.data[1] * m.data[6];
-			real t14 = m.data[2] * m.data[6];
+			double t4 = m.data[0] * m.data[4];
+			double t6 = m.data[0] * m.data[5];
+			double t8 = m.data[1] * m.data[3];
+			double t10 = m.data[2] * m.data[3];
+			double t12 = m.data[1] * m.data[6];
+			double t14 = m.data[2] * m.data[6];
 
 			// Calculate the determinant
-			real t16 = (t4 * m.data[8] - t6 * m.data[7] - t8 * m.data[8] +
+			double t16 = (t4 * m.data[8] - t6 * m.data[7] - t8 * m.data[8] +
 				t10 * m.data[7] + t12 * m.data[5] - t14 * m.data[4]);
 
 			// Make sure the determinant is non-zero.
-			if (t16 == (real)0.0f) return;
-			real t17 = 1 / t16;
+			if (t16 == (double)0.0f) return;
+			double t17 = 1 / t16;
 
 			data[0] = (m.data[4] * m.data[8] - m.data[5] * m.data[7]) * t17;
 			data[1] = -(m.data[1] * m.data[8] - m.data[2] * m.data[7]) * t17;
@@ -285,9 +283,9 @@ namespace cyclone {
 		 */
 		void operator*=(const Matrix3& o)
 		{
-			real t1;
-			real t2;
-			real t3;
+			double t1;
+			double t2;
+			double t3;
 
 			t1 = data[0] * o.data[0] + data[1] * o.data[3] + data[2] * o.data[6];
 			t2 = data[0] * o.data[1] + data[1] * o.data[4] + data[2] * o.data[7];
@@ -314,7 +312,7 @@ namespace cyclone {
 		/**
 		 * Multiplies this matrix in place by the given scalar.
 		 */
-		void operator*=(const real scalar)
+		void operator*=(const double scalar)
 		{
 			data[0] *= scalar; data[1] *= scalar; data[2] *= scalar;
 			data[3] *= scalar; data[4] *= scalar; data[5] *= scalar;
@@ -352,6 +350,6 @@ namespace cyclone {
 		/**
 		 * Interpolates a couple of matrices.
 		 */
-		static Matrix3 linearInterpolate(const Matrix3& a, const Matrix3& b, real prop);
+		static Matrix3 linearInterpolate(const Matrix3& a, const Matrix3& b, double prop);
 	};
 }

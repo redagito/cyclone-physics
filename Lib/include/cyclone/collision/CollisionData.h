@@ -1,7 +1,5 @@
 #pragma once
 
-#include "cyclone/Precision.h"
-
 namespace cyclone
 {
 	class Contact;
@@ -31,16 +29,16 @@ namespace cyclone
 		unsigned contactCount = 0;
 
 		/** Holds the friction value to write into any collisions. */
-		real friction = 0.f;
+		double friction = 0.f;
 
 		/** Holds the restitution value to write into any collisions. */
-		real restitution = 0.f;
+		double restitution = 0.f;
 
 		/**
 		 * Holds the collision tolerance, even uncolliding objects this
 		 * close should have collisions generated.
 		 */
-		real tolerance = 0.f;
+		double tolerance = 0.f;
 
 		/**
 		 * Checks if there are more contacts available in the contact

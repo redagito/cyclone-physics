@@ -5,18 +5,18 @@
 
 using namespace cyclone;
 
-ParticleDrag::ParticleDrag(real k1, real k2)
+ParticleDrag::ParticleDrag(double k1, double k2)
     : k1(k1), k2(k2)
 {
 }
 
-void ParticleDrag::updateForce(Particle* particle, real /*duration*/)
+void ParticleDrag::updateForce(Particle* particle, double /*duration*/)
 {
     Vector3 force;
     particle->getVelocity(&force);
 
     // Calculate the total drag coefficient
-    real dragCoeff = force.magnitude();
+    double dragCoeff = force.magnitude();
     dragCoeff = k1 * dragCoeff + k2 * dragCoeff * dragCoeff;
 
     // Calculate the final force and apply it

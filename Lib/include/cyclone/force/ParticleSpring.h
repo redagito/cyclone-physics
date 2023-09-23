@@ -13,18 +13,18 @@ namespace cyclone
 		Particle* other;
 
 		/** Holds the sprint constant. */
-		real springConstant;
+		double springConstant;
 
 		/** Holds the rest length of the spring. */
-		real restLength;
+		double restLength;
 
 	public:
 
 		/** Creates a new spring with the given parameters. */
 		ParticleSpring(Particle* other,
-			real springConstant, real restLength);
+			double springConstant, double restLength);
 
 		/** Applies the spring force to the given particle. */
-		virtual void updateForce(Particle* particle, real duration);
+		virtual void updateForce(Particle* particle, double duration);
 	};
 }

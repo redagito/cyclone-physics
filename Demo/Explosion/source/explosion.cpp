@@ -74,7 +74,7 @@ public:
 	/** Sets the box to a specific location. */
 	void setState(cyclone::Vector3 position,
 		cyclone::Quaternion orientation,
-		cyclone::real radius,
+		double radius,
 		cyclone::Vector3 velocity)
 	{
 		body->setPosition(position);
@@ -83,11 +83,11 @@ public:
 		body->setRotation(cyclone::Vector3(0, 0, 0));
 		Ball::radius = radius;
 
-		cyclone::real mass = 4.0f * 0.3333f * 3.1415f * radius * radius * radius;
+		double mass = 4.0f * 0.3333f * 3.1415f * radius * radius * radius;
 		body->setMass(mass);
 
 		cyclone::Matrix3 tensor;
-		cyclone::real coeff = 0.4f * mass * radius * radius;
+		double coeff = 0.4f * mass * radius * radius;
 		tensor.setInertiaTensorCoeffs(coeff, coeff, coeff);
 		body->setInertiaTensor(tensor);
 
@@ -177,7 +177,7 @@ public:
 		body->setRotation(cyclone::Vector3(0, 0, 0));
 		halfSize = extents;
 
-		cyclone::real mass = halfSize.x * halfSize.y * halfSize.z * 8.0f;
+		double mass = halfSize.x * halfSize.y * halfSize.z * 8.0f;
 		body->setMass(mass);
 
 		cyclone::Matrix3 tensor;
@@ -245,7 +245,7 @@ class ExplosionDemo : public RigidBodyApplication
 	virtual void generateContacts();
 
 	/** Processes the objects in the simulation forward in time. */
-	virtual void updateObjects(cyclone::real duration);
+	virtual void updateObjects(double duration);
 
 public:
 	/** Creates a new demo object. */
@@ -337,9 +337,9 @@ void ExplosionDemo::generateContacts()
 
 	// Set up the collision data structure
 	cData.reset(maxContacts);
-	cData.friction = (cyclone::real)0.9;
-	cData.restitution = (cyclone::real)0.6;
-	cData.tolerance = (cyclone::real)0.1;
+	cData.friction = (double)0.9;
+	cData.restitution = (double)0.6;
+	cData.tolerance = (double)0.1;
 
 	// Perform exhaustive collision detection
 	cyclone::Matrix4 transform, otherTransform;
@@ -385,7 +385,7 @@ void ExplosionDemo::generateContacts()
 	}
 }
 
-void ExplosionDemo::updateObjects(cyclone::real duration)
+void ExplosionDemo::updateObjects(double duration)
 {
 	// Update the physics of each box in turn
 	for (Box* box = boxData; box < boxData + boxes; box++)

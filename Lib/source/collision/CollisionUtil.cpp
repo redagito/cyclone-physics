@@ -4,14 +4,14 @@
 
 namespace cyclone
 {
-	real transformToAxis(
+	double transformToAxis(
 		const CollisionBox& box,
 		const Vector3& axis
 	)
 	{
 		return
-			box.halfSize.x * real_abs(axis * box.getAxis(0)) +
-			box.halfSize.y * real_abs(axis * box.getAxis(1)) +
-			box.halfSize.z * real_abs(axis * box.getAxis(2));
+			box.halfSize.x * std::abs(axis * box.getAxis(0)) +
+			box.halfSize.y * std::abs(axis * box.getAxis(1)) +
+			box.halfSize.z * std::abs(axis * box.getAxis(2));
 	}
 }

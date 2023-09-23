@@ -75,7 +75,7 @@ public:
         body->setRotation(cyclone::Vector3());
         halfSize = extents;
 
-        cyclone::real mass = halfSize.x * halfSize.y * halfSize.z * 8.0f;
+        double mass = halfSize.x * halfSize.y * halfSize.z * 8.0f;
         body->setMass(mass);
 
         cyclone::Matrix3 tensor;
@@ -113,7 +113,7 @@ class RagdollDemo : public RigidBodyApplication
     virtual void generateContacts();
 
     /** Processes the objects in the simulation forward in time. */
-    virtual void updateObjects(cyclone::real duration);
+    virtual void updateObjects(double duration);
 
     /** Resets the position of all the bones. */
     virtual void reset();
@@ -232,9 +232,9 @@ void RagdollDemo::generateContacts()
 
     // Set up the collision data structure
     cData.reset(maxContacts);
-    cData.friction = (cyclone::real)0.9;
-    cData.restitution = (cyclone::real)0.6;
-    cData.tolerance = (cyclone::real)0.1;
+    cData.friction = (double)0.9;
+    cData.restitution = (double)0.6;
+    cData.tolerance = (double)0.1;
 
     // Perform exhaustive collision detection on the ground plane
     cyclone::Matrix4 transform, otherTransform;
@@ -310,7 +310,7 @@ void RagdollDemo::reset()
         cyclone::Vector3(0, 4.024, 1.066),
         cyclone::Vector3(0.267, 0.888, 0.207));
 
-    cyclone::real strength = -random.randomReal(500.0f, 1000.0f);
+    double strength = -random.randomReal(500.0f, 1000.0f);
     for (unsigned i = 0; i < NUM_BONES; i++)
     {
         bones[i].body->addForceAtBodyPoint(
@@ -326,7 +326,7 @@ void RagdollDemo::reset()
     cData.contactCount = 0;
 }
 
-void RagdollDemo::updateObjects(cyclone::real duration)
+void RagdollDemo::updateObjects(double duration)
 {
     for (Bone *bone = bones; bone < bones+NUM_BONES; bone++)
     {
@@ -382,7 +382,7 @@ void RagdollDemo::display()
         cyclone::Joint *joint = joints + i;
         cyclone::Vector3 a_pos = joint->body[0]->getPointInWorldSpace(joint->position[0]);
         cyclone::Vector3 b_pos = joint->body[1]->getPointInWorldSpace(joint->position[1]);
-        cyclone::real length = (b_pos - a_pos).magnitude();
+        double length = (b_pos - a_pos).magnitude();
 
         if (length > joint->error) glColor3f(1,0,0);
         else glColor3f(0,1,0);

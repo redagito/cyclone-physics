@@ -7,8 +7,8 @@ using namespace cyclone;
 Spring::Spring(const Vector3& localConnectionPt,
 	RigidBody* other,
 	const Vector3& otherConnectionPt,
-	real springConstant,
-	real restLength)
+	double springConstant,
+	double restLength)
 	: connectionPoint(localConnectionPt),
 	otherConnectionPoint(otherConnectionPt),
 	other(other),
@@ -17,7 +17,7 @@ Spring::Spring(const Vector3& localConnectionPt,
 {
 }
 
-void Spring::updateForce(RigidBody* body, real /*duration*/)
+void Spring::updateForce(RigidBody* body, double /*duration*/)
 {
 	// Calculate the two ends in world space
 	Vector3 lws = body->getPointInWorldSpace(connectionPoint);
@@ -27,8 +27,8 @@ void Spring::updateForce(RigidBody* body, real /*duration*/)
 	Vector3 force = lws - ows;
 
 	// Calculate the magnitude of the force
-	real magnitude = force.magnitude();
-	magnitude = real_abs(magnitude - restLength);
+	double magnitude = force.magnitude();
+	magnitude = std::abs(magnitude - restLength);
 	magnitude *= springConstant;
 
 	// Calculate the final force and apply it

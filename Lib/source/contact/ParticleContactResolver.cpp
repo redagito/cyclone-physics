@@ -1,6 +1,8 @@
 #include "cyclone/contact/ParticleContactResolver.h"
 #include "cyclone/contact/ParticleContact.h"
 
+#include <cfloat>
+
 using namespace cyclone;
 
 ParticleContactResolver::ParticleContactResolver(unsigned iterations)
@@ -16,16 +18,16 @@ void ParticleContactResolver::setIterations(unsigned iter)
 
 void ParticleContactResolver::resolveContacts(ParticleContact* contactArray,
 	unsigned numContacts,
-	real duration)
+	double duration)
 {
 	for (iterationsUsed = 0; iterationsUsed < iterations; ++iterationsUsed)
 	{
 		// Find the contact with the largest closing velocity;
-		real max = REAL_MAX;
+		double max = DBL_MAX;
 		unsigned maxIndex = numContacts;
 		for (unsigned int i = 0; i < numContacts; i++)
 		{
-			real sepVel = contactArray[i].calculateSeparatingVelocity();
+			double sepVel = contactArray[i].calculateSeparatingVelocity();
 			if (sepVel < max &&
 				(sepVel < 0 || contactArray[i].penetration > 0))
 			{

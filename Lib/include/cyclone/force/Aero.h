@@ -44,7 +44,7 @@ namespace cyclone
 		/**
 		 * Applies the force to the given rigid body.
 		 */
-		virtual void updateForce(RigidBody* body, real duration);
+		virtual void updateForce(RigidBody* body, double duration);
 
 	protected:
 		/**
@@ -52,7 +52,7 @@ namespace cyclone
 		 * the given rigid body. This is exactly the same as for updateForce
 		 * only it takes an explicit tensor.
 		 */
-		void updateForceFromTensor(RigidBody* body, real duration,
+		void updateForceFromTensor(RigidBody* body, double duration,
 			const Matrix3& tensor);
 	};
 }

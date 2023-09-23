@@ -8,7 +8,7 @@ unsigned ParticleCableConstraint::addContact(ParticleContact* contact,
 	unsigned /*limit*/) const
 {
 	// Find the length of the cable
-	real length = currentLength();
+	double length = currentLength();
 
 	// Check if we're over-extended
 	if (length < maxLength)

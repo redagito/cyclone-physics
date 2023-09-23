@@ -14,6 +14,9 @@ namespace cyclone
 	class IntersectionTests
 	{
 	public:
+		IntersectionTests() = delete;
+		IntersectionTests(const IntersectionTests&) = delete;
+		~IntersectionTests() = delete;
 
 		static bool sphereAndHalfSpace(
 			const CollisionSphere& sphere,

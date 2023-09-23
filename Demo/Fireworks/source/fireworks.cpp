@@ -34,14 +34,14 @@ public:
 	 * decreases, when it passes zero the firework delivers its payload.
 	 * Think of age as fuse-left.
 	 */
-	cyclone::real age = 0;
+	double age = 0;
 
 	/**
 	 * Updates the firework by the given duration of time. Returns true
 	 * if the firework has reached the end of its life and needs to be
 	 * removed.
 	 */
-	bool update(cyclone::real duration)
+	bool update(double duration)
 	{
 		// Update our physical state
 		integrate(duration);
@@ -62,10 +62,10 @@ struct FireworkRule
 	unsigned type = 0;
 
 	/** The minimum length of the fuse. */
-	cyclone::real minAge = 0.f;
+	double minAge = 0.f;
 
 	/** The maximum legnth of the fuse. */
-	cyclone::real maxAge = 0.f;
+	double maxAge = 0.f;
 
 	/** The minimum relative velocity of this firework. */
 	cyclone::Vector3 minVelocity;
@@ -74,7 +74,7 @@ struct FireworkRule
 	cyclone::Vector3 maxVelocity;
 
 	/** The damping of this firework type. */
-	cyclone::real damping = 0.f;
+	double damping = 0.f;
 
 	/**
 	 * The payload is the new firework type to create when this
@@ -123,9 +123,9 @@ struct FireworkRule
 	/**
 	 * Set all the rule parameters in one go.
 	 */
-	void setParameters(unsigned type, cyclone::real minAge, cyclone::real maxAge,
+	void setParameters(unsigned type, double minAge, double maxAge,
 		const cyclone::Vector3& minVelocity, const cyclone::Vector3& maxVelocity,
-		cyclone::real damping)
+		double damping)
 	{
 		FireworkRule::type = type;
 		FireworkRule::minAge = minAge;
@@ -155,7 +155,7 @@ struct FireworkRule
 		{
 			cyclone::Vector3 start;
 			int x = (int)crandom.randomInt(3) - 1;
-			start.x = 5.0f * cyclone::real(x);
+			start.x = 5.0f * double(x);
 			firework->setPosition(start);
 		}
 
@@ -413,7 +413,7 @@ void FireworksDemo::update()
 
 void FireworksDemo::display()
 {
-	const static cyclone::real size = 0.1f;
+	const static double size = 0.1f;
 
 	// Clear the viewport and set the camera direction
 	glClear(GL_COLOR_BUFFER_BIT | GL_DEPTH_BUFFER_BIT);

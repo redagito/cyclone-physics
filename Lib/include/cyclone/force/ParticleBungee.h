@@ -16,21 +16,21 @@ namespace cyclone
         Particle* other;
 
         /** Holds the sprint constant. */
-        real springConstant;
+        double springConstant;
 
         /**
          * Holds the length of the bungee at the point it begins to
          * generator a force.
          */
-        real restLength;
+        double restLength;
 
     public:
 
         /** Creates a new bungee with the given parameters. */
         ParticleBungee(Particle* other,
-            real springConstant, real restLength);
+            double springConstant, double restLength);
 
         /** Applies the spring force to the given particle. */
-        virtual void updateForce(Particle* particle, real duration);
+        virtual void updateForce(Particle* particle, double duration);
     };
 }

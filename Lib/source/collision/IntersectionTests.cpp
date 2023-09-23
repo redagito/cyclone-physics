@@ -2,7 +2,6 @@
 #include "cyclone/collision/CollisionSphere.h"
 #include "cyclone/collision/CollisionPlane.h"
 #include "cyclone/collision/CollisionBox.h"
-#include "cyclone/Precision.h"
 #include "cyclone/Vector3.h"
 #include "collision/CollisionUtil.h"
 
@@ -13,7 +12,7 @@ bool IntersectionTests::sphereAndHalfSpace(
 	const CollisionPlane& plane)
 {
 	// Find the distance from the origin
-	real ballDistance =
+	double ballDistance =
 		plane.direction *
 		sphere.getAxis(3) -
 		sphere.radius;
@@ -48,11 +47,11 @@ static inline bool overlapOnAxis(
 )
 {
 	// Project the half-size of one onto axis
-	real oneProject = transformToAxis(one, axis);
-	real twoProject = transformToAxis(two, axis);
+	double oneProject = transformToAxis(one, axis);
+	double twoProject = transformToAxis(two, axis);
 
 	// Project this onto the axis
-	real distance = real_abs(toCentre * axis);
+	double distance = std::abs(toCentre * axis);
 
 	// Check for overlap
 	return (distance < oneProject + twoProject);
@@ -101,10 +100,10 @@ bool IntersectionTests::boxAndHalfSpace(
 )
 {
 	// Work out the projected radius of the box onto the plane direction
-	real projectedRadius = transformToAxis(box, plane.direction);
+	double projectedRadius = transformToAxis(box, plane.direction);
 
 	// Work out how far the box is from the origin
-	real boxDistance =
+	double boxDistance =
 		plane.direction *
 		box.getAxis(3) -
 		projectedRadius;

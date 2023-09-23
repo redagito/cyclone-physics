@@ -27,10 +27,10 @@ unsigned Joint::addContact(Contact* contact, unsigned /*limit*/) const
 	Vector3 a_to_b = b_pos_world - a_pos_world;
 	Vector3 normal = a_to_b;
 	normal.normalise();
-	real length = a_to_b.magnitude();
+	double length = a_to_b.magnitude();
 
 	// Check if it is violated
-	if (real_abs(length) > error)
+	if (std::abs(length) > error)
 	{
 		contact->body[0] = body[0];
 		contact->body[1] = body[1];
@@ -47,7 +47,7 @@ unsigned Joint::addContact(Contact* contact, unsigned /*limit*/) const
 
 void Joint::set(RigidBody* a, const Vector3& a_pos,
 	RigidBody* b, const Vector3& b_pos,
-	real err)
+	double err)
 {
 	body[0] = a;
 	body[1] = b;

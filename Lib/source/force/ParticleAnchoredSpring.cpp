@@ -4,20 +4,20 @@
 using namespace cyclone;
 
 ParticleAnchoredSpring::ParticleAnchoredSpring(Vector3* anchor,
-    real sc, real rl)
+    double sc, double rl)
     : anchor(anchor), springConstant(sc), restLength(rl)
 {
 }
 
-void ParticleAnchoredSpring::init(Vector3* anchr, real springConst,
-    real restLen)
+void ParticleAnchoredSpring::init(Vector3* anchr, double springConst,
+    double restLen)
 {
     anchor = anchr;
     springConstant = springConst;
     restLength = restLen;
 }
 
-void ParticleAnchoredSpring::updateForce(Particle* particle, real /*duration*/)
+void ParticleAnchoredSpring::updateForce(Particle* particle, double /*duration*/)
 {
     // Calculate the vector of the spring
     Vector3 force;
@@ -25,7 +25,7 @@ void ParticleAnchoredSpring::updateForce(Particle* particle, real /*duration*/)
     force -= *anchor;
 
     // Calculate the magnitude of the force
-    real magnitude = force.magnitude();
+    double magnitude = force.magnitude();
     magnitude = (restLength - magnitude) * springConstant;
 
     // Calculate the final force and apply it

@@ -10,12 +10,12 @@ Aero::Aero(const Matrix3& tensor, const Vector3& position, const Vector3* windsp
 	Aero::windspeed = windspeed;
 }
 
-void Aero::updateForce(RigidBody* body, real duration)
+void Aero::updateForce(RigidBody* body, double duration)
 {
 	Aero::updateForceFromTensor(body, duration, tensor);
 }
 
-void Aero::updateForceFromTensor(RigidBody* body, real /*duration*/,
+void Aero::updateForceFromTensor(RigidBody* body, double /*duration*/,
 	const Matrix3& tensr)
 {
 	// Calculate total velocity (windspeed and body's velocity).

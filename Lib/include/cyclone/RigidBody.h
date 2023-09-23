@@ -38,7 +38,7 @@ namespace cyclone {
 	 * through a set of methods.
 	 *
 	 * A ridid body contains 64 words (the size of which is given
-	 * by the precision: sizeof(real)). It contains no virtual
+	 * by the precision: sizeof(double)). It contains no virtual
 	 * functions, so should take up exactly 64 words in memory. Of
 	 * this total 15 words are padding, distributed among the
 	 * Vector3 data members.
@@ -85,12 +85,12 @@ namespace cyclone {
 		 /**
 		  * Holds the inverse of the mass of the rigid body. It
 		  * is more useful to hold the inverse mass because
-		  * integration is simpler, and because in real time
+		  * integration is simpler, and because in double time
 		  * simulation it is more useful to have bodies with
 		  * infinite mass (immovable) than zero mass
 		  * (completely unstable in numerical simulation).
 		  */
-		real inverseMass = 0.f;
+		double inverseMass = 0.f;
 
 		/**
 		 * Holds the inverse of the body's inertia tensor. The
@@ -113,14 +113,14 @@ namespace cyclone {
 		 * motion.  Damping is required to remove energy added
 		 * through numerical instability in the integrator.
 		 */
-		real linearDamping = 0.f;
+		double linearDamping = 0.f;
 
 		/**
 		 * Holds the amount of damping applied to angular
 		 * motion.  Damping is required to remove energy added
 		 * through numerical instability in the integrator.
 		 */
-		real angularDamping = 0.f;
+		double angularDamping = 0.f;
 
 		/**
 		 * Holds the linear position of the rigid body in
@@ -170,7 +170,7 @@ namespace cyclone {
 		 * Holds the amount of motion of the body. This is a recency
 		 * weighted mean that can be used to put a body to sleap.
 		 */
-		real motion = 0.f;
+		double motion = 0.f;
 
 		/**
 		 * A body can be put to sleep to avoid it being updated
@@ -281,7 +281,7 @@ namespace cyclone {
 		 * linear approximation to the correct integral. For this reason it
 		 * may be inaccurate in some cases.
 		 */
-		void integrate(real duration);
+		void integrate(double duration);
 
 		/*@}*/
 
@@ -312,14 +312,14 @@ namespace cyclone {
 		  * function should be called before trying to get any settings
 		  * from the rigid body.
 		  */
-		void setMass(const real mass);
+		void setMass(const double mass);
 
 		/**
 		 * Gets the mass of the rigid body.
 		 *
 		 * @return The current mass of the rigid body.
 		 */
-		real getMass() const;
+		double getMass() const;
 
 		/**
 		 * Sets the inverse mass of the rigid body.
@@ -333,14 +333,14 @@ namespace cyclone {
 		 * function should be called before trying to get any settings
 		 * from the rigid body.
 		 */
-		void setInverseMass(const real inverseMass);
+		void setInverseMass(const double inverseMass);
 
 		/**
 		 * Gets the inverse mass of the rigid body.
 		 *
 		 * @return The current inverse mass of the rigid body.
 		 */
-		real getInverseMass() const;
+		double getInverseMass() const;
 
 		/**
 		 * Returns true if the mass of the body is not-infinite.
@@ -465,7 +465,7 @@ namespace cyclone {
 		 * @see setLinearDamping
 		 * @see setAngularDamping
 		 */
-		void setDamping(const real linearDamping, const real angularDamping);
+		void setDamping(const double linearDamping, const double angularDamping);
 
 		/**
 		 * Sets the linear damping for the rigid body.
@@ -475,14 +475,14 @@ namespace cyclone {
 		 *
 		 * @see setAngularDamping
 		 */
-		void setLinearDamping(const real linearDamping);
+		void setLinearDamping(const double linearDamping);
 
 		/**
 		 * Gets the current linear damping value.
 		 *
 		 * @return The current linear damping value.
 		 */
-		real getLinearDamping() const;
+		double getLinearDamping() const;
 
 		/**
 		 * Sets the angular damping for the rigid body.
@@ -492,14 +492,14 @@ namespace cyclone {
 		 *
 		 * @see setLinearDamping
 		 */
-		void setAngularDamping(const real angularDamping);
+		void setAngularDamping(const double angularDamping);
 
 		/**
 		 * Gets the current angular damping value.
 		 *
 		 * @return The current angular damping value.
 		 */
-		real getAngularDamping() const;
+		double getAngularDamping() const;
 
 		/**
 		 * Sets the position of the rigid body.
@@ -520,7 +520,7 @@ namespace cyclone {
 		 * @param z The z coordinate of the new position of the rigid
 		 * body.
 		 */
-		void setPosition(const real x, const real y, const real z);
+		void setPosition(const double x, const double y, const double z);
 
 		/**
 		 * Fills the given vector with the position of the rigid body.
@@ -552,7 +552,7 @@ namespace cyclone {
 		/**
 		 * Sets the orientation of the rigid body by component.
 		 *
-		 * @param r The real component of the rigid body's orientation
+		 * @param r The double component of the rigid body's orientation
 		 * quaternion.
 		 *
 		 * @param i The first complex component of the rigid body's
@@ -569,8 +569,8 @@ namespace cyclone {
 		 * valid rotation quaternion with (0,0,0,0) mapping to
 		 * (1,0,0,0).
 		 */
-		void setOrientation(const real r, const real i,
-			const real j, const real k);
+		void setOrientation(const double r, const double i,
+			const double j, const double k);
 
 		/**
 		 * Fills the given quaternion with the current value of the
@@ -608,7 +608,7 @@ namespace cyclone {
 		 *
 		 * @param matrix A pointer to the matrix to fill.
 		 */
-		void getOrientation(real matrix[9]) const;
+		void getOrientation(double matrix[9]) const;
 
 		/**
 		 * Fills the given matrix with a transformation representing
@@ -631,7 +631,7 @@ namespace cyclone {
 		 *
 		 * @param matrix A pointer to the matrix to fill.
 		 */
-		void getTransform(real matrix[16]) const;
+		void getTransform(double matrix[16]) const;
 
 		/**
 		 * Fills the given matrix data structure with a
@@ -727,7 +727,7 @@ namespace cyclone {
 		 * @param z The z coordinate of the new velocity of the rigid
 		 * body.
 		 */
-		void setVelocity(const real x, const real y, const real z);
+		void setVelocity(const double x, const double y, const double z);
 
 		/**
 		 * Fills the given vector with the velocity of the rigid body.
@@ -771,7 +771,7 @@ namespace cyclone {
 		 * @param z The z coordinate of the new rotation of the rigid
 		 * body.
 		 */
-		void setRotation(const real x, const real y, const real z);
+		void setRotation(const double x, const double y, const double z);
 
 		/**
 		 * Fills the given vector with the rotation of the rigid body.
@@ -953,7 +953,7 @@ namespace cyclone {
 		 * @param z The z coordinate of the new acceleration of the rigid
 		 * body.
 		 */
-		void setAcceleration(const real x, const real y, const real z);
+		void setAcceleration(const double x, const double y, const double z);
 
 		/**
 		 * Fills the given vector with the acceleration of the rigid body.

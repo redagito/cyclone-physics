@@ -26,7 +26,7 @@ void AngledAero::setOrientation(const Quaternion& /*quat*/)
 /**
  * Applies the force to the given rigid body.
  */
-void AngledAero::updateForce(RigidBody* /*body*/, real /*duration*/)
+void AngledAero::updateForce(RigidBody* /*body*/, double /*duration*/)
 {
 
 }

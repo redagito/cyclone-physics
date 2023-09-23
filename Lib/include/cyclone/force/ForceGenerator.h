@@ -1,6 +1,5 @@
 #pragma once
 
-#include "cyclone/Precision.h"
 
 /*
  * Interface file for the force generators.
@@ -31,6 +30,6 @@ namespace cyclone
 		 * Overload this in implementations of the interface to calculate
 		 * and update the force applied to the given rigid body.
 		 */
-		virtual void updateForce(RigidBody* body, real duration) = 0;
+		virtual void updateForce(RigidBody* body, double duration) = 0;
 	};
 }

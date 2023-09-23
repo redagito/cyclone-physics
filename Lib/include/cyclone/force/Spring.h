@@ -27,10 +27,10 @@ namespace cyclone
 		RigidBody* other;
 
 		/** Holds the sprint constant. */
-		real springConstant;
+		double springConstant;
 
 		/** Holds the rest length of the spring. */
-		real restLength;
+		double restLength;
 
 	public:
 
@@ -38,10 +38,10 @@ namespace cyclone
 		Spring(const Vector3& localConnectionPt,
 			RigidBody* other,
 			const Vector3& otherConnectionPt,
-			real springConstant,
-			real restLength);
+			double springConstant,
+			double restLength);
 
 		/** Applies the spring force to the given rigid body. */
-		virtual void updateForce(RigidBody* body, real duration);
+		virtual void updateForce(RigidBody* body, double duration);
 	};
 }

@@ -3,7 +3,7 @@
 
 using namespace cyclone;
 
-void ParticleAnchoredBungee::updateForce(Particle* particle, real /*duration*/)
+void ParticleAnchoredBungee::updateForce(Particle* particle, double /*duration*/)
 {
     // Calculate the vector of the spring
     Vector3 force;
@@ -11,7 +11,7 @@ void ParticleAnchoredBungee::updateForce(Particle* particle, real /*duration*/)
     force -= *anchor;
 
     // Calculate the magnitude of the force
-    real magnitude = force.magnitude();
+    double magnitude = force.magnitude();
     if (magnitude < restLength) return;
 
     magnitude = magnitude - restLength;

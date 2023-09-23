@@ -9,7 +9,7 @@ ParticleGravity::ParticleGravity(const Vector3& gravity)
 {
 }
 
-void ParticleGravity::updateForce(Particle* particle, real /*duration*/)
+void ParticleGravity::updateForce(Particle* particle, double /*duration*/)
 {
     // Check that we do not have infinite mass
     if (!particle->hasFiniteMass()) return;

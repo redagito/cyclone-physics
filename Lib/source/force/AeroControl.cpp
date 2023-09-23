@@ -27,12 +27,12 @@ Matrix3 AeroControl::getTensor()
 	else return tensor;
 }
 
-void AeroControl::setControl(real value)
+void AeroControl::setControl(double value)
 {
 	controlSetting = value;
 }
 
-void AeroControl::updateForce(RigidBody* body, real duration)
+void AeroControl::updateForce(RigidBody* body, double duration)
 {
 	updateForceFromTensor(body, duration, getTensor());
 }

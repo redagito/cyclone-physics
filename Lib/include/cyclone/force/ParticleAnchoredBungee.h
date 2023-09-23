@@ -1,7 +1,6 @@
 #pragma once
 
 #include "cyclone/force/ParticleAnchoredSpring.h"
-#include "cyclone/Precision.h"
 
 namespace cyclone
 {
@@ -15,6 +14,6 @@ namespace cyclone
     {
     public:
         /** Applies the spring force to the given particle. */
-        virtual void updateForce(Particle* particle, real duration);
+        virtual void updateForce(Particle* particle, double duration);
     };
 }

@@ -25,7 +25,7 @@ unsigned CollisionDetector::sphereAndTruePlane(
 	Vector3 position = sphere.getAxis(3);
 
 	// Find the distance from the plane
-	real centreDistance = plane.direction * position - plane.offset;
+	double centreDistance = plane.direction * position - plane.offset;
 
 	// Check if we're within radius
 	if (centreDistance * centreDistance > sphere.radius * sphere.radius)
@@ -35,7 +35,7 @@ unsigned CollisionDetector::sphereAndTruePlane(
 
 	// Check which side of the plane we're on
 	Vector3 normal = plane.direction;
-	real penetration = -centreDistance;
+	double penetration = -centreDistance;
 	if (centreDistance < 0)
 	{
 		normal *= -1;
@@ -68,7 +68,7 @@ unsigned CollisionDetector::sphereAndHalfSpace(
 	Vector3 position = sphere.getAxis(3);
 
 	// Find the distance from the plane
-	real ballDistance =
+	double ballDistance =
 		plane.direction * position -
 		sphere.radius - plane.offset;
 
@@ -102,7 +102,7 @@ unsigned CollisionDetector::sphereAndSphere(
 
 	// Find the vector between the objects
 	Vector3 midline = positionOne - positionTwo;
-	real size = midline.magnitude();
+	double size = midline.magnitude();
 
 	// See if it is large enough.
 	if (size <= 0.0f || size >= one.radius + two.radius)
@@ -112,11 +112,11 @@ unsigned CollisionDetector::sphereAndSphere(
 
 	// We manually create the normal, because we have the
 	// size to hand.
-	Vector3 normal = midline * (((real)1.0) / size);
+	Vector3 normal = midline * (((double)1.0) / size);
 
 	Contact* contact = data->contacts;
 	contact->contactNormal = normal;
-	contact->contactPoint = positionOne + midline * (real)0.5;
+	contact->contactPoint = positionOne + midline * (double)0.5;
 	contact->penetration = (one.radius + two.radius - size);
 	contact->setBodyData(one.body, two.body,
 		data->friction, data->restitution);
@@ -132,7 +132,7 @@ unsigned CollisionDetector::sphereAndSphere(
  * is used to pass in the vector between the boxes centre
  * points, to avoid having to recalculate it each time.
  */
-static inline real penetrationOnAxis(
+static inline double penetrationOnAxis(
 	const CollisionBox& one,
 	const CollisionBox& two,
 	const Vector3& axis,
@@ -140,11 +140,11 @@ static inline real penetrationOnAxis(
 )
 {
 	// Project the half-size of one onto axis
-	real oneProject = transformToAxis(one, axis);
-	real twoProject = transformToAxis(two, axis);
+	double oneProject = transformToAxis(one, axis);
+	double twoProject = transformToAxis(two, axis);
 
 	// Project this onto the axis
-	real distance = real_abs(toCentre * axis);
+	double distance = std::abs(toCentre * axis);
 
 	// Return the overlap (i.e. positive indicates
 	// overlap, negative indicates separation).
@@ -159,7 +159,7 @@ static inline bool tryAxis(
 	unsigned index,
 
 	// These values may be updated
-	real& smallestPenetration,
+	double& smallestPenetration,
 	unsigned& smallestCase
 )
 {
@@ -167,7 +167,7 @@ static inline bool tryAxis(
 	if (axis.squareMagnitude() < 0.0001) return true;
 	axis.normalise();
 
-	real penetration = penetrationOnAxis(one, two, axis, toCentre);
+	double penetration = penetrationOnAxis(one, two, axis, toCentre);
 
 	if (penetration < 0) return false;
 	if (penetration < smallestPenetration) {
@@ -183,7 +183,7 @@ void fillPointFaceBoxBox(
 	const Vector3& toCentre,
 	CollisionData* data,
 	unsigned best,
-	real pen
+	double pen
 )
 {
 	// This method is called when we know that a vertex from
@@ -218,10 +218,10 @@ void fillPointFaceBoxBox(
 static inline Vector3 contactPoint(
 	const Vector3& pOne,
 	const Vector3& dOne,
-	real oneSize,
+	double oneSize,
 	const Vector3& pTwo,
 	const Vector3& dTwo,
-	real twoSize,
+	double twoSize,
 
 	// If this is true, and the contact point is outside
 	// the edge (in the case of an edge-face contact) then
@@ -229,8 +229,8 @@ static inline Vector3 contactPoint(
 	bool useOne)
 {
 	Vector3 toSt, cOne, cTwo;
-	real dpStaOne, dpStaTwo, dpOneTwo, smOne, smTwo;
-	real denom, mua, mub;
+	double dpStaOne, dpStaTwo, dpOneTwo, smOne, smTwo;
+	double denom, mua, mub;
 
 	smOne = dOne.squareMagnitude();
 	smTwo = dTwo.squareMagnitude();
@@ -243,7 +243,7 @@ static inline Vector3 contactPoint(
 	denom = smOne * smTwo - dpOneTwo * dpOneTwo;
 
 	// Zero denominator indicates parrallel lines
-	if (real_abs(denom) < 0.0001f) {
+	if (std::abs(denom) < 0.0001f) {
 		return useOne ? pOne : pTwo;
 	}
 
@@ -287,7 +287,7 @@ unsigned CollisionDetector::boxAndBox(
 	Vector3 toCentre = two.getAxis(3) - one.getAxis(3);
 
 	// We start assuming there is no contact
-	real pen = REAL_MAX;
+	double pen = DBL_MAX;
 	unsigned best = 0xffffff;
 
 	// Now we check each axes, returning if it gives us
@@ -410,11 +410,11 @@ unsigned CollisionDetector::boxAndPoint(
 
 	// Check each axis, looking for the axis on which the
 	// penetration is least deep.
-	real min_depth = box.halfSize.x - real_abs(relPt.x);
+	double min_depth = box.halfSize.x - std::abs(relPt.x);
 	if (min_depth < 0) return 0;
 	normal = box.getAxis(0) * ((relPt.x < 0) ? -1 : 1);
 
-	real depth = box.halfSize.y - real_abs(relPt.y);
+	double depth = box.halfSize.y - std::abs(relPt.y);
 	if (depth < 0) return 0;
 	else if (depth < min_depth)
 	{
@@ -422,7 +422,7 @@ unsigned CollisionDetector::boxAndPoint(
 		normal = box.getAxis(1) * ((relPt.y < 0) ? -1 : 1);
 	}
 
-	depth = box.halfSize.z - real_abs(relPt.z);
+	depth = box.halfSize.z - std::abs(relPt.z);
 	if (depth < 0) return 0;
 	else if (depth < min_depth)
 	{
@@ -457,15 +457,15 @@ unsigned CollisionDetector::boxAndSphere(
 	Vector3 relCentre = box.transform.transformInverse(centre);
 
 	// Early out check to see if we can exclude the contact
-	if (real_abs(relCentre.x) - sphere.radius > box.halfSize.x ||
-		real_abs(relCentre.y) - sphere.radius > box.halfSize.y ||
-		real_abs(relCentre.z) - sphere.radius > box.halfSize.z)
+	if (std::abs(relCentre.x) - sphere.radius > box.halfSize.x ||
+		std::abs(relCentre.y) - sphere.radius > box.halfSize.y ||
+		std::abs(relCentre.z) - sphere.radius > box.halfSize.z)
 	{
 		return 0;
 	}
 
 	Vector3 closestPt(0, 0, 0);
-	real dist;
+	double dist;
 
 	// Clamp each coordinate to the box.
 	dist = relCentre.x;
@@ -494,7 +494,7 @@ unsigned CollisionDetector::boxAndSphere(
 	contact->contactNormal = (closestPtWorld - centre);
 	contact->contactNormal.normalise();
 	contact->contactPoint = closestPtWorld;
-	contact->penetration = sphere.radius - real_sqrt(dist);
+	contact->penetration = sphere.radius - std::sqrt(dist);
 	contact->setBodyData(box.body, sphere.body,
 		data->friction, data->restitution);
 
@@ -522,7 +522,7 @@ unsigned CollisionDetector::boxAndHalfSpace(
 	// or on an edge, it will be reported as four or two contact points.
 
 	// Go through each combination of + and - for each half-size
-	static real mults[8][3] = { {1,1,1},{-1,1,1},{1,-1,1},{-1,-1,1},
+	static double mults[8][3] = { {1,1,1},{-1,1,1},{1,-1,1},{-1,-1,1},
 							   {1,1,-1},{-1,1,-1},{1,-1,-1},{-1,-1,-1} };
 
 	Contact* contact = data->contacts;
@@ -535,7 +535,7 @@ unsigned CollisionDetector::boxAndHalfSpace(
 		vertexPos = box.transform.transform(vertexPos);
 
 		// Calculate the distance from the plane
-		real vertexDistance = vertexPos * plane.direction;
+		double vertexDistance = vertexPos * plane.direction;
 
 		// Compare this to the plane's distance
 		if (vertexDistance <= plane.offset)

@@ -71,9 +71,9 @@ BridgeDemo::BridgeDemo()
 	{
 		unsigned x = (i % 12) / 2;
 		particleArray[i].setPosition(
-			cyclone::real(i / 2) * 2.0f - 5.0f,
+			double(i / 2) * 2.0f - 5.0f,
 			4,
-			cyclone::real(i % 2) * 2.0f - 1.0f
+			double(i % 2) * 2.0f - 1.0f
 		);
 		particleArray[i].setVelocity(0, 0, 0);
 		particleArray[i].setDamping(0.9f);
@@ -97,12 +97,12 @@ BridgeDemo::BridgeDemo()
 	{
 		supports[i].particle = particleArray + i;
 		supports[i].anchor = cyclone::Vector3(
-			cyclone::real(i / 2) * 2.2f - 5.5f,
+			double(i / 2) * 2.2f - 5.5f,
 			6,
-			cyclone::real(i % 2) * 1.6f - 0.8f
+			double(i % 2) * 1.6f - 0.8f
 		);
-		if (i < 6) supports[i].maxLength = cyclone::real(i / 2) * 0.5f + 3.0f;
-		else supports[i].maxLength = 5.5f - cyclone::real(i / 2) * 0.5f;
+		if (i < 6) supports[i].maxLength = double(i / 2) * 0.5f + 3.0f;
+		else supports[i].maxLength = 5.5f - double(i / 2) * 0.5f;
 		supports[i].restitution = 0.5f;
 		world.getContactGenerators().push_back(&supports[i]);
 	}
@@ -135,7 +135,7 @@ void BridgeDemo::updateAdditionalMass()
 
 	// Find the coordinates of the mass as an index and proportion
 	int x = int(massPos.x);
-	cyclone::real xp = real_fmod(massPos.x, cyclone::real(1.0f));
+	double xp = std::fmod(massPos.x, double(1.0f));
 	if (x < 0)
 	{
 		x = 0;
@@ -148,7 +148,7 @@ void BridgeDemo::updateAdditionalMass()
 	}
 
 	int z = int(massPos.z);
-	cyclone::real zp = real_fmod(massPos.z, cyclone::real(1.0f));
+	double zp = std::fmod(massPos.z, double(1.0f));
 	if (z < 0)
 	{
 		z = 0;

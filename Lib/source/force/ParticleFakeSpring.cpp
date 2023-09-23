@@ -4,12 +4,12 @@
 
 using namespace cyclone;
 
-ParticleFakeSpring::ParticleFakeSpring(Vector3* anchor, real sc, real d)
+ParticleFakeSpring::ParticleFakeSpring(Vector3* anchor, double sc, double d)
     : anchor(anchor), springConstant(sc), damping(d)
 {
 }
 
-void ParticleFakeSpring::updateForce(Particle* particle, real duration)
+void ParticleFakeSpring::updateForce(Particle* particle, double duration)
 {
     // Check that we do not have infinite mass
     if (!particle->hasFiniteMass()) return;
@@ -20,18 +20,18 @@ void ParticleFakeSpring::updateForce(Particle* particle, real duration)
     position -= *anchor;
 
     // Calculate the constants and check they are in bounds.
-    real gamma = 0.5f * real_sqrt(4 * springConstant - damping * damping);
+    double gamma = 0.5f * std::sqrt(4 * springConstant - damping * damping);
     if (gamma == 0.0f) return;
     Vector3 c = position * (damping / (2.0f * gamma)) +
         particle->getVelocity() * (1.0f / gamma);
 
     // Calculate the target position
-    Vector3 target = position * real_cos(gamma * duration) +
-        c * real_sin(gamma * duration);
-    target *= real_exp(-0.5f * duration * damping);
+    Vector3 target = position * std::cos(gamma * duration) +
+        c * std::sin(gamma * duration);
+    target *= std::exp(-0.5f * duration * damping);
 
     // Calculate the resulting acceleration and therefore the force
-    Vector3 accel = (target - position) * ((real)1.0 / (duration * duration)) -
-        particle->getVelocity() * ((real)1.0 / duration);
+    Vector3 accel = (target - position) * ((double)1.0 / (duration * duration)) -
+        particle->getVelocity() * ((double)1.0 / duration);
     particle->addForce(accel * particle->getMass());
 }

@@ -20,7 +20,7 @@ namespace cyclone
         ParticleGravity(const Vector3& gravity);
 
         /** Applies the gravitational force to the given particle. */
-        virtual void updateForce(Particle* particle, real duration);
+        virtual void updateForce(Particle* particle, double duration);
     };
 
 }

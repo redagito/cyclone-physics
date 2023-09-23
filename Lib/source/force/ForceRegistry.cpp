@@ -3,7 +3,7 @@
 
 using namespace cyclone;
 
-void ForceRegistry::updateForces(real duration)
+void ForceRegistry::updateForces(double duration)
 {
 	Registry::iterator i = registrations.begin();
 	for (; i != registrations.end(); i++)

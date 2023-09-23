@@ -101,7 +101,7 @@ public:
 		body->setAwake();
 
 		cyclone::Matrix3 tensor;
-		cyclone::real coeff = 0.4f * body->getMass() * radius * radius;
+		double coeff = 0.4f * body->getMass() * radius * radius;
 		tensor.setInertiaTensorCoeffs(coeff, coeff, coeff);
 		body->setInertiaTensor(tensor);
 
@@ -143,7 +143,7 @@ public:
 	}
 
 	/** Sets the box to a specific location. */
-	void setState(cyclone::real z)
+	void setState(double z)
 	{
 		body->setPosition(0, 3, z);
 		body->setOrientation(1, 0, 0, 0);
@@ -151,7 +151,7 @@ public:
 		body->setRotation(cyclone::Vector3(0, 0, 0));
 		halfSize = cyclone::Vector3(1, 1, 1);
 
-		cyclone::real mass = halfSize.x * halfSize.y * halfSize.z * 8.0f;
+		double mass = halfSize.x * halfSize.y * halfSize.z * 8.0f;
 		body->setMass(mass);
 
 		cyclone::Matrix3 tensor;
@@ -204,7 +204,7 @@ class BigBallisticDemo : public RigidBodyApplication
 	virtual void generateContacts();
 
 	/** Processes the objects in the simulation forward in time. */
-	virtual void updateObjects(cyclone::real duration);
+	virtual void updateObjects(double duration);
 
 	/** Dispatches a round. */
 	void fire();
@@ -262,7 +262,7 @@ void BigBallisticDemo::reset()
 	}
 
 	// Initialise the box
-	cyclone::real z = 20.0f;
+	double z = 20.0f;
 	for (Box* box = boxData; box < boxData + boxes; box++)
 	{
 		box->setState(z);
@@ -292,7 +292,7 @@ void BigBallisticDemo::fire()
 
 }
 
-void BigBallisticDemo::updateObjects(cyclone::real duration)
+void BigBallisticDemo::updateObjects(double duration)
 {
 	// Update the physics of each particle in turn
 	for (AmmoRound* shot = ammo; shot < ammo + ammoRounds; shot++)
@@ -403,9 +403,9 @@ void BigBallisticDemo::generateContacts()
 
 	// Set up the collision data structure
 	cData.reset(maxContacts);
-	cData.friction = (cyclone::real)0.9;
-	cData.restitution = (cyclone::real)0.1;
-	cData.tolerance = (cyclone::real)0.1;
+	cData.friction = (double)0.9;
+	cData.restitution = (double)0.1;
+	cData.tolerance = (double)0.1;
 
 	// Check ground plane collisions
 	for (Box* box = boxData; box < boxData + boxes; box++)

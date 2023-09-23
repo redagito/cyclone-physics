@@ -15,7 +15,7 @@
  /**
   * @mainpage Cyclone Reference
   *
-  * Cyclone is a general purpose and robust system for real-time
+  * Cyclone is a general purpose and robust system for double-time
   * simulation of rigid bodies. The library was designed to be used in
   * computer games, but may be applicable to other areas of simulation
   * or research.
@@ -91,18 +91,10 @@
 #include <cmath>
 
   /**
-   * @file
-   *
-   * The core contains utility functions, helpers and a basic set of
-   * mathematical types.
+   * The cyclone namespace includes all cyclone functions and
+   * classes. It is defined as a namespace to allow function and class
+   * names to be simple without causing conflicts.
    */
-#include "cyclone/Precision.h"
-
-   /**
-	* The cyclone namespace includes all cyclone functions and
-	* classes. It is defined as a namespace to allow function and class
-	* names to be simple without causing conflicts.
-	*/
 namespace cyclone {
 
 	/**
@@ -113,25 +105,25 @@ namespace cyclone {
 	 * other forces are around that of gravity. It may need tweaking
 	 * if your simulation is drastically different to this.
 	 */
-	extern real sleepEpsilon;
+	 //extern double sleepEpsilon;
 
-	/**
-	 * Sets the current sleep epsilon value: the kinetic energy under
-	 * which a body may be put to sleep. Bodies are put to sleep if
-	 * they appear to have a stable kinetic energy less than this
-	 * value. For simulations that often have low values (such as slow
-	 * moving, or light objects), this may need reducing.
-	 *
-	 * The value is global; all bodies will use it.
-	 *
-	 * @see sleepEpsilon
-	 *
-	 * @see getSleepEpsilon
-	 *
-	 * @param value The sleep epsilon value to use from this point
-	 * on.
-	 */
-	void setSleepEpsilon(real value);
+	 /**
+	  * Sets the current sleep epsilon value: the kinetic energy under
+	  * which a body may be put to sleep. Bodies are put to sleep if
+	  * they appear to have a stable kinetic energy less than this
+	  * value. For simulations that often have low values (such as slow
+	  * moving, or light objects), this may need reducing.
+	  *
+	  * The value is global; all bodies will use it.
+	  *
+	  * @see sleepEpsilon
+	  *
+	  * @see getSleepEpsilon
+	  *
+	  * @param value The sleep epsilon value to use from this point
+	  * on.
+	  */
+	void setSleepEpsilon(double value);
 
 	/**
 	 * Gets the current value of the sleep epsilon parameter.
@@ -142,6 +134,6 @@ namespace cyclone {
 	 *
 	 * @return The current value of the parameter.
 	 */
-	real getSleepEpsilon();
+	double getSleepEpsilon();
 
 }

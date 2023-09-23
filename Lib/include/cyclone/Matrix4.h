@@ -1,6 +1,5 @@
 #pragma once
 
-#include "cyclone/Precision.h"
 #include "cyclone/Vector3.h"
 #include "cyclone/Quaternion.h"
 
@@ -18,7 +17,7 @@ namespace cyclone
 		/**
 		 * Holds the transform matrix data in array form.
 		 */
-		real data[12];
+		double data[12];
 
 		// ... Other Matrix4 code as before ...
 
@@ -36,7 +35,7 @@ namespace cyclone
 		/**
 		 * Sets the matrix to be a diagonal matrix with the given coefficients.
 		 */
-		void setDiagonal(real a, real b, real c)
+		void setDiagonal(double a, double b, double c)
 		{
 			data[0] = a;
 			data[5] = b;
@@ -104,7 +103,7 @@ namespace cyclone
 		/**
 		 * Returns the determinant of the matrix.
 		 */
-		real getDeterminant() const;
+		double getDeterminant() const;
 
 		/**
 		 * Sets the matrix to be the inverse of the given matrix.

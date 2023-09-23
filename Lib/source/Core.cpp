@@ -17,17 +17,17 @@ using namespace cyclone;
 /*
  * Definition of the sleep epsilon extern.
  */
-real cyclone::sleepEpsilon = ((real)0.3);
+static double sleepEpsilon = ((double)0.3);
 
 /*
  * Functions to change sleepEpsilon.
  */
-void cyclone::setSleepEpsilon(real value)
+void cyclone::setSleepEpsilon(double value)
 {
-    cyclone::sleepEpsilon = value;
+    sleepEpsilon = value;
 }
 
-real cyclone::getSleepEpsilon()
+double cyclone::getSleepEpsilon()
 {
-    return cyclone::sleepEpsilon;
+    return sleepEpsilon;
 }

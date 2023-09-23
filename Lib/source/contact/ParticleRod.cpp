@@ -8,7 +8,7 @@ unsigned ParticleRod::addContact(ParticleContact* contact,
 	unsigned /*limit*/) const
 {
 	// Find the length of the rod
-	real currentLen = currentLength();
+	double currentLen = currentLength();
 
 	// Check if we're over-extended
 	if (currentLen == length)

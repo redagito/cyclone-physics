@@ -69,17 +69,17 @@ namespace cyclone {
         /**
          * Returns a random floating point number between 0 and 1.
          */
-        real randomReal();
+        double randomReal();
 
         /**
          * Returns a random floating point number between 0 and scale.
          */
-        real randomReal(real scale);
+        double randomReal(double scale);
 
         /**
          * Returns a random floating point number between min and max.
          */
-        real randomReal(real min, real max);
+        double randomReal(double min, double max);
 
         /**
          * Returns a random integer less than the given value.
@@ -90,13 +90,13 @@ namespace cyclone {
          * Returns a random binomially distributed number between -scale
          * and +scale.
          */
-        real randomBinomial(real scale);
+        double randomBinomial(double scale);
 
         /**
          * Returns a random vector where each component is binomially
          * distributed in the range (-scale to scale) [mean = 0.0f].
          */
-        Vector3 randomVector(real scale);
+        Vector3 randomVector(double scale);
 
         /**
          * Returns a random vector where each component is binomially
@@ -118,7 +118,7 @@ namespace cyclone {
          * distributed in the range (-scale to scale) [mean = 0.0f],
          * except the y coordinate which is zero.
          */
-        Vector3 randomXZVector(real scale);
+        Vector3 randomXZVector(double scale);
 
         /**
          * Returns a random orientation (i.e. normalized) quaternion.

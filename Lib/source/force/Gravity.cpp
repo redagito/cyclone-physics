@@ -8,7 +8,7 @@ Gravity::Gravity(const Vector3& gravity)
 {
 }
 
-void Gravity::updateForce(RigidBody* body, real /*duration*/)
+void Gravity::updateForce(RigidBody* body, double /*duration*/)
 {
 	// Check that we do not have infinite mass
 	if (!body->hasFiniteMass()) return;

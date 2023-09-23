@@ -2,7 +2,6 @@
 
 #include <vector>
 
-#include "cyclone/Precision.h"
 
 namespace cyclone
 {
@@ -57,6 +56,6 @@ namespace cyclone
          * Calls all the force generators to update the forces of
          * their corresponding particles.
          */
-        void updateForces(real duration);
+        void updateForces(double duration);
     };
 }

@@ -8,7 +8,7 @@ using namespace cyclone;
 // Contact implementation
 
 void Contact::setBodyData(RigidBody* one, RigidBody* two,
-	real frict, real restitut)
+	double frict, double restitut)
 {
 	Contact::body[0] = one;
 	Contact::body[1] = two;
@@ -60,10 +60,10 @@ void Contact::calculateContactBasis()
 	Vector3 contactTangent[2];
 
 	// Check whether the Z-axis is nearer to the X or Y axis
-	if (real_abs(contactNormal.x) > real_abs(contactNormal.y))
+	if (std::abs(contactNormal.x) > std::abs(contactNormal.y))
 	{
 		// Scaling factor to ensure the results are normalised
-		const real s = (real)1.0f / real_sqrt(contactNormal.z * contactNormal.z +
+		const double s = (double)1.0f / std::sqrt(contactNormal.z * contactNormal.z +
 			contactNormal.x * contactNormal.x);
 
 		// The new X-axis is at right angles to the world Y-axis
@@ -80,7 +80,7 @@ void Contact::calculateContactBasis()
 	else
 	{
 		// Scaling factor to ensure the results are normalised
-		const real s = (real)1.0 / real_sqrt(contactNormal.z * contactNormal.z +
+		const double s = (double)1.0 / std::sqrt(contactNormal.z * contactNormal.z +
 			contactNormal.y * contactNormal.y);
 
 		// The new X-axis is at right angles to the world X-axis
@@ -102,7 +102,7 @@ void Contact::calculateContactBasis()
 		contactTangent[1]);
 }
 
-Vector3 Contact::calculateLocalVelocity(unsigned bodyIndex, real duration)
+Vector3 Contact::calculateLocalVelocity(unsigned bodyIndex, double duration)
 {
 	RigidBody* thisBody = body[bodyIndex];
 
@@ -134,12 +134,12 @@ Vector3 Contact::calculateLocalVelocity(unsigned bodyIndex, real duration)
 }
 
 
-void Contact::calculateDesiredDeltaVelocity(real duration)
+void Contact::calculateDesiredDeltaVelocity(double duration)
 {
-	const static real velocityLimit = (real)0.25f;
+	const static double velocityLimit = (double)0.25f;
 
 	// Calculate the acceleration induced velocity accumulated this frame
-	real velocityFromAcc = 0;
+	double velocityFromAcc = 0;
 
 	if (body[0]->getAwake())
 	{
@@ -154,10 +154,10 @@ void Contact::calculateDesiredDeltaVelocity(real duration)
 	}
 
 	// If the velocity is very slow, limit the restitution
-	real thisRestitution = restitution;
-	if (real_abs(contactVelocity.x) < velocityLimit)
+	double thisRestitution = restitution;
+	if (std::abs(contactVelocity.x) < velocityLimit)
 	{
-		thisRestitution = (real)0.0f;
+		thisRestitution = (double)0.0f;
 	}
 
 	// Combine the bounce velocity with the removed
@@ -168,7 +168,7 @@ void Contact::calculateDesiredDeltaVelocity(real duration)
 }
 
 
-void Contact::calculateInternals(real duration)
+void Contact::calculateInternals(double duration)
 {
 	// Check if the first object is NULL, and swap if it is.
 	if (!body[0]) swapBodies();
@@ -206,7 +206,7 @@ void Contact::applyVelocityChange(Vector3 velocityChange[2],
 	// We will calculate the impulse for each contact axis
 	Vector3 impulseContact;
 
-	if (friction == (real)0.0)
+	if (friction == (double)0.0)
 	{
 		// Use the short format for frictionless contacts
 		impulseContact = calculateFrictionlessImpulse(inverseInertiaTensor);
@@ -259,7 +259,7 @@ Vector3 Contact::calculateFrictionlessImpulse(Matrix3* inverseInertiaTensor)
 	deltaVelWorld = deltaVelWorld % relativeContactPosition[0];
 
 	// Work out the change in velocity in contact coordiantes.
-	real deltaVelocity = deltaVelWorld * contactNormal;
+	double deltaVelocity = deltaVelWorld * contactNormal;
 
 	// Add the linear component of velocity change
 	deltaVelocity += body[0]->getInverseMass();
@@ -290,7 +290,7 @@ inline
 Vector3 Contact::calculateFrictionImpulse(Matrix3* inverseInertiaTensor)
 {
 	Vector3 impulseContact;
-	real inverseMass = body[0]->getInverseMass();
+	double inverseMass = body[0]->getInverseMass();
 
 	// The equivalent of a cross product in matrices is multiplication
 	// by a skew symmetric matrix - we build the matrix for converting
@@ -346,7 +346,7 @@ Vector3 Contact::calculateFrictionImpulse(Matrix3* inverseInertiaTensor)
 	impulseContact = impulseMatrix.transform(velKill);
 
 	// Check for exceeding friction
-	real planarImpulse = real_sqrt(
+	double planarImpulse = std::sqrt(
 		impulseContact.y * impulseContact.y +
 		impulseContact.z * impulseContact.z
 	);
@@ -368,15 +368,15 @@ Vector3 Contact::calculateFrictionImpulse(Matrix3* inverseInertiaTensor)
 
 void Contact::applyPositionChange(Vector3 linearChange[2],
 	Vector3 angularChange[2],
-	real penetr)
+	double penetr)
 {
-	const real angularLimit = (real)0.2f;
-	real angularMove[2];
-	real linearMove[2];
+	const double angularLimit = (double)0.2f;
+	double angularMove[2];
+	double linearMove[2];
 
-	real totalInertia = 0;
-	real linearInertia[2];
-	real angularInertia[2];
+	double totalInertia = 0;
+	double linearInertia[2];
+	double angularInertia[2];
 
 	// We need to work out the inertia of each object in the direction
 	// of the contact normal, due to angular inertia only.
@@ -412,7 +412,7 @@ void Contact::applyPositionChange(Vector3 linearChange[2],
 	{
 		// The linear and angular movements required are in proportion to
 		// the two inverse inertias.
-		real sign = (i == 0) ? 1 : -1;
+		double sign = (i == 0) ? 1 : -1;
 		angularMove[i] =
 			sign * penetr * (angularInertia[i] / totalInertia);
 		linearMove[i] =
@@ -429,17 +429,17 @@ void Contact::applyPositionChange(Vector3 linearChange[2],
 		// Use the small angle approximation for the sine of the angle (i.e.
 		// the magnitude would be sine(angularLimit) * projection.magnitude
 		// but we approximate sine(angularLimit) to angularLimit).
-		real maxMagnitude = angularLimit * projection.magnitude();
+		double maxMagnitude = angularLimit * projection.magnitude();
 
 		if (angularMove[i] < -maxMagnitude)
 		{
-			real totalMove = angularMove[i] + linearMove[i];
+			double totalMove = angularMove[i] + linearMove[i];
 			angularMove[i] = -maxMagnitude;
 			linearMove[i] = totalMove - angularMove[i];
 		}
 		else if (angularMove[i] > maxMagnitude)
 		{
-			real totalMove = angularMove[i] + linearMove[i];
+			double totalMove = angularMove[i] + linearMove[i];
 			angularMove[i] = maxMagnitude;
 			linearMove[i] = totalMove - angularMove[i];
 		}
@@ -481,7 +481,7 @@ void Contact::applyPositionChange(Vector3 linearChange[2],
 		// And the change in orientation
 		Quaternion q;
 		body[i]->getOrientation(&q);
-		q.addScaledVector(angularChange[i], ((real)1.0));
+		q.addScaledVector(angularChange[i], ((double)1.0));
 		body[i]->setOrientation(q);
 
 		// We need to calculate the derived data for any body that is

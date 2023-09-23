@@ -5,12 +5,12 @@
 
 using namespace cyclone;
 
-ParticleSpring::ParticleSpring(Particle* other, real sc, real rl)
+ParticleSpring::ParticleSpring(Particle* other, double sc, double rl)
 	: other(other), springConstant(sc), restLength(rl)
 {
 }
 
-void ParticleSpring::updateForce(Particle* particle, real /*duration*/)
+void ParticleSpring::updateForce(Particle* particle, double /*duration*/)
 {
 	// Calculate the vector of the spring
 	Vector3 force;
@@ -18,8 +18,8 @@ void ParticleSpring::updateForce(Particle* particle, real /*duration*/)
 	force -= other->getPosition();
 
 	// Calculate the magnitude of the force
-	real magnitude = force.magnitude();
-	magnitude = real_abs(magnitude - restLength);
+	double magnitude = force.magnitude();
+	magnitude = std::abs(magnitude - restLength);
 	magnitude *= springConstant;
 
 	// Calculate the final force and apply it

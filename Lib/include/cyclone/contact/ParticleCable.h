@@ -1,7 +1,6 @@
 #pragma once
 
 #include "cyclone/contact/ParticleLink.h"
-#include "cyclone/Precision.h"
 
 namespace cyclone
 {
@@ -17,12 +16,12 @@ namespace cyclone
         /**
          * Holds the maximum length of the cable.
          */
-        real maxLength = 0.f;
+        double maxLength = 0.f;
 
         /**
          * Holds the restitution (bounciness) of the cable.
          */
-        real restitution = 0.f;
+        double restitution = 0.f;
 
     public:
         /**

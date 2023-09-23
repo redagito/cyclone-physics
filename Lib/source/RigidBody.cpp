@@ -42,31 +42,31 @@ static inline void _transformInertiaTensor(Matrix3& iitWorld,
 	const Matrix3& iitBody,
 	const Matrix4& rotmat)
 {
-	real t4 = rotmat.data[0] * iitBody.data[0] +
+	double t4 = rotmat.data[0] * iitBody.data[0] +
 		rotmat.data[1] * iitBody.data[3] +
 		rotmat.data[2] * iitBody.data[6];
-	real t9 = rotmat.data[0] * iitBody.data[1] +
+	double t9 = rotmat.data[0] * iitBody.data[1] +
 		rotmat.data[1] * iitBody.data[4] +
 		rotmat.data[2] * iitBody.data[7];
-	real t14 = rotmat.data[0] * iitBody.data[2] +
+	double t14 = rotmat.data[0] * iitBody.data[2] +
 		rotmat.data[1] * iitBody.data[5] +
 		rotmat.data[2] * iitBody.data[8];
-	real t28 = rotmat.data[4] * iitBody.data[0] +
+	double t28 = rotmat.data[4] * iitBody.data[0] +
 		rotmat.data[5] * iitBody.data[3] +
 		rotmat.data[6] * iitBody.data[6];
-	real t33 = rotmat.data[4] * iitBody.data[1] +
+	double t33 = rotmat.data[4] * iitBody.data[1] +
 		rotmat.data[5] * iitBody.data[4] +
 		rotmat.data[6] * iitBody.data[7];
-	real t38 = rotmat.data[4] * iitBody.data[2] +
+	double t38 = rotmat.data[4] * iitBody.data[2] +
 		rotmat.data[5] * iitBody.data[5] +
 		rotmat.data[6] * iitBody.data[8];
-	real t52 = rotmat.data[8] * iitBody.data[0] +
+	double t52 = rotmat.data[8] * iitBody.data[0] +
 		rotmat.data[9] * iitBody.data[3] +
 		rotmat.data[10] * iitBody.data[6];
-	real t57 = rotmat.data[8] * iitBody.data[1] +
+	double t57 = rotmat.data[8] * iitBody.data[1] +
 		rotmat.data[9] * iitBody.data[4] +
 		rotmat.data[10] * iitBody.data[7];
-	real t62 = rotmat.data[8] * iitBody.data[2] +
+	double t62 = rotmat.data[8] * iitBody.data[2] +
 		rotmat.data[9] * iitBody.data[5] +
 		rotmat.data[10] * iitBody.data[8];
 
@@ -152,7 +152,7 @@ void RigidBody::calculateDerivedData()
 
 }
 
-void RigidBody::integrate(real duration)
+void RigidBody::integrate(double duration)
 {
 	if (!isAwake) return;
 
@@ -172,8 +172,8 @@ void RigidBody::integrate(real duration)
 	rotation.addScaledVector(angularAcceleration, duration);
 
 	// Impose drag.
-	velocity *= real_pow(linearDamping, duration);
-	rotation *= real_pow(angularDamping, duration);
+	velocity *= std::pow(linearDamping, duration);
+	rotation *= std::pow(angularDamping, duration);
 
 	// Adjust positions
 	// Update linear position.
@@ -192,39 +192,40 @@ void RigidBody::integrate(real duration)
 	// Update the kinetic energy store, and possibly put the body to
 	// sleep.
 	if (canSleep) {
-		real currentMotion = velocity.scalarProduct(velocity) +
+		double currentMotion = velocity.scalarProduct(velocity) +
 			rotation.scalarProduct(rotation);
 
-		real bias = real_pow(0.5, duration);
+		double bias = std::pow(0.5, duration);
 		motion = bias * motion + (1 - bias) * currentMotion;
 
+		auto sleepEpsilon = getSleepEpsilon();
 		if (motion < sleepEpsilon) setAwake(false);
 		else if (motion > 10 * sleepEpsilon) motion = 10 * sleepEpsilon;
 	}
 }
 
-void RigidBody::setMass(const real mass)
+void RigidBody::setMass(const double mass)
 {
 	assert(mass != 0);
-	RigidBody::inverseMass = ((real)1.0) / mass;
+	RigidBody::inverseMass = ((double)1.0) / mass;
 }
 
-real RigidBody::getMass() const
+double RigidBody::getMass() const
 {
 	if (inverseMass == 0) {
-		return REAL_MAX;
+		return DBL_MAX;
 	}
 	else {
-		return ((real)1.0) / inverseMass;
+		return ((double)1.0) / inverseMass;
 	}
 }
 
-void RigidBody::setInverseMass(const real invMass)
+void RigidBody::setInverseMass(const double invMass)
 {
 	inverseMass = invMass;
 }
 
-real RigidBody::getInverseMass() const
+double RigidBody::getInverseMass() const
 {
 	return inverseMass;
 }
@@ -290,29 +291,29 @@ Matrix3 RigidBody::getInverseInertiaTensorWorld() const
 	return inverseInertiaTensorWorld;
 }
 
-void RigidBody::setDamping(const real linDamping,
-	const real angDamping)
+void RigidBody::setDamping(const double linDamping,
+	const double angDamping)
 {
 	linearDamping = linDamping;
 	angularDamping = angDamping;
 }
 
-void RigidBody::setLinearDamping(const real linDamping)
+void RigidBody::setLinearDamping(const double linDamping)
 {
 	linearDamping = linDamping;
 }
 
-real RigidBody::getLinearDamping() const
+double RigidBody::getLinearDamping() const
 {
 	return linearDamping;
 }
 
-void RigidBody::setAngularDamping(const real angDamping)
+void RigidBody::setAngularDamping(const double angDamping)
 {
 	angularDamping = angDamping;
 }
 
-real RigidBody::getAngularDamping() const
+double RigidBody::getAngularDamping() const
 {
 	return angularDamping;
 }
@@ -322,7 +323,7 @@ void RigidBody::setPosition(const Vector3& pos)
 	position = pos;
 }
 
-void RigidBody::setPosition(const real x, const real y, const real z)
+void RigidBody::setPosition(const double x, const double y, const double z)
 {
 	position.x = x;
 	position.y = y;
@@ -345,8 +346,8 @@ void RigidBody::setOrientation(const Quaternion& orient)
 	orientation.normalise();
 }
 
-void RigidBody::setOrientation(const real r, const real i,
-	const real j, const real k)
+void RigidBody::setOrientation(const double r, const double i,
+	const double j, const double k)
 {
 	orientation.ud.sd.r = r;
 	orientation.ud.sd.i = i;
@@ -370,7 +371,7 @@ void RigidBody::getOrientation(Matrix3* matrix) const
 	getOrientation(matrix->data);
 }
 
-void RigidBody::getOrientation(real matrix[9]) const
+void RigidBody::getOrientation(double matrix[9]) const
 {
 	matrix[0] = transformMatrix.data[0];
 	matrix[1] = transformMatrix.data[1];
@@ -390,9 +391,9 @@ void RigidBody::getTransform(Matrix4* transform) const
 	memcpy(transform->data, &transformMatrix.data, sizeof(transform->data));
 }
 
-void RigidBody::getTransform(real matrix[16]) const
+void RigidBody::getTransform(double matrix[16]) const
 {
-	memcpy(matrix, transformMatrix.data, sizeof(real) * 12);
+	memcpy(matrix, transformMatrix.data, sizeof(double) * 12);
 	matrix[12] = matrix[13] = matrix[14] = 0;
 	matrix[15] = 1;
 }
@@ -452,7 +453,7 @@ void RigidBody::setVelocity(const Vector3& vel)
 	velocity = vel;
 }
 
-void RigidBody::setVelocity(const real x, const real y, const real z)
+void RigidBody::setVelocity(const double x, const double y, const double z)
 {
 	velocity.x = x;
 	velocity.y = y;
@@ -479,7 +480,7 @@ void RigidBody::setRotation(const Vector3& rot)
 	rotation = rot;
 }
 
-void RigidBody::setRotation(const real x, const real y, const real z)
+void RigidBody::setRotation(const double x, const double y, const double z)
 {
 	rotation.x = x;
 	rotation.y = y;
@@ -507,7 +508,7 @@ void RigidBody::setAwake(const bool awake)
 		isAwake = true;
 
 		// Add a bit of motion to avoid it falling asleep immediately.
-		motion = sleepEpsilon * 2.0f;
+		motion = getSleepEpsilon() * 2.0f;
 	}
 	else {
 		isAwake = false;
@@ -579,7 +580,7 @@ void RigidBody::setAcceleration(const Vector3& accel)
 	acceleration = accel;
 }
 
-void RigidBody::setAcceleration(const real x, const real y, const real z)
+void RigidBody::setAcceleration(const double x, const double y, const double z)
 {
 	acceleration.x = x;
 	acceleration.y = y;

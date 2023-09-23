@@ -3,12 +3,12 @@
 
 using namespace cyclone;
 
-ParticleBungee::ParticleBungee(Particle* other, real sc, real rl)
+ParticleBungee::ParticleBungee(Particle* other, double sc, double rl)
 	: other(other), springConstant(sc), restLength(rl)
 {
 }
 
-void ParticleBungee::updateForce(Particle* particle, real /*duration*/)
+void ParticleBungee::updateForce(Particle* particle, double /*duration*/)
 {
 	// Calculate the vector of the spring
 	Vector3 force;
@@ -16,7 +16,7 @@ void ParticleBungee::updateForce(Particle* particle, real /*duration*/)
 	force -= other->getPosition();
 
 	// Check if the bungee is compressed
-	real magnitude = force.magnitude();
+	double magnitude = force.magnitude();
 	if (magnitude <= restLength) return;
 
 	// Calculate the magnitude of the force

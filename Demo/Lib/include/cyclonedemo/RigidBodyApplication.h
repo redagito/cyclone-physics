@@ -45,7 +45,7 @@
     virtual void generateContacts() = 0;
 
     /** Processes the objects in the simulation forward in time. */
-    virtual void updateObjects(cyclone::real duration) = 0;
+    virtual void updateObjects(double duration) = 0;
 
     /**
      * Finishes drawing the frame, adding debugging information

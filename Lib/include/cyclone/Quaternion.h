@@ -1,5 +1,9 @@
 #pragma once
 
+#include <cfloat>
+
+#include "cyclone/Vector3.h"
+
 // TODO Use glm instead
 namespace cyclone
 {
@@ -26,33 +30,33 @@ namespace cyclone
 		union u {
 			struct s {
 				/**
-				 * Holds the real component of the quaternion.
+				 * Holds the double component of the quaternion.
 				 */
-				real r;
+				double r;
 
 				/**
 				 * Holds the first complex component of the
 				 * quaternion.
 				 */
-				real i;
+				double i;
 
 				/**
 				 * Holds the second complex component of the
 				 * quaternion.
 				 */
-				real j;
+				double j;
 
 				/**
 				 * Holds the third complex component of the
 				 * quaternion.
 				 */
-				real k;
+				double k;
 			} sd;
 
 			/**
 			 * Holds the quaternion data in array form.
 			 */
-			real data[4];
+			double data[4];
 		} ud;
 
 		// ... other Quaternion code as before ...
@@ -73,7 +77,7 @@ namespace cyclone
 		 * The explicit constructor creates a quaternion with the given
 		 * components.
 		 *
-		 * @param r The real component of the rigid body's orientation
+		 * @param r The double component of the rigid body's orientation
 		 * quaternion.
 		 *
 		 * @param i The first complex component of the rigid body's
@@ -93,7 +97,7 @@ namespace cyclone
 		 *
 		 * @see normalise
 		 */
-		Quaternion(const real r, const real i, const real j, const real k)
+		Quaternion(const double r, const double i, const double j, const double k)
 		{
 			ud.sd.r = r;
 			ud.sd.i = i;
@@ -107,16 +111,16 @@ namespace cyclone
 		 */
 		void normalise()
 		{
-			real d = ud.sd.r * ud.sd.r + ud.sd.i * ud.sd.i + ud.sd.j * ud.sd.j + ud.sd.k * ud.sd.k;
+			double d = ud.sd.r * ud.sd.r + ud.sd.i * ud.sd.i + ud.sd.j * ud.sd.j + ud.sd.k * ud.sd.k;
 
 			// Check for zero length quaternion, and use the no-rotation
 			// quaternion in that case.
-			if (d < real_epsilon) {
+			if (d < DBL_EPSILON) {
 				ud.sd.r = 1;
 				return;
 			}
 
-			d = ((real)1.0) / real_sqrt(d);
+			d = ((double)1.0) / std::sqrt(d);
 			ud.sd.r *= d;
 			ud.sd.i *= d;
 			ud.sd.j *= d;
@@ -150,17 +154,17 @@ namespace cyclone
 		 *
 		 * @param scale The amount of the vector to add.
 		 */
-		void addScaledVector(const Vector3& vector, real scale)
+		void addScaledVector(const Vector3& vector, double scale)
 		{
 			Quaternion q(0,
 				vector.x * scale,
 				vector.y * scale,
 				vector.z * scale);
 			q *= *this;
-			ud.sd.r += q.ud.sd.r * ((real)0.5);
-			ud.sd.i += q.ud.sd.i * ((real)0.5);
-			ud.sd.j += q.ud.sd.j * ((real)0.5);
-			ud.sd.k += q.ud.sd.k * ((real)0.5);
+			ud.sd.r += q.ud.sd.r * ((double)0.5);
+			ud.sd.i += q.ud.sd.i * ((double)0.5);
+			ud.sd.j += q.ud.sd.j * ((double)0.5);
+			ud.sd.k += q.ud.sd.k * ((double)0.5);
 		}
 
 		void rotateByVector(const Vector3& vector)

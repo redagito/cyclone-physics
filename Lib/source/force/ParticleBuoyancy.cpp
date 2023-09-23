@@ -4,20 +4,20 @@
 
 using namespace cyclone;
 
-ParticleBuoyancy::ParticleBuoyancy(real maxDepth,
-    real volume,
-    real waterHeight,
-    real liquidDensity)
+ParticleBuoyancy::ParticleBuoyancy(double maxDepth,
+    double volume,
+    double waterHeight,
+    double liquidDensity)
     :
     maxDepth(maxDepth), volume(volume),
     waterHeight(waterHeight), liquidDensity(liquidDensity)
 {
 }
 
-void ParticleBuoyancy::updateForce(Particle* particle, real /*duration*/)
+void ParticleBuoyancy::updateForce(Particle* particle, double /*duration*/)
 {
     // Calculate the submersion depth
-    real depth = particle->getPosition().y;
+    double depth = particle->getPosition().y;
 
     // Check if we're out of the water
     if (depth >= waterHeight + maxDepth) return;

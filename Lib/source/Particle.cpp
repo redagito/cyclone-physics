@@ -11,6 +11,7 @@
  */
 
 #include <cassert>
+#include <cfloat>
 
 #include "cyclone/Particle.h"
 
@@ -23,7 +24,7 @@ using namespace cyclone;
  * --------------------------------------------------------------------------
  */
 
-void Particle::integrate(real duration)
+void Particle::integrate(double duration)
 {
     // We don't integrate things with zero mass.
     if (inverseMass <= 0.0f) return;
@@ -41,7 +42,7 @@ void Particle::integrate(real duration)
     velocity.addScaledVector(resultingAcc, duration);
 
     // Impose drag.
-    velocity *= real_pow(damping, duration);
+    velocity *= std::pow(damping, duration);
 
     // Clear the forces.
     clearAccumulator();
@@ -49,27 +50,27 @@ void Particle::integrate(real duration)
 
 
 
-void Particle::setMass(const real mass)
+void Particle::setMass(const double mass)
 {
     assert(mass != 0);
-    Particle::inverseMass = ((real)1.0)/mass;
+    Particle::inverseMass = ((double)1.0)/mass;
 }
 
-real Particle::getMass() const
+double Particle::getMass() const
 {
     if (inverseMass == 0) {
-        return REAL_MAX;
+        return DBL_MAX;
     } else {
-        return ((real)1.0)/inverseMass;
+        return ((double)1.0)/inverseMass;
     }
 }
 
-void Particle::setInverseMass(const real invMass)
+void Particle::setInverseMass(const double invMass)
 {
     inverseMass = invMass;
 }
 
-real Particle::getInverseMass() const
+double Particle::getInverseMass() const
 {
     return inverseMass;
 }
@@ -79,12 +80,12 @@ bool Particle::hasFiniteMass() const
     return inverseMass >= 0.0f;
 }
 
-void Particle::setDamping(const real damp)
+void Particle::setDamping(const double damp)
 {
     damping = damp;
 }
 
-real Particle::getDamping() const
+double Particle::getDamping() const
 {
     return damping;
 }
@@ -94,7 +95,7 @@ void Particle::setPosition(const Vector3 &pos)
     position = pos;
 }
 
-void Particle::setPosition(const real x, const real y, const real z)
+void Particle::setPosition(const double x, const double y, const double z)
 {
     position.x = x;
     position.y = y;
@@ -116,7 +117,7 @@ void Particle::setVelocity(const Vector3 &vel)
     velocity = vel;
 }
 
-void Particle::setVelocity(const real x, const real y, const real z)
+void Particle::setVelocity(const double x, const double y, const double z)
 {
     velocity.x = x;
     velocity.y = y;
@@ -138,7 +139,7 @@ void Particle::setAcceleration(const Vector3 &accel)
     acceleration = accel;
 }
 
-void Particle::setAcceleration(const real x, const real y, const real z)
+void Particle::setAcceleration(const double x, const double y, const double z)
 {
     acceleration.x = x;
     acceleration.y = y;

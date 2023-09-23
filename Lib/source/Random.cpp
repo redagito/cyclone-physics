@@ -73,14 +73,14 @@ unsigned Random::randomBits()
 }
 
 #ifdef SINGLE_PRECISION
-real Random::randomReal()
+double Random::randomReal()
 {
 	// Get the random number
 	unsigned bits = randomBits();
 
 	// Set up a reinterpret structure for manipulation
 	union {
-		real value;
+		double value;
 		unsigned word;
 	} convert;
 
@@ -93,14 +93,14 @@ real Random::randomReal()
 	return convert.value - 1.0f;
 }
 #else
-real Random::randomReal()
+double Random::randomReal()
 {
 	// Get the random number
 	unsigned bits = randomBits();
 
 	// Set up a reinterpret structure for manipulation
 	union {
-		real value;
+		double value;
 		unsigned words[2];
 	} convert;
 
@@ -116,12 +116,12 @@ real Random::randomReal()
 }
 #endif
 
-real Random::randomReal(real min, real max)
+double Random::randomReal(double min, double max)
 {
 	return randomReal() * (max - min) + min;
 }
 
-real Random::randomReal(real scale)
+double Random::randomReal(double scale)
 {
 	return randomReal() * scale;
 }
@@ -131,7 +131,7 @@ unsigned Random::randomInt(unsigned max)
 	return randomBits() % max;
 }
 
-real Random::randomBinomial(real scale)
+double Random::randomBinomial(double scale)
 {
 	return (randomReal() - randomReal()) * scale;
 }
@@ -148,7 +148,7 @@ Quaternion Random::randomQuaternion()
 	return q;
 }
 
-Vector3 Random::randomVector(real scale)
+Vector3 Random::randomVector(double scale)
 {
 	return Vector3(
 		randomBinomial(scale),
@@ -157,7 +157,7 @@ Vector3 Random::randomVector(real scale)
 	);
 }
 
-Vector3 Random::randomXZVector(real scale)
+Vector3 Random::randomXZVector(double scale)
 {
 	return Vector3(
 		randomBinomial(scale),

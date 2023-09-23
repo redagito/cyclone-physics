@@ -3,7 +3,7 @@
 
 using namespace cyclone;
 
-void Explosion::updateForce(RigidBody* body, real duration)
+void Explosion::updateForce(RigidBody* body, double duration)
 {
 	timePassed += duration;
 
@@ -29,7 +29,7 @@ void Explosion::updateForce(RigidBody* body, real duration)
 	}
 }
 
-void Explosion::updateForce(Particle* /*particle*/, real /*duration*/)
+void Explosion::updateForce(Particle* /*particle*/, double /*duration*/)
 {
 	// TODO
 }

@@ -2,7 +2,6 @@
 
 #include "cyclone/contact/ParticleContactGenerator.h"
 #include "cyclone/Vector3.h"
-#include "cyclone/Precision.h"
 
 namespace cyclone
 {
@@ -29,7 +28,7 @@ namespace cyclone
         /**
         * Returns the current length of the link.
         */
-        real currentLength() const;
+        double currentLength() const;
 
     public:
         /**

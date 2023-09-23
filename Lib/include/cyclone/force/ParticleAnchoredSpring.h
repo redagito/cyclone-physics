@@ -17,28 +17,28 @@ namespace cyclone
 		Vector3* anchor = nullptr;
 
 		/** Holds the sprint constant. */
-		real springConstant = 0.f;
+		double springConstant = 0.f;
 
 		/** Holds the rest length of the spring. */
-		real restLength = 0.f;
+		double restLength = 0.f;
 
 	public:
 		ParticleAnchoredSpring() = default;
 
 		/** Creates a new spring with the given parameters. */
 		ParticleAnchoredSpring(Vector3* anchor,
-			real springConstant,
-			real restLength);
+			double springConstant,
+			double restLength);
 
 		/** Retrieve the anchor point. */
 		const Vector3* getAnchor() const { return anchor; }
 
 		/** Set the spring's properties. */
 		void init(Vector3* anchor,
-			real springConstant,
-			real restLength);
+			double springConstant,
+			double restLength);
 
 		/** Applies the spring force to the given particle. */
-		virtual void updateForce(Particle* particle, real duration);
+		virtual void updateForce(Particle* particle, double duration);
 	};
 }

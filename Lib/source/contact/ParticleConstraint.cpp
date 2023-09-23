@@ -3,7 +3,7 @@
 
 using namespace cyclone;
 
-real ParticleConstraint::currentLength() const
+double ParticleConstraint::currentLength() const
 {
 	Vector3 relativePos = particle->getPosition() - anchor;
 	return relativePos.magnitude();

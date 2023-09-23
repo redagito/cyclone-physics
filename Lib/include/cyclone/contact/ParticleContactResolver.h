@@ -1,6 +1,5 @@
 #pragma once
 
-#include "cyclone/Precision.h"
 
 namespace cyclone
 {
@@ -66,6 +65,6 @@ namespace cyclone
 		*/
 		void resolveContacts(ParticleContact* contactArray,
 			unsigned numContacts,
-			real duration);
+			double duration);
 	};
 }

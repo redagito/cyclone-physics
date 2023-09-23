@@ -19,6 +19,9 @@ namespace cyclone
 	class CollisionDetector
 	{
 	public:
+		CollisionDetector() = delete;
+		CollisionDetector(const CollisionDetector&) = delete;
+		~CollisionDetector() = delete;
 
 		static unsigned sphereAndHalfSpace(
 			const CollisionSphere& sphere,

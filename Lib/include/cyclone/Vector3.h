@@ -2,7 +2,6 @@
 
 #include <cmath>
 
-#include "cyclone/Precision.h"
 
 // TODO Use glm instead
 namespace cyclone
@@ -19,18 +18,18 @@ namespace cyclone
 	{
 	public:
 		/** Holds the value along the x axis. */
-		real x = 0.f;
+		double x = 0.f;
 
 		/** Holds the value along the y axis. */
-		real y = 0.f;
+		double y = 0.f;
 
 		/** Holds the value along the z axis. */
-		real z = 0.f;
+		double z = 0.f;
 
 	private:
 		/** Padding to ensure 4 word alignment. */
 		// TODO Why
-		real pad = 0.f;
+		double pad = 0.f;
 
 	public:
 		/** The default constructor creates a zero vector. */
@@ -40,20 +39,20 @@ namespace cyclone
 		 * The explicit constructor creates a vector with the given
 		 * components.
 		 */
-		Vector3(const real x, const real y, const real z)
+		Vector3(const double x, const double y, const double z)
 			: x(x), y(y), z(z) {}
 
 		const static Vector3 GRAVITY;
 		const static Vector3 UP;
 
-		real operator[](unsigned i) const
+		double operator[](unsigned i) const
 		{
 			if (i == 0) return x;
 			if (i == 1) return y;
 			return z;
 		}
 
-		real& operator[](unsigned i)
+		double& operator[](unsigned i)
 		{
 			if (i == 0) return x;
 			if (i == 1) return y;
@@ -93,7 +92,7 @@ namespace cyclone
 		}
 
 		/** Multiplies this vector by the given scalar. */
-		void operator*=(const real value)
+		void operator*=(const double value)
 		{
 			x *= value;
 			y *= value;
@@ -101,7 +100,7 @@ namespace cyclone
 		}
 
 		/** Returns a copy of this vector scaled the given value. */
-		Vector3 operator*(const real value) const
+		Vector3 operator*(const double value) const
 		{
 			return Vector3(x * value, y * value, z * value);
 		}
@@ -161,7 +160,7 @@ namespace cyclone
 		 * Calculates and returns the scalar product of this vector
 		 * with the given vector.
 		 */
-		real scalarProduct(const Vector3& vector) const
+		double scalarProduct(const Vector3& vector) const
 		{
 			return x * vector.x + y * vector.y + z * vector.z;
 		}
@@ -170,7 +169,7 @@ namespace cyclone
 		 * Calculates and returns the scalar product of this vector
 		 * with the given vector.
 		 */
-		real operator *(const Vector3& vector) const
+		double operator *(const Vector3& vector) const
 		{
 			return x * vector.x + y * vector.y + z * vector.z;
 		}
@@ -178,7 +177,7 @@ namespace cyclone
 		/**
 		 * Adds the given vector to this, scaled by the given amount.
 		 */
-		void addScaledVector(const Vector3& vector, real scale)
+		void addScaledVector(const Vector3& vector, double scale)
 		{
 			x += vector.x * scale;
 			y += vector.y * scale;
@@ -186,19 +185,19 @@ namespace cyclone
 		}
 
 		/** Gets the magnitude of this vector. */
-		real magnitude() const
+		double magnitude() const
 		{
-			return real_sqrt(x * x + y * y + z * z);
+			return std::sqrt(x * x + y * y + z * z);
 		}
 
 		/** Gets the squared magnitude of this vector. */
-		real squareMagnitude() const
+		double squareMagnitude() const
 		{
 			return x * x + y * y + z * z;
 		}
 
 		/** Limits the size of the vector to the given maximum. */
-		void trim(real size)
+		void trim(double size)
 		{
 			if (squareMagnitude() > size * size)
 			{
@@ -212,10 +211,10 @@ namespace cyclone
 		/** Turns a non-zero vector into a vector of unit length. */
 		Vector3& normalise()
 		{
-			real l = magnitude();
+			double l = magnitude();
 			if (l > 0)
 			{
-				(*this) *= ((real)1) / l;
+				(*this) *= ((double)1) / l;
 			}
 			return *this;
 		}

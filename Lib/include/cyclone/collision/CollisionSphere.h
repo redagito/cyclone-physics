@@ -1,7 +1,6 @@
 #pragma once
 
 #include "cyclone/collision/CollisionPrimitive.h"
-#include "cyclone/Precision.h"
 
 namespace cyclone
 {
@@ -15,6 +14,6 @@ namespace cyclone
 		/**
 		 * The radius of the sphere.
 		 */
-		real radius = 0.f;
+		double radius = 0.f;
 	};
 }

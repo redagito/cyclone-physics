@@ -3,23 +3,23 @@
 
 using namespace cyclone;
 
-void ParticleContact::resolve(real duration)
+void ParticleContact::resolve(double duration)
 {
     resolveVelocity(duration);
     resolveInterpenetration(duration);
 }
 
-real ParticleContact::calculateSeparatingVelocity() const
+double ParticleContact::calculateSeparatingVelocity() const
 {
     Vector3 relativeVelocity = particle[0]->getVelocity();
     if (particle[1]) relativeVelocity -= particle[1]->getVelocity();
     return relativeVelocity * contactNormal;
 }
 
-void ParticleContact::resolveVelocity(real duration)
+void ParticleContact::resolveVelocity(double duration)
 {
     // Find the velocity in the direction of the contact
-    real separatingVelocity = calculateSeparatingVelocity();
+    double separatingVelocity = calculateSeparatingVelocity();
 
     // Check if it needs to be resolved
     if (separatingVelocity > 0)
@@ -30,12 +30,12 @@ void ParticleContact::resolveVelocity(real duration)
     }
 
     // Calculate the new separating velocity
-    real newSepVelocity = -separatingVelocity * restitution;
+    double newSepVelocity = -separatingVelocity * restitution;
 
     // Check the velocity build-up due to acceleration only
     Vector3 accCausedVelocity = particle[0]->getAcceleration();
     if (particle[1]) accCausedVelocity -= particle[1]->getAcceleration();
-    real accCausedSepVelocity = accCausedVelocity * contactNormal * duration;
+    double accCausedSepVelocity = accCausedVelocity * contactNormal * duration;
 
     // If we've got a closing velocity due to acceleration build-up,
     // remove it from the new separating velocity
@@ -48,19 +48,19 @@ void ParticleContact::resolveVelocity(real duration)
         if (newSepVelocity < 0) newSepVelocity = 0;
     }
 
-    real deltaVelocity = newSepVelocity - separatingVelocity;
+    double deltaVelocity = newSepVelocity - separatingVelocity;
 
     // We apply the change in velocity to each object in proportion to
     // their inverse mass (i.e. those with lower inverse mass [higher
     // actual mass] get less change in velocity)..
-    real totalInverseMass = particle[0]->getInverseMass();
+    double totalInverseMass = particle[0]->getInverseMass();
     if (particle[1]) totalInverseMass += particle[1]->getInverseMass();
 
     // If all particles have infinite mass, then impulses have no effect
     if (totalInverseMass <= 0) return;
 
     // Calculate the impulse to apply
-    real impulse = deltaVelocity / totalInverseMass;
+    double impulse = deltaVelocity / totalInverseMass;
 
     // Find the amount of impulse per unit of inverse mass
     Vector3 impulsePerIMass = contactNormal * impulse;
@@ -79,14 +79,14 @@ void ParticleContact::resolveVelocity(real duration)
     }
 }
 
-void ParticleContact::resolveInterpenetration(real /*duration*/) // TODO Parameter unused
+void ParticleContact::resolveInterpenetration(double /*duration*/) // TODO Parameter unused
 {
     // If we don't have any penetration, skip this step.
     if (penetration <= 0) return;
 
     // The movement of each object is based on their inverse mass, so
     // total that.
-    real totalInverseMass = particle[0]->getInverseMass();
+    double totalInverseMass = particle[0]->getInverseMass();
     if (particle[1]) totalInverseMass += particle[1]->getInverseMass();
 
     // If all particles have infinite mass, then we do nothing

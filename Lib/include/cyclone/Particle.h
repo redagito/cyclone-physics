@@ -75,19 +75,19 @@ namespace cyclone {
 		  * Mass in kg, inverse mass kg^-1
 		  * Holds the inverse of the mass of the particle. It
 		  * is more useful to hold the inverse mass because
-		  * integration is simpler, and because in real time
+		  * integration is simpler, and because in double time
 		  * simulation it is more useful to have objects with
 		  * infinite mass (immovable) than zero mass
 		  * (completely unstable in numerical simulation).
 		  */
-		real inverseMass = 0.f;
+		double inverseMass = 0.f;
 
 		/**
 		 * Holds the amount of damping applied to linear
 		 * motion. Damping is required to remove energy added
 		 * through numerical instability in the integrator.
 		 */
-		real damping = 0.f;
+		double damping = 0.f;
 
 		/**
 		 * Holds the linear position of the particle in
@@ -160,7 +160,7 @@ namespace cyclone {
 		   * linear approximation to the correct integral. For this reason it
 		   * may be inaccurate in some cases.
 		   */
-		void integrate(real duration);
+		void integrate(double duration);
 
 		/*@}*/
 
@@ -185,14 +185,14 @@ namespace cyclone {
 		  * function should be called before trying to get any settings
 		  * from the particle.
 		  */
-		void setMass(const real mass);
+		void setMass(const double mass);
 
 		/**
 		 * Gets the mass of the particle.
 		 *
 		 * @return The current mass of the particle.
 		 */
-		real getMass() const;
+		double getMass() const;
 
 		/**
 		 * Sets the inverse mass of the particle.
@@ -206,14 +206,14 @@ namespace cyclone {
 		 * function should be called before trying to get any settings
 		 * from the particle.
 		 */
-		void setInverseMass(const real inverseMass);
+		void setInverseMass(const double inverseMass);
 
 		/**
 		 * Gets the inverse mass of the particle.
 		 *
 		 * @return The current inverse mass of the particle.
 		 */
-		real getInverseMass() const;
+		double getInverseMass() const;
 
 		/**
 		 * Returns true if the mass of the particle is not-infinite.
@@ -223,12 +223,12 @@ namespace cyclone {
 		/**
 		 * Sets both the damping of the particle.
 		 */
-		void setDamping(const real damping);
+		void setDamping(const double damping);
 
 		/**
 		 * Gets the current damping value.
 		 */
-		real getDamping() const;
+		double getDamping() const;
 
 		/**
 		 * Sets the position of the particle.
@@ -249,7 +249,7 @@ namespace cyclone {
 		 * @param z The z coordinate of the new position of the rigid
 		 * body.
 		 */
-		void setPosition(const real x, const real y, const real z);
+		void setPosition(const double x, const double y, const double z);
 
 		/**
 		 * Fills the given vector with the position of the particle.
@@ -285,7 +285,7 @@ namespace cyclone {
 		 * @param z The z coordinate of the new velocity of the rigid
 		 * body.
 		 */
-		void setVelocity(const real x, const real y, const real z);
+		void setVelocity(const double x, const double y, const double z);
 
 		/**
 		 * Fills the given vector with the velocity of the particle.
@@ -322,7 +322,7 @@ namespace cyclone {
 		 * @param z The z coordinate of the new acceleration of the rigid
 		 * body.
 		 */
-		void setAcceleration(const real x, const real y, const real z);
+		void setAcceleration(const double x, const double y, const double z);
 
 		/**
 		 * Fills the given vector with the acceleration of the particle.

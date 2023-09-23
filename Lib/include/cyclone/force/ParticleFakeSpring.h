@@ -16,18 +16,18 @@ namespace cyclone
         Vector3* anchor;
 
         /** Holds the sprint constant. */
-        real springConstant;
+        double springConstant;
 
         /** Holds the damping on the oscillation of the spring. */
-        real damping;
+        double damping;
 
     public:
 
         /** Creates a new spring with the given parameters. */
-        ParticleFakeSpring(Vector3* anchor, real springConstant,
-            real damping);
+        ParticleFakeSpring(Vector3* anchor, double springConstant,
+            double damping);
 
         /** Applies the spring force to the given particle. */
-        virtual void updateForce(Particle* particle, real duration);
+        virtual void updateForce(Particle* particle, double duration);
     };
 }

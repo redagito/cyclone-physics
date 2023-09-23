@@ -34,6 +34,6 @@ namespace cyclone
 		/**
 		 * Applies the force to the given rigid body.
 		 */
-		virtual void updateForce(RigidBody* body, real duration);
+		virtual void updateForce(RigidBody* body, double duration);
 	};
 }

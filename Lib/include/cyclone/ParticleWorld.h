@@ -82,7 +82,7 @@ namespace cyclone {
          * don't give a number of iterations, then twice the number of
          * contacts will be used.
          */
-        ParticleWorld(unsigned maxContacts, unsigned iterations=0);
+        ParticleWorld(unsigned maxContacts, unsigned iterations = 0);
 
         /**
          * Deletes the simulator.
@@ -99,12 +99,12 @@ namespace cyclone {
          * Integrates all the particles in this world forward in time
          * by the given duration.
          */
-        void integrate(real duration);
+        void integrate(double duration);
 
         /**
          * Processes all the physics for the particle world.
          */
-        void runPhysics(real duration);
+        void runPhysics(double duration);
 
         /**
          * Initializes the world for a simulation frame. This clears

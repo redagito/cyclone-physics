@@ -1,6 +1,5 @@
 #pragma once
 
-#include "cyclone/Precision.h"
 #include "cyclone/Vector3.h"
 
 namespace cyclone
@@ -39,7 +38,7 @@ namespace cyclone
 		/**
 		 * Holds the normal restitution coefficient at the contact.
 		 */
-		real restitution = 0.f;
+		double restitution = 0.0;
 
 		/**
 		 * Holds the direction of the contact in world coordinates.
@@ -49,7 +48,7 @@ namespace cyclone
 		/**
 		 * Holds the depth of penetration at the contact.
 		 */
-		real penetration;
+		double penetration = 0.0;
 
 		/**
 		 * Holds the amount each particle is moved by during interpenetration
@@ -61,23 +60,23 @@ namespace cyclone
 		/**
 		 * Resolves this contact, for both velocity and interpenetration.
 		 */
-		void resolve(real duration);
+		void resolve(double duration);
 
 		/**
 		 * Calculates the separating velocity at this contact.
 		 */
-		real calculateSeparatingVelocity() const;
+		double calculateSeparatingVelocity() const;
 
 	private:
 		/**
 		 * Handles the impulse calculations for this collision.
 		 */
-		void resolveVelocity(real duration);
+		void resolveVelocity(double duration);
 
 		/**
 		 * Handles the interpenetration resolution for this contact.
 		 */
-		void resolveInterpenetration(real duration);
+		void resolveInterpenetration(double duration);
 
 	};
 }

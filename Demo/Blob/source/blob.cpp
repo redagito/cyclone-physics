@@ -47,7 +47,7 @@ public:
 unsigned Platform::addContact(cyclone::ParticleContact* contact,
 	unsigned limit) const
 {
-	const static cyclone::real restitution = 0.0f;
+	const static double restitution = 0.0f;
 
 	unsigned used = 0;
 	for (unsigned i = 0; i < BLOB_COUNT; i++)
@@ -57,8 +57,8 @@ unsigned Platform::addContact(cyclone::ParticleContact* contact,
 		// Check for penetration
 		cyclone::Vector3 toParticle = particles[i].getPosition() - start;
 		cyclone::Vector3 lineDirection = end - start;
-		cyclone::real projected = toParticle * lineDirection;
-		cyclone::real platformSqLength = lineDirection.squareMagnitude();
+		double projected = toParticle * lineDirection;
+		double platformSqLength = lineDirection.squareMagnitude();
 		if (projected <= 0)
 		{
 			// The blob is nearest to the start point
@@ -96,7 +96,7 @@ unsigned Platform::addContact(cyclone::ParticleContact* contact,
 		else
 		{
 			// the blob is nearest to the middle.
-			cyclone::real distanceToPlatform =
+			double distanceToPlatform =
 				toParticle.squareMagnitude() -
 				projected * projected / platformSqLength;
 			if (distanceToPlatform < BLOB_RADIUS * BLOB_RADIUS)
@@ -110,7 +110,7 @@ unsigned Platform::addContact(cyclone::ParticleContact* contact,
 				contact->restitution = restitution;
 				contact->particle[0] = particles + i;
 				contact->particle[1] = 0;
-				contact->penetration = BLOB_RADIUS - real_sqrt(distanceToPlatform);
+				contact->penetration = BLOB_RADIUS - std::sqrt(distanceToPlatform);
 				used++;
 				contact++;
 			}
@@ -133,23 +133,23 @@ public:
 	/**
 	 * The maximum force used to push the particles apart.
 	 */
-	cyclone::real maxReplusion = 0.f;
+	double maxReplusion = 0.f;
 
 	/**
 	 * The maximum force used to pull particles together.
 	 */
-	cyclone::real maxAttraction = 0.f;
+	double maxAttraction = 0.f;
 
 	/**
 	 * The separation between particles where there is no force.
 	 */
-	cyclone::real minNaturalDistance, maxNaturalDistance;
+	double minNaturalDistance, maxNaturalDistance;
 
 	/**
 	 * The force with which to float the head particle, if it is
 	 * joined to others.
 	 */
-	cyclone::real floatHead = 0.f;
+	double floatHead = 0.f;
 
 	/**
 	 * The maximum number of particles in the blob before the head
@@ -161,16 +161,16 @@ public:
 	 * The separation between particles after which they 'break' apart and
 	 * there is no force.
 	 */
-	cyclone::real maxDistance = 0.f;
+	double maxDistance = 0.f;
 
 	virtual void updateForce(
 		cyclone::Particle* particle,
-		cyclone::real duration
+		double duration
 	);
 };
 
 void BlobForceGenerator::updateForce(cyclone::Particle* particle,
-	cyclone::real duration)
+	double duration)
 {
 	unsigned joinCount = 0;
 	for (unsigned i = 0; i < BLOB_COUNT; i++)
@@ -182,7 +182,7 @@ void BlobForceGenerator::updateForce(cyclone::Particle* particle,
 		cyclone::Vector3 separation =
 			particles[i].getPosition() - particle->getPosition();
 		separation.z = 0.0f;
-		cyclone::real distance = separation.magnitude();
+		double distance = separation.magnitude();
 
 		if (distance < minNaturalDistance)
 		{
@@ -209,7 +209,7 @@ void BlobForceGenerator::updateForce(cyclone::Particle* particle,
 	// If the particle is the head, and we've got a join count, then float it.
 	if (particle == particles && joinCount > 0 && maxFloat > 0)
 	{
-		cyclone::real force = cyclone::real(joinCount / maxFloat) * floatHead;
+		double force = double(joinCount / maxFloat) * floatHead;
 		if (force > floatHead) force = floatHead;
 		particle->addForce(cyclone::Vector3(0, force, 0));
 	}
@@ -281,15 +281,15 @@ BlobDemo::BlobDemo()
 	for (unsigned i = 0; i < PLATFORM_COUNT; i++)
 	{
 		platforms[i].start = cyclone::Vector3(
-			cyclone::real(i % 2) * 10.0f - 5.0f,
-			cyclone::real(i) * 4.0f + ((i % 2) ? 0.0f : 2.0f),
+			double(i % 2) * 10.0f - 5.0f,
+			double(i) * 4.0f + ((i % 2) ? 0.0f : 2.0f),
 			0);
 		platforms[i].start.x += r.randomBinomial(2.0f);
 		platforms[i].start.y += r.randomBinomial(2.0f);
 
 		platforms[i].end = cyclone::Vector3(
-			cyclone::real(i % 2) * 10.0f + 5.0f,
-			cyclone::real(i) * 4.0f + ((i % 2) ? 2.0f : 0.0f),
+			double(i % 2) * 10.0f + 5.0f,
+			double(i) * 4.0f + ((i % 2) ? 2.0f : 0.0f),
 			0);
 		platforms[i].end.x += r.randomBinomial(2.0f);
 		platforms[i].end.y += r.randomBinomial(2.0f);
@@ -302,13 +302,13 @@ BlobDemo::BlobDemo()
 
 	// Create the blobs.
 	Platform* p = platforms + (PLATFORM_COUNT - 2);
-	cyclone::real fraction = (cyclone::real)1.0 / BLOB_COUNT;
+	double fraction = (double)1.0 / BLOB_COUNT;
 	cyclone::Vector3 delta = p->end - p->start;
 	for (unsigned i = 0; i < BLOB_COUNT; i++)
 	{
 		unsigned me = (i + BLOB_COUNT / 2) % BLOB_COUNT;
 		blobs[i].setPosition(
-			p->start + delta * (cyclone::real(me) * 0.8f * fraction + 0.1f) +
+			p->start + delta * (double(me) * 0.8f * fraction + 0.1f) +
 			cyclone::Vector3(0, 1.0f + r.randomReal(), 0));
 
 		blobs[i].setVelocity(0, 0, 0);
@@ -326,13 +326,13 @@ void BlobDemo::reset()
 {
 	cyclone::Random r;
 	Platform* p = platforms + (PLATFORM_COUNT - 2);
-	cyclone::real fraction = (cyclone::real)1.0 / BLOB_COUNT;
+	double fraction = (double)1.0 / BLOB_COUNT;
 	cyclone::Vector3 delta = p->end - p->start;
 	for (unsigned i = 0; i < BLOB_COUNT; i++)
 	{
 		unsigned me = (i + BLOB_COUNT / 2) % BLOB_COUNT;
 		blobs[i].setPosition(
-			p->start + delta * (cyclone::real(me) * 0.8f * fraction + 0.1f) +
+			p->start + delta * (double(me) * 0.8f * fraction + 0.1f) +
 			cyclone::Vector3(0, 1.0f + r.randomReal(), 0));
 		blobs[i].setVelocity(0, 0, 0);
 		blobs[i].clearAccumulator();

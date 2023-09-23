@@ -3,8 +3,8 @@
 
 using namespace cyclone;
 
-Buoyancy::Buoyancy(const Vector3& cOfB, real maxDepth, real volume,
-	real waterHeight, real liquidDensity /* = 1000.0f */)
+Buoyancy::Buoyancy(const Vector3& cOfB, double maxDepth, double volume,
+	double waterHeight, double liquidDensity /* = 1000.0f */)
 {
 	centreOfBuoyancy = cOfB;
 	Buoyancy::liquidDensity = liquidDensity;
@@ -13,11 +13,11 @@ Buoyancy::Buoyancy(const Vector3& cOfB, real maxDepth, real volume,
 	Buoyancy::waterHeight = waterHeight;
 }
 
-void Buoyancy::updateForce(RigidBody* body, real /*duration*/)
+void Buoyancy::updateForce(RigidBody* body, double /*duration*/)
 {
 	// Calculate the submersion depth
 	Vector3 pointInWorld = body->getPointInWorldSpace(centreOfBuoyancy);
-	real depth = pointInWorld.y;
+	double depth = pointInWorld.y;
 
 	// Check if we're out of the water
 	if (depth >= waterHeight + maxDepth) return;

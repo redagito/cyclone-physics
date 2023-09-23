@@ -3,7 +3,7 @@
 
 using namespace cyclone;
 
-void ParticleForceRegistry::updateForces(real duration)
+void ParticleForceRegistry::updateForces(double duration)
 {
     for (const auto& registration : registrations)
     {

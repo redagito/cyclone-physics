@@ -15,24 +15,24 @@ namespace cyclone
 		 * The maximum submersion depth of the object before
 		 * it generates its maximum buoyancy force.
 		 */
-		real maxDepth;
+		double maxDepth;
 
 		/**
 		 * The volume of the object.
 		 */
-		real volume;
+		double volume;
 
 		/**
 		 * The height of the water plane above y=0. The plane will be
 		 * parallel to the XZ plane.
 		 */
-		real waterHeight;
+		double waterHeight;
 
 		/**
 		 * The density of the liquid. Pure water has a density of
 		 * 1000kg per cubic meter.
 		 */
-		real liquidDensity;
+		double liquidDensity;
 
 		/**
 		 * The centre of buoyancy of the rigid body, in body coordinates.
@@ -43,12 +43,12 @@ namespace cyclone
 
 		/** Creates a new buoyancy force with the given parameters. */
 		Buoyancy(const Vector3& cOfB,
-			real maxDepth, real volume, real waterHeight,
-			real liquidDensity = 1000.0f);
+			double maxDepth, double volume, double waterHeight,
+			double liquidDensity = 1000.0f);
 
 		/**
 		 * Applies the force to the given rigid body.
 		 */
-		virtual void updateForce(RigidBody* body, real duration);
+		virtual void updateForce(RigidBody* body, double duration);
 	};
 }

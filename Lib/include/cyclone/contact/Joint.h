@@ -28,7 +28,7 @@ namespace cyclone
 
 	/**
 	 * Joints link together two rigid bodies and make sure they do not
-	 * separate.  In a general phyiscs engine there may be many
+	 * separate.  In a general phyics engine there may be many
 	 * different types of joint, that reduce the number of relative
 	 * degrees of freedom between two objects. This joint is a common
 	 * position joint: each object has a location (given in
@@ -56,7 +56,7 @@ namespace cyclone
 		 * case the joint will behave as if an inelastic cable joined
 		 * the bodies at their joint locations.
 		 */
-		real error = 0.f;
+		double error = 0.f;
 
 		/**
 		 * Configures the joint in one go.
@@ -64,7 +64,7 @@ namespace cyclone
 		void set(
 			RigidBody* a, const Vector3& a_pos,
 			RigidBody* b, const Vector3& b_pos,
-			real error
+			double error
 		);
 
 		/**

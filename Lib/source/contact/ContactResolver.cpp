@@ -7,8 +7,8 @@ using namespace cyclone;
 // Contact resolver implementation
 
 ContactResolver::ContactResolver(unsigned iterations,
-	real velocityEpsilon,
-	real positionEpsilon)
+	double velocityEpsilon,
+	double positionEpsilon)
 {
 	setIterations(iterations, iterations);
 	setEpsilon(velocityEpsilon, positionEpsilon);
@@ -16,8 +16,8 @@ ContactResolver::ContactResolver(unsigned iterations,
 
 ContactResolver::ContactResolver(unsigned velocityIterations,
 	unsigned /*positionIterations*/,
-	real velocityEpsilon,
-	real positionEpsilon)
+	double velocityEpsilon,
+	double positionEpsilon)
 {
 	setIterations(velocityIterations);
 	setEpsilon(velocityEpsilon, positionEpsilon);
@@ -35,8 +35,8 @@ void ContactResolver::setIterations(unsigned velIterations,
 	positionIterations = posIterations;
 }
 
-void ContactResolver::setEpsilon(real velEpsilon,
-	real posEpsilon)
+void ContactResolver::setEpsilon(double velEpsilon,
+	double posEpsilon)
 {
 	velocityEpsilon = velEpsilon;
 	positionEpsilon = posEpsilon;
@@ -44,7 +44,7 @@ void ContactResolver::setEpsilon(real velEpsilon,
 
 void ContactResolver::resolveContacts(Contact* contacts,
 	unsigned numContacts,
-	real duration)
+	double duration)
 {
 	// Make sure we have something to do.
 	if (numContacts == 0) return;
@@ -62,7 +62,7 @@ void ContactResolver::resolveContacts(Contact* contacts,
 
 void ContactResolver::prepareContacts(Contact* contacts,
 	unsigned numContacts,
-	real duration)
+	double duration)
 {
 	// Generate contact velocity and axis information.
 	Contact* lastContact = contacts + numContacts;
@@ -75,7 +75,7 @@ void ContactResolver::prepareContacts(Contact* contacts,
 
 void ContactResolver::adjustVelocities(Contact* c,
 	unsigned numContacts,
-	real duration)
+	double duration)
 {
 	Vector3 velocityChange[2], rotationChange[2];
 	Vector3 deltaVel;
@@ -85,7 +85,7 @@ void ContactResolver::adjustVelocities(Contact* c,
 	while (velocityIterationsUsed < velocityIterations)
 	{
 		// Find contact with maximum magnitude of probable velocity change.
-		real max = velocityEpsilon;
+		double max = velocityEpsilon;
 		unsigned index = numContacts;
 		for (unsigned i = 0; i < numContacts; i++)
 		{
@@ -137,11 +137,11 @@ void ContactResolver::adjustVelocities(Contact* c,
 
 void ContactResolver::adjustPositions(Contact* c,
 	unsigned numContacts,
-	real /*duration*/)
+	double /*duration*/)
 {
 	unsigned i, index;
 	Vector3 linearChange[2], angularChange[2];
-	real max;
+	double max;
 	Vector3 deltaPosition;
 
 	// iteratively resolve interpenetrations in order of severity.
