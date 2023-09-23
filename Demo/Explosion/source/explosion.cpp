@@ -287,7 +287,7 @@ void ExplosionDemo::fire()
 	cyclone::Vector3 pos = ballData[0].body->getPosition();
 	pos.normalise();
 
-	ballData[0].body->addForce(pos * -1000.0f);
+	ballData[0].body->addForce(pos * -10000.0f);
 }
 
 void ExplosionDemo::reset()

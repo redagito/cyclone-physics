@@ -213,13 +213,14 @@ namespace cyclone
 		}
 
 		/** Turns a non-zero vector into a vector of unit length. */
-		void normalise()
+		Vector3& normalise()
 		{
 			real l = magnitude();
 			if (l > 0)
 			{
 				(*this) *= ((real)1) / l;
 			}
+			return *this;
 		}
 
 		/** Returns the normalised version of a vector. */

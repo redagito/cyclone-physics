@@ -32,27 +32,24 @@ namespace cyclone
 		 */
 		Vector3 detonation;
 
-		// ... Other Explosion code as before ...
-
-
 		/**
 		 * The radius up to which objects implode in the first stage
 		 * of the explosion.
 		 */
-		real implosionMaxRadius = 0.f;
+		real implosionMaxRadius = 2.f;
 
 		/**
 		 * The radius within which objects don't feel the implosion
 		 * force. Objects near to the detonation aren't sucked in by
 		 * the air implosion.
 		 */
-		real implosionMinRadius = 0.f;
+		real implosionMinRadius = 0.1f;
 
 		/**
 		 * The length of time that objects spend imploding before the
 		 * concussion phase kicks in.
 		 */
-		real implosionDuration = 0.f;
+		real implosionDuration = 0.1f;
 
 		/**
 		 * The maximal force that the implosion can apply. This should
@@ -60,7 +57,7 @@ namespace cyclone
 		 * through the detonation point and out the other side before
 		 * the concussion wave kicks in.
 		 */
-		real implosionForce = 0.f;
+		real implosionForce = 10.f;
 
 		/**
 		 * The speed that the shock wave is traveling, this is related
@@ -68,14 +65,14 @@ namespace cyclone
 		 *
 		 * thickness >= speed * minimum frame duration
 		 */
-		real shockwaveSpeed = 0.f;
+		real shockwaveSpeed = 100.f;
 
 		/**
 		 * The shock wave applies its force over a range of distances,
 		 * this controls how thick. Faster waves require larger
 		 * thicknesses.
 		 */
-		real shockwaveThickness = 0.f;
+		real shockwaveThickness = 5.f;
 
 		/**
 		 * This is the force that is applied at the very centre of the
@@ -85,30 +82,30 @@ namespace cyclone
 		 * force. Objects moving in towards the centre get
 		 * proportionally more force.
 		 */
-		real peakConcussionForce = 0.f;
+		real peakConcussionForce = 50.f;
 
 		/**
 		 * The length of time that the concussion wave is active.
 		 * As the wave nears this, the forces it applies reduces.
 		 */
-		real concussionDuration = 0.f;
+		real concussionDuration = 0.3f;
 
 		/**
 		 * This is the peak force for stationary objects in
 		 * the centre of the convection chimney. Force calculations
 		 * for this value are the same as for peakConcussionForce.
 		 */
-		real peakConvectionForce = 0.f;
+		real peakConvectionForce = 5.f;
 
 		/**
 		 * The radius of the chimney cylinder in the xz plane.
 		 */
-		real chimneyRadius = 0.f;
+		real chimneyRadius = 5.f;
 
 		/**
 		 * The maximum height of the chimney.
 		 */
-		real chimneyHeight = 0.f;
+		real chimneyHeight = 10.f;
 
 		/**
 		 * The length of time the convection chimney is active. Typically
@@ -116,13 +113,13 @@ namespace cyclone
 		 * from the explosion outlives the shock wave and implosion
 		 * itself.
 		 */
-		real convectionDuration = 0.f;
+		real convectionDuration = 5.f;
 
 	public:
 		/**
 		 * Creates a new explosion with sensible default values.
 		 */
-		Explosion();
+		Explosion() = default;
 
 		/**
 		 * Calculates and applies the force that the explosion

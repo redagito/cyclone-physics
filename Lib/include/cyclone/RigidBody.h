@@ -47,8 +47,6 @@ namespace cyclone {
 	{
 	public:
 
-		// ... Other RigidBody code as before ...
-
 
 	protected:
 		/**
