@@ -13,7 +13,7 @@
  */
 #include <cstring>
 
-#include "cyclonedemo/timing.h"
+#include "cyclonedemo/Timing.h"
 
 void Application::initGraphics()
 {

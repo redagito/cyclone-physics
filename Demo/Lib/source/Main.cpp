@@ -14,7 +14,7 @@
 #include "cyclonedemo/Application.h"
 
 // Include the timing functions
-#include "cyclonedemo/timing.h"
+#include "cyclonedemo/Timing.h"
 
 // Forward declaration of the function that will return the
 // application object for this particular demo. This should be

@@ -1,3 +1,5 @@
+#include "cyclonedemo/Timing.h"
+
 /*
  * Timing functions, frame management and profiling.
  *
@@ -11,7 +13,6 @@
  */
 
 #include <chrono>
-#include "cyclonedemo/timing.h"
 
 static std::chrono::high_resolution_clock::time_point initTimePoint;
 
