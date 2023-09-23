@@ -238,6 +238,8 @@ void BigBallisticDemo::key(unsigned char key)
 	case '5': currentShotType = GRANADE; break;
 
 	case 'r': case 'R': reset(); break;
+
+	default: Application::key(key);
 	}
 }
 

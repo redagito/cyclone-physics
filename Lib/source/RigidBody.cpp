@@ -321,6 +321,7 @@ double RigidBody::getAngularDamping() const
 void RigidBody::setPosition(const Vector3& pos)
 {
 	position = pos;
+	calculateDerivedData();
 }
 
 void RigidBody::setPosition(const double x, const double y, const double z)
@@ -328,6 +329,7 @@ void RigidBody::setPosition(const double x, const double y, const double z)
 	position.x = x;
 	position.y = y;
 	position.z = z;
+	calculateDerivedData();
 }
 
 void RigidBody::getPosition(Vector3* pos) const

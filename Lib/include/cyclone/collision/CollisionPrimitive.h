@@ -48,7 +48,7 @@ namespace cyclone
 		/**
 		 * Calculates the internals for the primitive.
 		 */
-		void calculateInternals();
+		void calculateInternals() const;
 
 		/**
 		 * This is a convenience function to allow access to the
@@ -71,6 +71,6 @@ namespace cyclone
 		 * calculated by combining the offset of the primitive
 		 * with the transform of the rigid body.
 		 */
-		Matrix4 transform;
+		mutable Matrix4 transform;
 	};
 }

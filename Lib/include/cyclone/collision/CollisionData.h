@@ -16,6 +16,9 @@ namespace cyclone
 		 * in the array. This is used so that the contact pointer (below)
 		 * can be incremented each time a contact is detected, while
 		 * this pointer points to the first contact found.
+		 * 
+		 * Does not own the contactArray, global array managed and 
+		 * provided by the app to have global contacts limit?
 		 */
 		Contact* contactArray = nullptr;
 
