@@ -12,7 +12,9 @@
 
 #include <cyclonedemo/Application.h>
 #include <cyclonedemo/Timing.h>
+#include <cyclone/Cyclone.h>
 
+#include <GL/freeglut.h>
 #include <cstdio>
 #include <cassert>
 

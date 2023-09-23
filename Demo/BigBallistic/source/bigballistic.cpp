@@ -13,6 +13,7 @@
 #include <cyclonedemo/RigidBodyApplication.h>
 #include <cyclonedemo/Timing.h>
 
+#include <GL/freeglut.h>
 #include <cstdio>
 
 enum ShotType

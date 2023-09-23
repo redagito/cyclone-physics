@@ -36,11 +36,6 @@ namespace cyclone {
 	 */
 	class Particle
 	{
-	public:
-
-		// ... Other Particle code as before ...
-
-
 	protected:
 		/**
 		 * @name Characteristic Data and State
@@ -77,6 +72,7 @@ namespace cyclone {
 		 /*@{*/
 
 		 /**
+		  * Mass in kg, inverse mass kg^-1
 		  * Holds the inverse of the mass of the particle. It
 		  * is more useful to hold the inverse mass because
 		  * integration is simpler, and because in real time
@@ -100,6 +96,7 @@ namespace cyclone {
 		Vector3 position;
 
 		/**
+		 * Velocity in m/s
 		 * Holds the linear velocity of the particle in
 		 * world space.
 		 */

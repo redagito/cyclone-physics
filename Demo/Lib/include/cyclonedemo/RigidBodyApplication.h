@@ -1,6 +1,7 @@
 #pragma once
 
 #include "cyclonedemo/Application.h"
+#include <cyclone/Cyclone.h>
 
 /**
  * This application adds additional functionality used in many of the

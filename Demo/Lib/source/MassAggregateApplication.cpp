@@ -1,5 +1,7 @@
 #include "cyclonedemo/MassAggregateApplication.h"
 
+#include <GL/freeglut.h>
+
 #include "cyclonedemo/Timing.h"
 
 MassAggregateApplication::MassAggregateApplication(unsigned int particleCount)

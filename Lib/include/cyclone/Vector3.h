@@ -46,9 +46,6 @@ namespace cyclone
 		const static Vector3 GRAVITY;
 		const static Vector3 UP;
 
-		// ... Other Vector3 code as before ...
-
-
 		real operator[](unsigned i) const
 		{
 			if (i == 0) return x;
@@ -306,7 +303,5 @@ namespace cyclone
 			y = -y;
 			z = -z;
 		}
-
 	};
-
 }

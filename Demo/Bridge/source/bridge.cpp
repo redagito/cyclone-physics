@@ -13,7 +13,8 @@
 #include <cyclonedemo/MassAggregateApplication.h>
 #include <cyclonedemo/Timing.h>
 
-#include <stdio.h>
+#include <GL/freeglut.h>
+#include <cstdio>
 #include <cassert>
 
 #define ROD_COUNT 6

@@ -1,5 +1,7 @@
 #include "cyclonedemo/RigidBodyApplication.h"
 
+#include <GL/freeglut.h>
+
 #include "cyclonedemo/Timing.h"
 
 RigidBodyApplication::RigidBodyApplication()

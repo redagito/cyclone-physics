@@ -10,29 +10,28 @@
  * software licence.
  */
 
-// Include the general application structure.
-#include "cyclonedemo/Application.h"
+#include <GL/freeglut.h>
 
-// Include the timing functions
+#include "cyclonedemo/Application.h"
 #include "cyclonedemo/Timing.h"
 
-// Forward declaration of the function that will return the
-// application object for this particular demo. This should be
-// implemented in the demo's .cpp file.
+ // Forward declaration of the function that will return the
+ // application object for this particular demo. This should be
+ // implemented in the demo's .cpp file.
 extern Application* getApplication();
 
 // Store the global application object.
-Application* app;
+static Application* app = nullptr;
 
 /**
  * Creates a window in which to display the scene.
  */
 void createWindow(const char* title)
 {
-    glutInitDisplayMode(GLUT_DOUBLE | GLUT_RGB | GLUT_DEPTH);
-    glutInitWindowSize(640,320);
-    glutInitWindowPosition(0,0);
-    glutCreateWindow(title);
+	glutInitDisplayMode(GLUT_DOUBLE | GLUT_RGB | GLUT_DEPTH);
+	glutInitWindowSize(640, 320);
+	glutInitWindowPosition(0, 0);
+	glutCreateWindow(title);
 }
 
 /**
@@ -41,11 +40,11 @@ void createWindow(const char* title)
  */
 void update()
 {
-    // Update the timing.
-    TimingData::get().update();
+	// Update the timing.
+	TimingData::get().update();
 
-    // Delegate to the application.
-    app->update();
+	// Delegate to the application.
+	app->update();
 }
 
 /**
@@ -54,11 +53,11 @@ void update()
  */
 void display()
 {
-    app->display();
+	app->display();
 
-    // Update the displayed content.
-    glFlush();
-    glutSwapBuffers();
+	// Update the displayed content.
+	glFlush();
+	glutSwapBuffers();
 }
 
 /**
@@ -67,7 +66,7 @@ void display()
  */
 void mouse(int button, int state, int x, int y)
 {
-    app->mouse(button, state, x, y);
+	app->mouse(button, state, x, y);
 }
 
 /**
@@ -75,7 +74,7 @@ void mouse(int button, int state, int x, int y)
  */
 void reshape(int width, int height)
 {
-    app->resize(width, height);
+	app->resize(width, height);
 }
 
 /**
@@ -83,8 +82,8 @@ void reshape(int width, int height)
  */
 void keyboard(unsigned char key, int /*x*/, int /*y*/)
 {
-    // Note we omit passing on the x and y: they are rarely needed.
-    app->key(key);
+	// Note we omit passing on the x and y: they are rarely needed.
+	app->key(key);
 }
 
 /**
@@ -92,7 +91,7 @@ void keyboard(unsigned char key, int /*x*/, int /*y*/)
  */
 void motion(int x, int y)
 {
-    app->mouseDrag(x, y);
+	app->mouseDrag(x, y);
 }
 
 /**
@@ -100,28 +99,28 @@ void motion(int x, int y)
  */
 int main(int argc, char** argv)
 {
-    // Set up GLUT and the timers
-    glutInit(&argc, argv);
-    TimingData::init();
+	// Set up GLUT and the timers
+	glutInit(&argc, argv);
+	TimingData::init();
 
-    // Create the application and its window
-    app = getApplication();
-    createWindow(app->getTitle());
+	// Create the application and its window
+	app = getApplication();
+	createWindow(app->getTitle());
 
-    // Set up the appropriate handler functions
-    glutReshapeFunc(reshape);
-    glutKeyboardFunc(keyboard);
-    glutDisplayFunc(display);
-    glutIdleFunc(update);
-    glutMouseFunc(mouse);
-    glutMotionFunc(motion);
+	// Set up the appropriate handler functions
+	glutReshapeFunc(reshape);
+	glutKeyboardFunc(keyboard);
+	glutDisplayFunc(display);
+	glutIdleFunc(update);
+	glutMouseFunc(mouse);
+	glutMotionFunc(motion);
 
-    // Run the application
-    app->initGraphics();
-    glutMainLoop();
+	// Run the application
+	app->initGraphics();
+	glutMainLoop();
 
-    // Clean up the application
-    app->deinit();
-    delete app;
-    TimingData::deinit();
+	// Clean up the application
+	app->deinit();
+	delete app;
+	TimingData::deinit();
 }
