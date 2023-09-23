@@ -11,7 +11,7 @@
  */
 
 #include <cyclonedemo/MassAggregateApplication.h>
-#include <cyclonedemo/timing.h>
+#include <cyclonedemo/Timing.h>
 
 #include <stdio.h>
 #include <cassert>
