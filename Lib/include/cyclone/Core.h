@@ -96,7 +96,7 @@
    * The core contains utility functions, helpers and a basic set of
    * mathematical types.
    */
-#include "cyclone/precision.h"
+#include "cyclone/Precision.h"
 
    /**
 	* The cyclone namespace includes all cyclone functions and
