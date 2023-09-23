@@ -1,6 +1,6 @@
 #pragma once
 
-#include "cyclone/precision.h"
+#include "cyclone/Precision.h"
 
 namespace cyclone 
 {

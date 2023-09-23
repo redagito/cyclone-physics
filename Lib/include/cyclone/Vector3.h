@@ -2,7 +2,7 @@
 
 #include <cmath>
 
-#include "cyclone/precision.h"
+#include "cyclone/Precision.h"
 
 // TODO Use glm instead
 namespace cyclone
