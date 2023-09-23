@@ -57,9 +57,10 @@ void Application::update()
 	glutPostRedisplay();
 }
 
-void Application::key(unsigned char /*key*/)
+void Application::key(unsigned char key)
 {
-	// Default do nothing
+	if (key == 27) // 27 seems to be ESC key
+		glutLeaveMainLoop();
 }
 
 

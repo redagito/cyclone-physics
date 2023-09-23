@@ -465,7 +465,7 @@ unsigned CollisionDetector::boxAndSphere(
 	}
 
 	Vector3 closestPt(0, 0, 0);
-	double dist;
+	double dist = 0.0;
 
 	// Clamp each coordinate to the box.
 	dist = relCentre.x;

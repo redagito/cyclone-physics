@@ -1,3 +1,5 @@
+#include "BigBallisticDemo.h"
+
 /*
  * The BigBallistic demo.
  *
@@ -10,226 +12,11 @@
  * software licence.
  */
 
-#include <cyclonedemo/RigidBodyApplication.h>
+#include <GL/freeglut.h>
+
 #include <cyclonedemo/Timing.h>
 
-#include <GL/freeglut.h>
-#include <cstdio>
-
-enum ShotType
-{
-	UNUSED = 0,
-	PISTOL,
-	ARTILLERY,
-	FIREBALL,
-	LASER
-};
-
-class AmmoRound : public cyclone::CollisionSphere
-{
-public:
-	ShotType type = ShotType::PISTOL;
-	unsigned startTime = 0;
-
-	AmmoRound()
-	{
-		body = new cyclone::RigidBody;
-	}
-
-	~AmmoRound()
-	{
-		delete body;
-	}
-
-	/** Draws the box, excluding its shadow. */
-	void render()
-	{
-		// Get the OpenGL transformation
-		GLfloat mat[16];
-		body->getGLTransform(mat);
-
-		glPushMatrix();
-		glMultMatrixf(mat);
-		glutSolidSphere(radius, 20, 20);
-		glPopMatrix();
-	}
-
-	/** Sets the box to a specific location. */
-	void setState(ShotType shotType)
-	{
-		type = shotType;
-
-		// Set the properties of the particle
-		switch (type)
-		{
-		case PISTOL:
-			body->setMass(1.5f);
-			body->setVelocity(0.0f, 0.0f, 20.0f);
-			body->setAcceleration(0.0f, -0.5f, 0.0f);
-			body->setDamping(0.99f, 0.8f);
-			radius = 0.2f;
-			break;
-
-		case ARTILLERY:
-			body->setMass(200.0f); // 200.0kg
-			body->setVelocity(0.0f, 30.0f, 40.0f); // 50m/s
-			body->setAcceleration(0.0f, -21.0f, 0.0f);
-			body->setDamping(0.99f, 0.8f);
-			radius = 0.4f;
-			break;
-
-		case FIREBALL:
-			body->setMass(4.0f); // 4.0kg - mostly blast damage
-			body->setVelocity(0.0f, -0.5f, 10.0); // 10m/s
-			body->setAcceleration(0.0f, 0.3f, 0.0f); // Floats up
-			body->setDamping(0.9f, 0.8f);
-			radius = 0.6f;
-			break;
-
-		case LASER:
-			// Note that this is the kind of laser bolt seen in films,
-			// not a realistic laser beam!
-			body->setMass(0.1f); // 0.1kg - almost no weight
-			body->setVelocity(0.0f, 0.0f, 100.0f); // 100m/s
-			body->setAcceleration(0.0f, 0.0f, 0.0f); // No gravity
-			body->setDamping(0.99f, 0.8f);
-			radius = 0.2f;
-			break;
-		}
-
-		body->setCanSleep(false);
-		body->setAwake();
-
-		cyclone::Matrix3 tensor;
-		double coeff = 0.4f * body->getMass() * radius * radius;
-		tensor.setInertiaTensorCoeffs(coeff, coeff, coeff);
-		body->setInertiaTensor(tensor);
-
-		// Set the data common to all particle types
-		body->setPosition(0.0f, 1.5f, 0.0f);
-		startTime = TimingData::get().lastFrameTimestamp;
-
-		// Clear the force accumulators
-		body->calculateDerivedData();
-		calculateInternals();
-	}
-};
-
-class Box : public cyclone::CollisionBox
-{
-public:
-	Box()
-	{
-		body = new cyclone::RigidBody;
-	}
-
-	~Box()
-	{
-		delete body;
-	}
-
-	/** Draws the box, excluding its shadow. */
-	void render()
-	{
-		// Get the OpenGL transformation
-		GLfloat mat[16];
-		body->getGLTransform(mat);
-
-		glPushMatrix();
-		glMultMatrixf(mat);
-		glScalef(halfSize.x * 2, halfSize.y * 2, halfSize.z * 2);
-		glutSolidCube(1.0f);
-		glPopMatrix();
-	}
-
-	/** Sets the box to a specific location. */
-	void setState(double z)
-	{
-		body->setPosition(0, 3, z);
-		body->setOrientation(1, 0, 0, 0);
-		body->setVelocity(0, 0, 0);
-		body->setRotation(cyclone::Vector3(0, 0, 0));
-		halfSize = cyclone::Vector3(1, 1, 1);
-
-		double mass = halfSize.x * halfSize.y * halfSize.z * 8.0f;
-		body->setMass(mass);
-
-		cyclone::Matrix3 tensor;
-		tensor.setBlockInertiaTensor(halfSize, mass);
-		body->setInertiaTensor(tensor);
-
-		body->setLinearDamping(0.95f);
-		body->setAngularDamping(0.8f);
-		body->clearAccumulators();
-		body->setAcceleration(0, -10.0f, 0);
-
-		body->setCanSleep(false);
-		body->setAwake();
-
-		body->calculateDerivedData();
-		calculateInternals();
-	}
-};
-
-
-/**
- * The main demo class definition.
- */
-class BigBallisticDemo : public RigidBodyApplication
-{
-	/**
-	 * Holds the maximum number of  rounds that can be
-	 * fired.
-	 */
-	const static unsigned ammoRounds = 256;
-
-	/** Holds the particle data. */
-	AmmoRound ammo[ammoRounds];
-
-	/**
-	* Holds the number of boxes in the simulation.
-	*/
-	const static unsigned boxes = 2;
-
-	/** Holds the box data. */
-	Box boxData[boxes];
-
-	/** Holds the current shot type. */
-	ShotType currentShotType = ShotType::PISTOL;
-
-	/** Resets the position of all the boxes and primes the explosion. */
-	virtual void reset();
-
-	/** Build the contacts for the current situation. */
-	virtual void generateContacts();
-
-	/** Processes the objects in the simulation forward in time. */
-	virtual void updateObjects(double duration);
-
-	/** Dispatches a round. */
-	void fire();
-
-public:
-	/** Creates a new demo object. */
-	BigBallisticDemo();
-
-	/** Returns the window title for the demo. */
-	virtual const char* getTitle();
-
-	/** Sets up the rendering. */
-	virtual void initGraphics();
-
-	/** Display world. */
-	virtual void display();
-
-	/** Handle a mouse click. */
-	virtual void mouse(int button, int state, int x, int y);
-
-	/** Handle a keypress. */
-	virtual void key(unsigned char key);
-};
-
-// Method definitions
+ // Method definitions
 BigBallisticDemo::BigBallisticDemo()
 	:
 	RigidBodyApplication(),
@@ -266,7 +53,7 @@ void BigBallisticDemo::reset()
 	for (Box* box = boxData; box < boxData + boxes; box++)
 	{
 		box->setState(z);
-		z += 90.0f;
+		z += 15.0f;
 	}
 }
 
@@ -382,7 +169,7 @@ void BigBallisticDemo::display()
 
 	// Render the description
 	glColor3f(0.0f, 0.0f, 0.0f);
-	renderText(10.0f, 34.0f, "Click: Fire\n1-4: Select Ammo");
+	renderText(10.0f, 34.0f, "Click: Fire\n1-5: Select Ammo");
 
 	// Render the name of the current shot type
 	switch (currentShotType)
@@ -391,6 +178,7 @@ void BigBallisticDemo::display()
 	case ARTILLERY: renderText(10.0f, 10.0f, "Current Ammo: Artillery"); break;
 	case FIREBALL: renderText(10.0f, 10.0f, "Current Ammo: Fireball"); break;
 	case LASER: renderText(10.0f, 10.0f, "Current Ammo: Laser"); break;
+	case GRANADE: renderText(10.0f, 10.0f, "Current Ammo: Granade"); break;
 	}
 }
 
@@ -447,6 +235,7 @@ void BigBallisticDemo::key(unsigned char key)
 	case '2': currentShotType = ARTILLERY; break;
 	case '3': currentShotType = FIREBALL; break;
 	case '4': currentShotType = LASER; break;
+	case '5': currentShotType = GRANADE; break;
 
 	case 'r': case 'R': reset(); break;
 	}

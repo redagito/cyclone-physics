@@ -1,3 +1,5 @@
+#include "FireworksDemo.h"
+
 /*
  * The fireworks demo.
  *
@@ -15,217 +17,8 @@
 
 #include <cyclonedemo/Application.h>
 #include <cyclonedemo/Timing.h>
-#include <cyclone/Cyclone.h>
 
-static cyclone::Random crandom;
-
-/**
- * Fireworks are particles, with additional data for rendering and
- * evolution.
- */
-class Firework : public cyclone::Particle
-{
-public:
-	/** Fireworks have an integer type, used for firework rules. */
-	unsigned type = 0;
-
-	/**
-	 * The age of a firework determines when it detonates. Age gradually
-	 * decreases, when it passes zero the firework delivers its payload.
-	 * Think of age as fuse-left.
-	 */
-	double age = 0;
-
-	/**
-	 * Updates the firework by the given duration of time. Returns true
-	 * if the firework has reached the end of its life and needs to be
-	 * removed.
-	 */
-	bool update(double duration)
-	{
-		// Update our physical state
-		integrate(duration);
-
-		// We work backwards from our age to zero.
-		age -= duration;
-		return (age < 0) || (position.y < 0);
-	}
-};
-
-/**
- * Firework rules control the length of a firework's fuse and the
- * particles it should evolve into.
- */
-struct FireworkRule
-{
-	/** The type of firework that is managed by this rule. */
-	unsigned type = 0;
-
-	/** The minimum length of the fuse. */
-	double minAge = 0.f;
-
-	/** The maximum legnth of the fuse. */
-	double maxAge = 0.f;
-
-	/** The minimum relative velocity of this firework. */
-	cyclone::Vector3 minVelocity;
-
-	/** The maximum relative velocity of this firework. */
-	cyclone::Vector3 maxVelocity;
-
-	/** The damping of this firework type. */
-	double damping = 0.f;
-
-	/**
-	 * The payload is the new firework type to create when this
-	 * firework's fuse is over.
-	 */
-	struct Payload
-	{
-		/** The type of the new particle to create. */
-		unsigned type;
-
-		/** The number of particles in this payload. */
-		unsigned count;
-
-		/** Sets the payload properties in one go. */
-		void set(unsigned type, unsigned count)
-		{
-			Payload::type = type;
-			Payload::count = count;
-		}
-	};
-
-	/** The number of payloads for this firework type. */
-	unsigned payloadCount;
-
-	/** The set of payloads. */
-	Payload* payloads;
-
-	FireworkRule()
-		:
-		payloadCount(0),
-		payloads(NULL)
-	{
-	}
-
-	void init(unsigned payloadCount)
-	{
-		FireworkRule::payloadCount = payloadCount;
-		payloads = new Payload[payloadCount];
-	}
-
-	~FireworkRule()
-	{
-		if (payloads != NULL) delete[] payloads;
-	}
-
-	/**
-	 * Set all the rule parameters in one go.
-	 */
-	void setParameters(unsigned type, double minAge, double maxAge,
-		const cyclone::Vector3& minVelocity, const cyclone::Vector3& maxVelocity,
-		double damping)
-	{
-		FireworkRule::type = type;
-		FireworkRule::minAge = minAge;
-		FireworkRule::maxAge = maxAge;
-		FireworkRule::minVelocity = minVelocity;
-		FireworkRule::maxVelocity = maxVelocity;
-		FireworkRule::damping = damping;
-	}
-
-	/**
-	 * Creates a new firework of this type and writes it into the given
-	 * instance. The optional parent firework is used to base position
-	 * and velocity on.
-	 */
-	void create(Firework* firework, const Firework* parent = NULL) const
-	{
-		firework->type = type;
-		firework->age = crandom.randomReal(minAge, maxAge);
-
-		cyclone::Vector3 vel;
-		if (parent) {
-			// The position and velocity are based on the parent.
-			firework->setPosition(parent->getPosition());
-			vel += parent->getVelocity();
-		}
-		else
-		{
-			cyclone::Vector3 start;
-			int x = (int)crandom.randomInt(3) - 1;
-			start.x = 5.0f * double(x);
-			firework->setPosition(start);
-		}
-
-		vel += crandom.randomVector(minVelocity, maxVelocity);
-		firework->setVelocity(vel);
-
-		// We use a mass of one in all cases (no point having fireworks
-		// with different masses, since they are only under the influence
-		// of gravity).
-		firework->setMass(1);
-
-		firework->setDamping(damping);
-
-		firework->setAcceleration(cyclone::Vector3::GRAVITY);
-
-		firework->clearAccumulator();
-	}
-};
-
-/**
- * The main demo class definition.
- */
-class FireworksDemo : public Application
-{
-	/**
-	 * Holds the maximum number of fireworks that can be in use.
-	 */
-	const static unsigned maxFireworks = 1024;
-
-	/** Holds the firework data. */
-	Firework fireworks[maxFireworks];
-
-	/** Holds the index of the next firework slot to use. */
-	unsigned nextFirework;
-
-	/** And the number of rules. */
-	const static unsigned ruleCount = 9;
-
-	/** Holds the set of rules. */
-	FireworkRule rules[ruleCount];
-
-	/** Dispatches a firework from the origin. */
-	void create(unsigned type, const Firework* parent = NULL);
-
-	/** Dispatches the given number of fireworks from the given parent. */
-	void create(unsigned type, unsigned number, const Firework* parent);
-
-	/** Creates the rules. */
-	void initFireworkRules();
-
-public:
-	/** Creates a new demo object. */
-	FireworksDemo();
-	~FireworksDemo();
-
-	/** Sets up the graphic rendering. */
-	virtual void initGraphics();
-
-	/** Returns the window title for the demo. */
-	virtual const char* getTitle();
-
-	/** Update the particle positions. */
-	virtual void update();
-
-	/** Display the particle positions. */
-	virtual void display();
-
-	/** Handle a keypress. */
-	virtual void key(unsigned char key);
-};
+#include "Payload.h"
 
 // Method definitions
 FireworksDemo::FireworksDemo()
@@ -337,6 +130,15 @@ void FireworksDemo::initFireworkRules()
 		0.95 // damping
 	);
 	// ... and so on for other firework types ...
+	rules[9].init(1);
+	rules[9].setParameters(
+		10, // type
+		0.3, 3, // age range
+		cyclone::Vector3(-5, 5, -5), // min velocity
+		cyclone::Vector3(5, 10, 5), // max velocity
+		0.05 // damping
+	);
+	rules[9].payloads[0].set(1, 100);
 }
 
 void FireworksDemo::initGraphics()
@@ -401,7 +203,7 @@ void FireworksDemo::update()
 				// Add the payload
 				for (unsigned i = 0; i < rule->payloadCount; i++)
 				{
-					FireworkRule::Payload* payload = rule->payloads + i;
+					Payload* payload = rule->payloads + i;
 					create(payload->type, payload->count, firework);
 				}
 			}
@@ -440,6 +242,7 @@ void FireworksDemo::display()
 			case 7: glColor3f(1, 0, 1); break;
 			case 8: glColor3f(1, 1, 1); break;
 			case 9: glColor3f(1, 0.5f, 0.5f); break;
+			case 10: glColor3f(1, 0.9f, 0.f); break;
 			};
 
 			const cyclone::Vector3& pos = firework->getPosition();
@@ -471,6 +274,8 @@ void FireworksDemo::key(unsigned char key)
 	case '7': create(7, 1, NULL); break;
 	case '8': create(8, 1, NULL); break;
 	case '9': create(9, 1, NULL); break;
+	case '0': create(10, 1, NULL); break;
+	default: Application::key(key);
 	}
 }
 

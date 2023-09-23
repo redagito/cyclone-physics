@@ -11,6 +11,7 @@ namespace cyclone
 	class CollisionSphere : public CollisionPrimitive
 	{
 	public:
+		virtual ~CollisionSphere() = default;
 		/**
 		 * The radius of the sphere.
 		 */

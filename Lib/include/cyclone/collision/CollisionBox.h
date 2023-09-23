@@ -12,6 +12,7 @@ namespace cyclone
 	class CollisionBox : public CollisionPrimitive
 	{
 	public:
+		virtual ~CollisionBox() = default;
 		/**
 		 * Holds the half-sizes of the box along each of its local axes.
 		 */
