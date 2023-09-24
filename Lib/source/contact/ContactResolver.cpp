@@ -65,11 +65,10 @@ void ContactResolver::prepareContacts(Contact* contacts,
 	double duration)
 {
 	// Generate contact velocity and axis information.
-	Contact* lastContact = contacts + numContacts;
-	for (Contact* contact = contacts; contact < lastContact; contact++)
+	for (size_t i = 0; i < numContacts; ++i)
 	{
 		// Calculate the internal contact data (inertia, basis, etc).
-		contact->calculateInternals(duration);
+		contacts[i].calculateInternals(duration);
 	}
 }
 

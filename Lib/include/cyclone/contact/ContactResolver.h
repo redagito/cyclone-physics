@@ -130,7 +130,7 @@ namespace cyclone
 			return (velocityIterations > 0) &&
 				(positionIterations > 0) &&
 				(positionEpsilon >= 0.0f) &&
-				(positionEpsilon >= 0.0f);
+				(velocityEpsilon >= 0.0f);
 		}
 
 		/**
