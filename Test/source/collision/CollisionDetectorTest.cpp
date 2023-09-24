@@ -31,3 +31,28 @@ TEST_CASE("CollisionDetector_BoxAndSphere_NoCollision", "[collisiondetector]")
 	REQUIRE(cyclone::CollisionDetector::boxAndSphere(box, sphere, &data) == 0);
 	REQUIRE(data.contactCount == 0);
 }
+
+TEST_CASE("CollisionDetector_BoxAndSphere_Collision", "[collisiondetector]")
+{
+	cyclone::RigidBody b1;
+	cyclone::RigidBody b2;
+
+	cyclone::Contact contacts[10];
+	cyclone::CollisionData data;
+	data.contactArray = contacts;
+	data.reset(10);
+
+	// Box at origin with 0.5 half size, unit size box
+	cyclone::CollisionBox box;
+	box.body = &b1;
+	box.body->setPosition(0.0, 0.0, -0.5);
+	box.halfSize = cyclone::Vector3(0.5, 0.5, 0.5);
+
+	cyclone::CollisionSphere sphere;
+	sphere.body = &b2;
+	sphere.body->setPosition(0.0, 0.0, 0.49);
+	sphere.radius = 0.5;
+
+	REQUIRE(cyclone::CollisionDetector::boxAndSphere(box, sphere, &data) == 1);
+	REQUIRE(data.contactCount == 1);
+}

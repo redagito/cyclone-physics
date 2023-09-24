@@ -454,7 +454,7 @@ unsigned CollisionDetector::boxAndSphere(
 {
 	// Transform the centre of the sphere into box coordinates
 	Vector3 centre = sphere.getAxis(3);
-	Vector3 relCentre = box.transform.transformInverse(centre);
+	Vector3 relCentre = box.getTransform().transformInverse(centre);
 
 	// Early out check to see if we can exclude the contact
 	if (std::abs(relCentre.x) - sphere.radius > box.halfSize.x ||

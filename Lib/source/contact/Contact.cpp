@@ -153,6 +153,7 @@ void Contact::calculateDesiredDeltaVelocity(double duration)
 			body[1]->getLastFrameAcceleration() * duration * contactNormal;
 	}
 
+	// This fixes ground contact, thats why its using x component only
 	// If the velocity is very slow, limit the restitution
 	double thisRestitution = restitution;
 	if (std::abs(contactVelocity.x) < velocityLimit)
@@ -162,9 +163,7 @@ void Contact::calculateDesiredDeltaVelocity(double duration)
 
 	// Combine the bounce velocity with the removed
 	// acceleration velocity.
-	desiredDeltaVelocity =
-		-contactVelocity.x
-		- thisRestitution * (contactVelocity.x - velocityFromAcc);
+	desiredDeltaVelocity = -contactVelocity.x - thisRestitution * (contactVelocity.x - velocityFromAcc);
 }
 
 
