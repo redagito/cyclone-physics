@@ -4,5 +4,6 @@
 
 TEST_CASE("World", "[world]")
 {
+	cyclone::World world{ 256 };
 	REQUIRE(true);
 }
