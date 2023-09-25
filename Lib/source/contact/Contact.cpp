@@ -7,6 +7,13 @@
 using namespace cyclone;
 // Contact implementation
 
+Contact::Contact()
+{
+	body[0] = nullptr;
+	body[1] = nullptr;
+}
+
+
 void Contact::setBodyData(RigidBody* one, RigidBody* two,
 	double frict, double restitut)
 {

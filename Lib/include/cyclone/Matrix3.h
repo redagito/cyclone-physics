@@ -161,16 +161,6 @@ namespace cyclone {
 		}
 
 		/**
-		 * Gets a vector representing one row in the matrix.
-		 *
-		 * @param i The row to return.
-		 */
-		Vector3 getRowVector(int i) const
-		{
-			return Vector3(data[i * 3], data[i * 3 + 1], data[i * 3 + 2]);
-		}
-
-		/**
 		 * Gets a vector representing one axis (i.e. one column) in the matrix.
 		 *
 		 * @param i The row to return.
@@ -221,14 +211,6 @@ namespace cyclone {
 			Matrix3 result;
 			result.setInverse(*this);
 			return result;
-		}
-
-		/**
-		 * Inverts the matrix.
-		 */
-		void invert()
-		{
-			setInverse(*this);
 		}
 
 		/**
@@ -328,23 +310,6 @@ namespace cyclone {
 			data[0] += o.data[0]; data[1] += o.data[1]; data[2] += o.data[2];
 			data[3] += o.data[3]; data[4] += o.data[4]; data[5] += o.data[5];
 			data[6] += o.data[6]; data[7] += o.data[7]; data[8] += o.data[8];
-		}
-
-		/**
-		 * Sets this matrix to be the rotation matrix corresponding to
-		 * the given quaternion.
-		 */
-		void setOrientation(const Quaternion& q)
-		{
-			data[0] = 1 - (2 * q.ud.sd.j * q.ud.sd.j + 2 * q.ud.sd.k * q.ud.sd.k);
-			data[1] = 2 * q.ud.sd.i * q.ud.sd.j + 2 * q.ud.sd.k * q.ud.sd.r;
-			data[2] = 2 * q.ud.sd.i * q.ud.sd.k - 2 * q.ud.sd.j * q.ud.sd.r;
-			data[3] = 2 * q.ud.sd.i * q.ud.sd.j - 2 * q.ud.sd.k * q.ud.sd.r;
-			data[4] = 1 - (2 * q.ud.sd.i * q.ud.sd.i + 2 * q.ud.sd.k * q.ud.sd.k);
-			data[5] = 2 * q.ud.sd.j * q.ud.sd.k + 2 * q.ud.sd.i * q.ud.sd.r;
-			data[6] = 2 * q.ud.sd.i * q.ud.sd.k + 2 * q.ud.sd.j * q.ud.sd.r;
-			data[7] = 2 * q.ud.sd.j * q.ud.sd.k - 2 * q.ud.sd.i * q.ud.sd.r;
-			data[8] = 1 - (2 * q.ud.sd.i * q.ud.sd.i + 2 * q.ud.sd.j * q.ud.sd.j);
 		}
 
 		/**

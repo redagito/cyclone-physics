@@ -15,7 +15,7 @@ namespace cyclone
 		/**
 		 * Holds the length of the rod.
 		 */
-		double length;
+		double length = 0.0;
 
 	public:
 		/**

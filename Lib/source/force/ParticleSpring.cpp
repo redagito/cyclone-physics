@@ -19,7 +19,9 @@ void ParticleSpring::updateForce(Particle* particle, double /*duration*/)
 
 	// Calculate the magnitude of the force
 	double magnitude = force.magnitude();
-	magnitude = std::abs(magnitude - restLength);
+	//magnitude = std::abs(magnitude - restLength);
+	// The force is repulsive if ,agnitude is less than restLength
+	magnitude = magnitude - restLength;
 	magnitude *= springConstant;
 
 	// Calculate the final force and apply it

@@ -51,6 +51,8 @@ namespace cyclone
 		friend class ContactResolver;
 
 	public:
+		Contact();
+
 		/**
 		 * Holds the bodies that are involved in the contact. The
 		 * second of these can be NULL, for contacts with the scenery.

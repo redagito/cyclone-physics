@@ -17,6 +17,12 @@
 
 using namespace cyclone;
 
+Joint::Joint()
+{
+	body[0] = nullptr;
+	body[1] = nullptr;
+}
+
 unsigned Joint::addContact(Contact* contact, unsigned /*limit*/) const
 {
 	// Calculate the position of each connection point in world coordinates

@@ -15,24 +15,24 @@ namespace cyclone
          * The maximum submersion depth of the object before
          * it generates its maximum boyancy force.
          */
-        double maxDepth;
+        double maxDepth = 0.0;
 
         /**
          * The volume of the object.
          */
-        double volume;
+        double volume = 0.0;
 
         /**
          * The height of the water plane above y=0. The plane will be
          * parrallel to the XZ plane.
          */
-        double waterHeight;
+        double waterHeight = 0.0;
 
         /**
          * The density of the liquid. Pure water has a density of
          * 1000kg per cubic meter.
          */
-        double liquidDensity;
+        double liquidDensity = 0.0;
 
     public:
 

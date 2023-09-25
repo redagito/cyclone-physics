@@ -38,6 +38,8 @@ namespace cyclone
 	class Joint : public ContactGenerator
 	{
 	public:
+		Joint();
+
 		/**
 		 * Holds the two rigid bodies that are connected by this joint.
 		 */

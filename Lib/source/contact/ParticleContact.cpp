@@ -3,6 +3,13 @@
 
 using namespace cyclone;
 
+
+ParticleContact::ParticleContact()
+{
+    particle[0] = nullptr;
+    particle[1] = nullptr;
+}
+
 void ParticleContact::resolve(double duration)
 {
     resolveVelocity(duration);

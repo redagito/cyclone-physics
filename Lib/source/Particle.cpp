@@ -77,7 +77,7 @@ double Particle::getInverseMass() const
 
 bool Particle::hasFiniteMass() const
 {
-    return inverseMass >= 0.0f;
+    return inverseMass > DBL_EPSILON;
 }
 
 void Particle::setDamping(const double damp)

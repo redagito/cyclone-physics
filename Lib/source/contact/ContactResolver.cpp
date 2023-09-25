@@ -138,9 +138,10 @@ void ContactResolver::adjustPositions(Contact* c,
 	unsigned numContacts,
 	double /*duration*/)
 {
-	unsigned i, index;
+	unsigned i = 0;
+	unsigned index = 0;
 	Vector3 linearChange[2], angularChange[2];
-	double max;
+	double max = 0.0;
 	Vector3 deltaPosition;
 
 	// iteratively resolve interpenetrations in order of severity.

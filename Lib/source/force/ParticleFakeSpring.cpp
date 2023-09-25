@@ -31,7 +31,7 @@ void ParticleFakeSpring::updateForce(Particle* particle, double duration)
     target *= std::exp(-0.5f * duration * damping);
 
     // Calculate the resulting acceleration and therefore the force
-    Vector3 accel = (target - position) * ((double)1.0 / (duration * duration)) -
-        particle->getVelocity() * ((double)1.0 / duration);
+    Vector3 accel = (target - position) * (1.0 / (duration * duration)) -
+        particle->getVelocity() * (1.0 / duration);
     particle->addForce(accel * particle->getMass());
 }

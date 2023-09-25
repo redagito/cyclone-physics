@@ -29,6 +29,8 @@ namespace cyclone
 
 
 	public:
+		ParticleContact();
+
 		/**
 		 * Holds the particles that are involved in the contact. The
 		 * second of these can be NULL, for contacts with the scenery.
@@ -77,6 +79,5 @@ namespace cyclone
 		 * Handles the interpenetration resolution for this contact.
 		 */
 		void resolveInterpenetration(double duration);
-
 	};
 }
