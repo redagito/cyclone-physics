@@ -1,0 +1,82 @@
+name: CMake
+
+on:
+  push:
+    branches: [ main ]
+  pull_request:
+    branches: [ main ]
+
+env:
+  # Customize the CMake build type here (Release, Debug, RelWithDebInfo, etc.)
+  BUILD_TYPE: Release
+
+jobs:
+  build:
+    # The CMake configure and build commands are platform agnostic and should work
+    # equally well on Windows or Mac.
+    # You can convert this to a matrix build if you need cross-platform coverage.
+    # See: https://docs.github.com/en/free-pro-team@latest/actions/learn-github-actions/managing-complex-workflows#using-a-build-matrix
+    runs-on: ubuntu-latest
+
+    steps:
+    - uses: actions/checkout@v2
+      with:
+        fetch-depth: 0
+
+    - name: Get GCC-10
+      run:   |
+             sudo apt update
+             sudo apt install gcc-10 g++-10
+      shell: bash
+
+    - name: Conan installation
+      id: conan
+      uses: turtlebrowser/get-conan@v1.0
+
+    - name: Conan version
+      run: echo "${{ steps.conan.outputs.version }}"
+
+    - name: Create default Conan profile
+      run: conan profile new default --detect
+
+    - name: Conan configure remotes
+      run:  |
+            conan remote add bincrafters https://bincrafters.jfrog.io/artifactory/api/conan/public-conan
+            conan config set general.revisions_enabled=1
+
+    - name: Conan profile update
+      run:  |
+            conan profile update settings.compiler=gcc default
+            conan profile update settings.compiler.version=10 default
+            conan profile update settings.compiler.cppstd=20 default
+            conan profile update env.CC=[/usr/bin/gcc-10] default
+            conan profile update env.CXX=[/usr/bin/g++-10] default
+            conan profile update conf.tools.cmake.cmaketoolchain:generator=Ninja default
+            conan profile show default
+
+    - name: Conan install dependencies
+      run:  |
+            conan install . \
+            -s build_type=${{env.BUILD_TYPE}} \
+            --install-folder=${{github.workspace}}/build \
+            -pr default \
+            -b=missing
+
+    - name: CMake configuration
+      # Configure CMake in a 'build' subdirectory. `CMAKE_BUILD_TYPE` is only required if you are using a single-configuration generator such as make.
+      # See https://cmake.org/cmake/help/latest/variable/CMAKE_BUILD_TYPE.html?highlight=cmake_build_type
+      run:  |
+            cmake -B ${{github.workspace}}/build \
+            -DCMAKE_TOOLCHAIN_FILE=conan_toolchain.cmake \
+            -DCMAKE_BUILD_TYPE=${{env.BUILD_TYPE}}
+      shell: bash
+      env:
+       CC:   gcc-10
+       CXX:  g++-10
+
+    - name: Cmake build
+      run: cmake --build ${{github.workspace}}/build --config ${{env.BUILD_TYPE}}
+
+    - name: Cmake test
+      working-directory: ${{github.workspace}}/build
+      run: ctest -C ${{env.BUILD_TYPE}}
