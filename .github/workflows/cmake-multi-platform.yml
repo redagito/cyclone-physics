@@ -55,7 +55,7 @@ jobs:
 #            conan profile show default
 
     - name: Conan install dependencies
-      run: conan install . --build=missing --settings=build_type=Debug -c tools.system.package_manager:mode=install
+      run: sudo conan install . --build=missing --settings=build_type=Debug -c tools.system.package_manager:mode=install
 
     - name: CMake configuration
       # Configure CMake in a 'build' subdirectory. `CMAKE_BUILD_TYPE` is only required if you are using a single-configuration generator such as make.
