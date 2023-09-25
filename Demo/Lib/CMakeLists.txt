@@ -33,7 +33,3 @@ target_compile_options(${PROJECT_NAME} PRIVATE
   $<$<NOT:$<CXX_COMPILER_ID:MSVC>>:-Wall -Werror>
   # -Wextra -Wpedantic 
 )
-
-set_target_properties(${PROJECT_NAME} 
-	PROPERTIES FOLDER "Demos"
-)

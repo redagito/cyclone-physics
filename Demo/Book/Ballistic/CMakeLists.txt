@@ -22,5 +22,5 @@ target_include_directories(${PROJECT_NAME}
 )
 
 set_target_properties(${PROJECT_NAME} 
-	PROPERTIES FOLDER "Demos"
+	PROPERTIES FOLDER "BookDemos"
 )

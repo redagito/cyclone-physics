@@ -5,7 +5,6 @@
 
 namespace cyclone
 {
-
 	/**
 	 * A force generator that applies a Spring force.
 	 */

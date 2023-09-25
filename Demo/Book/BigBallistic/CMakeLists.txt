@@ -1,4 +1,4 @@
-project(RagdollDemo)
+project(BigBallisticDemo)
 
 file(GLOB_RECURSE SOURCE_FILES CONFIGURE_DEPENDS 
 	${CMAKE_CURRENT_SOURCE_DIR}/source/*.h 
@@ -22,5 +22,5 @@ target_include_directories(${PROJECT_NAME}
 )
 
 set_target_properties(${PROJECT_NAME} 
-	PROPERTIES FOLDER "Demos"
+	PROPERTIES FOLDER "BookDemos"
 )

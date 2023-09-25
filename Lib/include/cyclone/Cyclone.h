@@ -39,3 +39,4 @@
 #include "cyclone/force/Buoyancy.h"
 #include "cyclone/force/ForceRegistry.h"
 #include "cyclone/force/ParticleForceGenerator.h"
+#include "cyclone/force/ParticleGravity.h"

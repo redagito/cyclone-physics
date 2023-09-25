@@ -87,7 +87,7 @@ namespace cyclone {
 		 * motion. Damping is required to remove energy added
 		 * through numerical instability in the integrator.
 		 */
-		double damping = 0.f;
+		double damping = 0.9995f;
 
 		/**
 		 * Holds the linear position of the particle in
@@ -130,6 +130,7 @@ namespace cyclone {
 		/*@}*/
 
 	public:
+		virtual ~Particle() = default;
 		/**
 		 * @name Constructor and Destructor
 		 *
