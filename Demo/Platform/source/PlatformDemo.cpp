@@ -1,3 +1,5 @@
+#include "PlatformDemo.h"
+
 /*
  * The platform demo.
  *
@@ -10,51 +12,15 @@
  * software licence.
  */
 
-#include <cyclonedemo/MassAggregateApplication.h>
 #include <cyclonedemo/Timing.h>
 
 #include <GL/freeglut.h>
-#include <cstdio>
 #include <cassert>
 
 #define ROD_COUNT 15
 
 #define BASE_MASS 1
 #define EXTRA_MASS 10
-
- /**
-  * The main demo class definition.
-  */
-class PlatformDemo : public MassAggregateApplication
-{
-	cyclone::ParticleRod* rods;
-
-	cyclone::Vector3 massPos;
-	cyclone::Vector3 massDisplayPos;
-
-	/**
-	 * Updates particle masses to take into account the mass
-	 * that's on the platform.
-	 */
-	void updateAdditionalMass();
-
-public:
-	/** Creates a new demo object. */
-	PlatformDemo();
-	virtual ~PlatformDemo();
-
-	/** Returns the window title for the demo. */
-	virtual const char* getTitle();
-
-	/** Display the particles. */
-	virtual void display();
-
-	/** Update the particle positions. */
-	virtual void update();
-
-	/** Handle a key press. */
-	virtual void key(unsigned char key);
-};
 
 // Method definitions
 PlatformDemo::PlatformDemo()

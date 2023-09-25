@@ -1,3 +1,5 @@
+#include "RagdollDemo.h"
+
 /*
  * The ragdoll demo.
  *
@@ -10,127 +12,10 @@
  * software licence.
  */
 
-#include <cyclonedemo/RigidBodyApplication.h>
 #include <cyclonedemo/Timing.h>
 
 #include <GL/freeglut.h>
-#include <cstdio>
 
-#define NUM_BONES 12
-#define NUM_JOINTS 11
-
-class Bone : public cyclone::CollisionBox
-{
-public:
-    Bone()
-    {
-        body = new cyclone::RigidBody();
-    }
-
-    ~Bone()
-    {
-        delete body;
-    }
-
-    /**
-     * We use a sphere to collide bone on bone to allow some limited
-     * interpenetration.
-     */
-    cyclone::CollisionSphere getCollisionSphere() const
-    {
-        cyclone::CollisionSphere sphere;
-        sphere.body = body;
-        sphere.radius = halfSize.x;
-        sphere.offset = cyclone::Matrix4();
-        if (halfSize.y < sphere.radius) sphere.radius = halfSize.y;
-        if (halfSize.z < sphere.radius) sphere.radius = halfSize.z;
-        sphere.calculateInternals();
-        return sphere;
-    }
-
-    /** Draws the bone. */
-    void render()
-    {
-        // Get the OpenGL transformation
-        GLfloat mat[16];
-        body->getGLTransform(mat);
-
-        if (body->getAwake()) glColor3f(0.5f, 0.3f, 0.3f);
-        else glColor3f(0.3f, 0.3f, 0.5f);
-
-        glPushMatrix();
-        glMultMatrixf(mat);
-        glScalef(halfSize.x*2, halfSize.y*2, halfSize.z*2);
-        glutSolidCube(1.0f);
-        glPopMatrix();
-    }
-
-    /** Sets the bone to a specific location. */
-    void setState(const cyclone::Vector3 &position,
-                  const cyclone::Vector3 &extents)
-    {
-        body->setPosition(position);
-        body->setOrientation(cyclone::Quaternion());
-        body->setVelocity(cyclone::Vector3());
-        body->setRotation(cyclone::Vector3());
-        halfSize = extents;
-
-        double mass = halfSize.x * halfSize.y * halfSize.z * 8.0f;
-        body->setMass(mass);
-
-        cyclone::Matrix3 tensor;
-        tensor.setBlockInertiaTensor(halfSize, mass);
-        body->setInertiaTensor(tensor);
-
-        body->setLinearDamping(0.95f);
-        body->setAngularDamping(0.8f);
-        body->clearAccumulators();
-        body->setAcceleration(cyclone::Vector3::GRAVITY);
-
-        body->setCanSleep(false);
-        body->setAwake();
-
-        body->calculateDerivedData();
-        calculateInternals();
-    }
-
-};
-
-/**
- * The main demo class definition.
- */
-class RagdollDemo : public RigidBodyApplication
-{
-    cyclone::Random random;
-
-    /** Holds the bone bodies. */
-    Bone bones[NUM_BONES];
-
-    /** Holds the joints. */
-    cyclone::Joint joints[NUM_JOINTS];
-
-    /** Processes the contact generation code. */
-    virtual void generateContacts();
-
-    /** Processes the objects in the simulation forward in time. */
-    virtual void updateObjects(double duration);
-
-    /** Resets the position of all the bones. */
-    virtual void reset();
-
-public:
-    /** Creates a new demo object. */
-    RagdollDemo();
-
-    /** Sets up the rendering. */
-    virtual void initGraphics();
-
-    /** Returns the window title for the demo. */
-    virtual const char* getTitle();
-
-    /** Display the particle positions. */
-    virtual void display();
-};
 
 // Method definitions
 RagdollDemo::RagdollDemo()
