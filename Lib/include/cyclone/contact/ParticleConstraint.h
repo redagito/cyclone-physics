@@ -45,5 +45,7 @@ namespace cyclone
         */
         virtual unsigned addContact(ParticleContact* contact,
             unsigned limit) const = 0;
+
+        virtual ~ParticleConstraint() = default;
     };
 }

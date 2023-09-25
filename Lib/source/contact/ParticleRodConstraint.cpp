@@ -11,6 +11,7 @@ unsigned ParticleRodConstraint::addContact(ParticleContact* contact,
 	double currentLen = currentLength();
 
 	// Check if we're over-extended
+	// TODO Bug?
 	if (currentLen == length)
 	{
 		return 0;

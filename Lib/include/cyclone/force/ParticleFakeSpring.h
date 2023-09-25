@@ -13,13 +13,13 @@ namespace cyclone
     class ParticleFakeSpring : public ParticleForceGenerator
     {
         /** The location of the anchored end of the spring. */
-        Vector3* anchor;
+        Vector3* anchor = nullptr;
 
         /** Holds the sprint constant. */
-        double springConstant;
+        double springConstant = 0.0;
 
         /** Holds the damping on the oscillation of the spring. */
-        double damping;
+        double damping = 0.0;
 
     public:
 

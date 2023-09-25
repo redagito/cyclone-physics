@@ -12,10 +12,10 @@ namespace cyclone
     class ParticleDrag : public ParticleForceGenerator
     {
         /** Holds the velocity drag coeffificent. */
-        double k1;
+        double k1 = 0.0;
 
         /** Holds the velocity squared drag coeffificent. */
-        double k2;
+        double k2 = 0.0;
 
     public:
 

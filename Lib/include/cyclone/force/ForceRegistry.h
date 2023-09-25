@@ -21,8 +21,8 @@ namespace cyclone
 		*/
 		struct ForceRegistration
 		{
-			RigidBody* body;
-			ForceGenerator* fg;
+			RigidBody* body = nullptr;
+			ForceGenerator* fg = nullptr;
 		};
 
 		/**

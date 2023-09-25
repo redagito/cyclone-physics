@@ -4,10 +4,8 @@
 using namespace cyclone;
 
 Aero::Aero(const Matrix3& tensor, const Vector3& position, const Vector3* windspeed)
+	: tensor(tensor), position(position), windspeed(windspeed)
 {
-	Aero::tensor = tensor;
-	Aero::position = position;
-	Aero::windspeed = windspeed;
 }
 
 void Aero::updateForce(RigidBody* body, double duration)
@@ -20,7 +18,8 @@ void Aero::updateForceFromTensor(RigidBody* body, double /*duration*/,
 {
 	// Calculate total velocity (windspeed and body's velocity).
 	Vector3 velocity = body->getVelocity();
-	velocity += *windspeed;
+	if (windspeed != nullptr)
+		velocity += *windspeed;
 
 	// Calculate the velocity in body coordinates
 	Vector3 bodyVel = body->getTransform().transformInverseDirection(velocity);

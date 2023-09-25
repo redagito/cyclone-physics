@@ -52,12 +52,12 @@ namespace cyclone
 			const Vector3& position, const Vector3* windspeed);
 
 		/**
-		 * Sets the control position of this control. This * should
-		range between -1 (in which case the minTensor value is *
-		used), through 0 (where the base-class tensor value is used) *
-		to +1 (where the maxTensor value is used). Values outside that
-		* range give undefined results.
-		*/
+		 * Sets the control position of this control. This
+		 * should range between -1 (in which case the minTensor value is
+		 * used), through 0 (where the base-class tensor value is used)
+		 * to +1 (where the maxTensor value is used). Values outside that
+		 * range give undefined results.
+		 */
 		void setControl(double value);
 
 		/**

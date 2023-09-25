@@ -9,14 +9,15 @@ namespace cyclone
 	 */
 	class ParticleSpring : public ParticleForceGenerator
 	{
+	private:
 		/** The particle at the other end of the spring. */
-		Particle* other;
+		Particle* other = nullptr;
 
 		/** Holds the sprint constant. */
-		double springConstant;
+		double springConstant = 0.0;
 
 		/** Holds the rest length of the spring. */
-		double restLength;
+		double restLength = 0.0;
 
 	public:
 

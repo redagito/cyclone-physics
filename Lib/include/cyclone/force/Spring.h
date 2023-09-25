@@ -24,13 +24,13 @@ namespace cyclone
 		Vector3 otherConnectionPoint;
 
 		/** The particle at the other end of the spring. */
-		RigidBody* other;
+		RigidBody* other = nullptr;
 
 		/** Holds the sprint constant. */
-		double springConstant;
+		double springConstant = 0.0;
 
 		/** Holds the rest length of the spring. */
-		double restLength;
+		double restLength = 0.0;
 
 	public:
 

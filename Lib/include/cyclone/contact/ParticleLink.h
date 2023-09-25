@@ -27,6 +27,7 @@ namespace cyclone
 
 	public:
 		ParticleLink();
+		virtual ~ParticleLink() = default;
 
 		/**
 		 * Geneates the contacts to keep this link from being

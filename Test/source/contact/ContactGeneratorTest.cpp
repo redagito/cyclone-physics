@@ -4,5 +4,6 @@
 
 TEST_CASE("ContactGenerator", "[contactgenerator]")
 {
+	cyclone::ContactGenerator* generator = nullptr;
 	REQUIRE(true);
 }

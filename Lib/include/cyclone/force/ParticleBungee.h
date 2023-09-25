@@ -13,16 +13,16 @@ namespace cyclone
     class ParticleBungee : public ParticleForceGenerator
     {
         /** The particle at the other end of the spring. */
-        Particle* other;
+        Particle* other = nullptr;
 
         /** Holds the sprint constant. */
-        double springConstant;
+        double springConstant = 0.0;
 
         /**
          * Holds the length of the bungee at the point it begins to
          * generator a force.
          */
-        double restLength;
+        double restLength = 0.0;
 
     public:
 

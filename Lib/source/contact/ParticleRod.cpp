@@ -10,6 +10,7 @@ unsigned ParticleRod::addContact(ParticleContact* contact,
 	// Find the length of the rod
 	double currentLen = currentLength();
 
+	// TODO Bug?
 	// Check if we're over-extended
 	if (currentLen == length)
 	{

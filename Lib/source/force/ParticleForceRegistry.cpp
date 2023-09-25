@@ -3,6 +3,11 @@
 
 using namespace cyclone;
 
+void ParticleForceRegistry::clear()
+{
+    registrations.clear();
+}
+
 void ParticleForceRegistry::updateForces(double duration)
 {
     for (const auto& registration : registrations)

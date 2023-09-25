@@ -29,7 +29,7 @@ namespace cyclone
 		 * windspeed vector per generator and having to update it
 		 * manually as the wind changes.
 		 */
-		const Vector3* windspeed;
+		const Vector3* windspeed = nullptr;
 
 	public:
 		/**

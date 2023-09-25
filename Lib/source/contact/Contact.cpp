@@ -172,7 +172,6 @@ void Contact::calculateDesiredDeltaVelocity(double duration)
 	desiredDeltaVelocity = -contactVelocity.x - thisRestitution * (contactVelocity.x - velocityFromAcc);
 }
 
-
 void Contact::calculateInternals(double duration)
 {
 	// Check if the first object is NULL, and swap if it is.

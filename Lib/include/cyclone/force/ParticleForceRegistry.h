@@ -2,7 +2,6 @@
 
 #include <vector>
 
-
 namespace cyclone
 {
     class Particle;
@@ -21,8 +20,8 @@ namespace cyclone
          */
         struct ParticleForceRegistration
         {
-            Particle* particle;
-            ParticleForceGenerator* fg;
+            Particle* particle = nullptr;
+            ParticleForceGenerator* fg = nullptr;
         };
 
         /**
@@ -37,13 +36,6 @@ namespace cyclone
          * given particle.
          */
         void add(Particle* particle, ParticleForceGenerator* fg);
-
-        /**
-         * Removes the given registered pair from the registry.
-         * If the pair is not registered, this method will have
-         * no effect.
-         */
-        void remove(Particle* particle, ParticleForceGenerator* fg);
 
         /**
          * Clears all registrations from the registry. This will
