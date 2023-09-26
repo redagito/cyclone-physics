@@ -4,19 +4,24 @@
 
 #include <cyclonedemo/MassAggregateApplication.h>
 
-class ParticleGravityWellDemo : public MassAggregateApplication
+class ParticleExplosionDemo : public MassAggregateApplication
 {
 private:
-	std::vector<cyclone::ParticleGravityWell> gravityWells;
+	std::vector<cyclone::Explosion> explosions;
+
+	bool fired = false;
 
 	void reset();
+	void fire();
 
 public:
-	ParticleGravityWellDemo();
+	ParticleExplosionDemo();
 
 	virtual void initGraphics();
 
 	virtual const char* getTitle();
+
+	virtual void updateObjects(double duration);
 
 	virtual void key(unsigned char key);
 };

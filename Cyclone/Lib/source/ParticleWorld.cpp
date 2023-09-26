@@ -18,109 +18,114 @@
  * software licence.
  */
 
-
 using namespace cyclone;
 
 ParticleWorld::ParticleWorld(unsigned maxContacts, unsigned iterations)
-:
-resolver(iterations),
-maxContacts(maxContacts)
+	:
+	resolver(iterations),
+	maxContacts(maxContacts)
 {
-    contacts = new ParticleContact[maxContacts];
-    calculateIterations = (iterations == 0);
-
+	contacts = new ParticleContact[maxContacts];
+	calculateIterations = (iterations == 0);
 }
 
 ParticleWorld::~ParticleWorld()
 {
-    delete[] contacts;
+	delete[] contacts;
 }
 
 void ParticleWorld::startFrame()
 {
-    for (Particles::iterator p = particles.begin();
-        p != particles.end();
-        p++)
-    {
-        // Remove all forces from the accumulator
-        (*p)->clearAccumulator();
-    }
+	for (Particles::iterator p = particles.begin();
+		p != particles.end();
+		p++)
+	{
+		// Remove all forces from the accumulator
+		(*p)->clearAccumulator();
+	}
 }
 
 unsigned ParticleWorld::generateContacts()
 {
-    unsigned limit = maxContacts;
-    ParticleContact *nextContact = contacts;
+	unsigned limit = maxContacts;
+	ParticleContact* nextContact = contacts;
 
-    for (ContactGenerators::iterator g = contactGenerators.begin();
-        g != contactGenerators.end();
-        g++)
-    {
-        unsigned used =(*g)->addContact(nextContact, limit);
-        limit -= used;
-        nextContact += used;
+	for (ContactGenerators::iterator g = contactGenerators.begin();
+		g != contactGenerators.end();
+		g++)
+	{
+		unsigned used = (*g)->addContact(nextContact, limit);
+		limit -= used;
+		nextContact += used;
 
-        // We've run out of contacts to fill. This means we're missing
-        // contacts.
-        if (limit <= 0) break;
-    }
+		// We've run out of contacts to fill. This means we're missing
+		// contacts.
+		if (limit <= 0) break;
+	}
 
-    // Return the number of contacts used.
-    return maxContacts - limit;
+	// Return the number of contacts used.
+	return maxContacts - limit;
 }
 
 void ParticleWorld::integrate(double duration)
 {
-    for (Particles::iterator p = particles.begin();
-        p != particles.end();
-        p++)
-    {
-        // Remove all forces from the accumulator
-        (*p)->integrate(duration);
-    }
+	for (Particles::iterator p = particles.begin();
+		p != particles.end();
+		p++)
+	{
+		// Remove all forces from the accumulator
+		(*p)->integrate(duration);
+	}
 }
 
 void ParticleWorld::runPhysics(double duration)
 {
-    // Prevent huge durations
-    duration = std::min(duration, 0.05);
+	// Prevent huge durations
+	duration = std::min(duration, 0.05);
 
-    // First apply the force generators
-    registry.updateForces(duration);
+	// First apply the force generators
+	registry.updateForces(duration);
 
-    // Then integrate the objects
-    integrate(duration);
+	// Then integrate the objects
+	integrate(duration);
 
-    // Generate contacts
-    unsigned usedContacts = generateContacts();
+	// Generate contacts
+	unsigned usedContacts = generateContacts();
 
-    // And process them
-    if (usedContacts)
-    {
-        if (calculateIterations) resolver.setIterations(usedContacts * 2);
-        resolver.resolveContacts(contacts, usedContacts, duration);
-    }
+	// And process them
+	if (usedContacts)
+	{
+		if (calculateIterations) resolver.setIterations(usedContacts * 2);
+		resolver.resolveContacts(contacts, usedContacts, duration);
+	}
 }
 
 Particles& ParticleWorld::getParticles()
 {
-    return particles;
+	return particles;
 }
 
 ParticleWorld::ContactGenerators& ParticleWorld::getContactGenerators()
 {
-    return contactGenerators;
+	return contactGenerators;
 }
 
 ParticleForceRegistry& ParticleWorld::getForceRegistry()
 {
-    return registry;
+	return registry;
 }
 
 void ParticleWorld::registerGlobalForceGenerator(ParticleForceGenerator* generator)
 {
-    for (auto particle : getParticles())
-    {
-        getForceRegistry().add(particle, generator);
-    }
+	for (auto particle : getParticles())
+	{
+		getForceRegistry().add(particle, generator);
+	}
+}
+
+void ParticleWorld::clear()
+{
+	//particles.clear();
+	registry.clear();
+	contactGenerators.clear();
 }

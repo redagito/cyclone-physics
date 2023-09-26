@@ -1,8 +1,22 @@
 #include "cyclonedemo/MassAggregateApplication.h"
 
+#include <chrono>
 #include <GL/freeglut.h>
 
 #include "cyclonedemo/Timing.h"
+
+void MassAggregateApplication::fillWithRandomParticles(const cyclone::Vector3& posFrom, const cyclone::Vector3& posTo, double massFrom, double massTo)
+{
+	// Setup particles
+	for (auto particle : world.getParticles())
+	{
+		particle->setMass(random.randomReal(massFrom, massTo));
+		particle->setPosition(random.randomVector(posFrom, posTo));
+		particle->setDamping(0.9);
+		particle->setAcceleration(0.0);
+		particle->setVelocity(0.0);
+	}
+}
 
 MassAggregateApplication::MassAggregateApplication(unsigned int particleCount, const cyclone::Vector3& particleColor, bool withGround)
 	:
@@ -63,6 +77,10 @@ void MassAggregateApplication::display()
 	}
 }
 
+void MassAggregateApplication::updateObjects(double /*duration*/)
+{
+}
+
 void MassAggregateApplication::update()
 {
 	// Clear accumulators
@@ -71,6 +89,9 @@ void MassAggregateApplication::update()
 	// Find the duration of the last frame in seconds
 	float duration = (float)TimingData::get().lastFrameDuration * 0.001f;
 	if (duration <= 0.0f) return;
+	else if (duration > 0.05f) duration = 0.05f;
+
+	updateObjects(duration);
 
 	// Run the simulation
 	world.runPhysics(duration);

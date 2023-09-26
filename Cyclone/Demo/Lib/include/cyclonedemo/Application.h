@@ -1,5 +1,7 @@
 #pragma once
 
+#include <cyclone/Random.h>
+
 /*
  * The base application class for all demos.
  *
@@ -55,7 +57,10 @@ protected:
 	/** Holds the position of the mouse at the last frame of a drag. */
 	int last_x = 0, last_y = 0;
 
+	cyclone::Random random;
+
 public:
+	Application();
 	virtual ~Application() = default;
 
 	/**

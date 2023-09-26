@@ -22,6 +22,8 @@ namespace cyclone
 		 */
 		double timePassed = 0.f;
 
+		Vector3 getForce(const Vector3& position, double duration);
+
 	public:
 		// Properties of the explosion, these are public because
 		// there are so many and providing a suitable constructor

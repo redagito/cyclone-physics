@@ -12,9 +12,17 @@
  * software licence.
  */
 #include <cstring>
+#include <chrono>
 #include <GL/freeglut.h>
 
 #include "cyclonedemo/Timing.h"
+
+Application::Application()
+{
+	auto s = std::chrono::duration_cast<std::chrono::milliseconds>(
+		std::chrono::system_clock::now().time_since_epoch());
+	random.seed((unsigned int)(s.count() % 10000000));
+}
 
 void Application::initGraphics()
 {

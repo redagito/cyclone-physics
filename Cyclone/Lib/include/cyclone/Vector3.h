@@ -35,6 +35,9 @@ namespace cyclone
 		/** The default constructor creates a zero vector. */
 		Vector3() = default;
 
+		Vector3(double v)
+			: x(v), y(v), z(v) {}
+
 		/**
 		 * The explicit constructor creates a vector with the given
 		 * components.

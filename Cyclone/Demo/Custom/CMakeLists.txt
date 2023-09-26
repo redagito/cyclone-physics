@@ -1,2 +1,3 @@
 add_subdirectory(ParticleGravityDemo)
 add_subdirectory(ParticleGravityWellDemo)
+add_subdirectory(ParticleExplosionDemo)
