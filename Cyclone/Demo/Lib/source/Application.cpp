@@ -76,13 +76,26 @@ void Application::resize(int w, int h)
 	setView();
 }
 
-void Application::mouse(int /*button*/, int /*state*/, int /*x*/, int /*y*/)
+void Application::mouse(int /*button*/, int /*state*/, int x, int y)
 {
-	// Default do nothing
+	// Set the position
+	last_x = x;
+	last_y = y;
 }
 
-void Application::mouseDrag(int /*x*/, int /*y*/)
+void Application::mouseDrag(int x, int y)
 {
+	// Update the camera
+	theta += (x - last_x) * 0.25f;
+	phi += (y - last_y) * 0.25f;
+
+	// Keep it in bounds
+	if (phi < -20.0f) phi = -20.0f;
+	else if (phi > 80.0f) phi = 80.0f;
+
+	// Remember the position
+	last_x = x;
+	last_y = y;
 }
 
 // The following methods aren't intended to be overloaded

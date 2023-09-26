@@ -46,6 +46,15 @@ protected:
 	 */
 	int width = 0;
 
+	/** Holds the camera angle. */
+	float theta = 0.f;
+
+	/** Holds the camera elevation. */
+	float phi = 0.f;
+
+	/** Holds the position of the mouse at the last frame of a drag. */
+	int last_x = 0, last_y = 0;
+
 public:
 	virtual ~Application() = default;
 

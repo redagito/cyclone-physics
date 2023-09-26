@@ -23,15 +23,6 @@
     /** Holds the contact resolver. */
     cyclone::ContactResolver resolver;
 
-    /** Holds the camera angle. */
-    float theta = 0.f;
-
-    /** Holds the camera elevation. */
-    float phi = 0.f;
-
-    /** Holds the position of the mouse at the last frame of a drag. */
-    int last_x = 0, last_y = 0;
-
     /** True if the contacts should be rendered. */
     bool renderDebugInfo = false;
 
@@ -68,12 +59,6 @@ public:
 
     /** Update the objects. */
     virtual void update();
-
-    /** Handle a mouse click. */
-    virtual void mouse(int button, int state, int x, int y);
-
-    /** Handle a mouse drag */
-    virtual void mouseDrag(int x, int y);
 
     /** Handles a key press. */
     virtual void key(unsigned char key);

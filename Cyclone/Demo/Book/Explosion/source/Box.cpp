@@ -77,8 +77,8 @@ void Box::setState(const cyclone::Vector3& position,
 /** Positions the box at a random location. */
 void Box::random(cyclone::Random* random)
 {
-	const static cyclone::Vector3 minPos(-5, 5, -5);
-	const static cyclone::Vector3 maxPos(5, 10, 5);
+	const static cyclone::Vector3 minPos(-15, 5, -15);
+	const static cyclone::Vector3 maxPos(15, 10, 15);
 	const static cyclone::Vector3 minSize(0.5f, 0.5f, 0.5f);
 	const static cyclone::Vector3 maxSize(4.5f, 1.5f, 1.5f);
 

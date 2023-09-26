@@ -82,6 +82,9 @@ void ParticleWorld::integrate(double duration)
 
 void ParticleWorld::runPhysics(double duration)
 {
+    // Prevent huge durations
+    duration = std::min(duration, 0.05);
+
     // First apply the force generators
     registry.updateForces(duration);
 

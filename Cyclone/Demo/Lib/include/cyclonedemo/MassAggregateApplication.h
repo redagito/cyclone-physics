@@ -3,6 +3,8 @@
 #include "cyclonedemo/Application.h"
 #include <cyclone/Cyclone.h>
 
+#include "Camera.h"
+
 /**
  * This application adds additional functionality used in the mass-aggregate demos.
  */
@@ -14,6 +16,7 @@ protected:
 	cyclone::GroundContacts groundContactGenerator;
 	cyclone::Vector3 particleColor;
 
+	Camera camera;
 public:
 	MassAggregateApplication(unsigned int particleCount, const cyclone::Vector3& particleColor = cyclone::Vector3{0.9, 0.1, 0.1}, bool withGround = true);
 	virtual ~MassAggregateApplication();

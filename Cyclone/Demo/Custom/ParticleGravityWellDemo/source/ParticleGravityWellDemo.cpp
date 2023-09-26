@@ -9,6 +9,9 @@ ParticleGravityWellDemo::ParticleGravityWellDemo()
 	:
 	MassAggregateApplication(2000, cyclone::Vector3{1.0, 0.0, 0.0}, false)
 {
+	// Camera
+	camera.position = cyclone::Vector3{0.0, 0.0, -50.0};
+
 	// Setup particles
 	cyclone::Random rand;
 	for (auto particle : world.getParticles())
@@ -30,8 +33,6 @@ ParticleGravityWellDemo::ParticleGravityWellDemo()
 				rand.randomReal(1.0, 3.0)));
 		world.registerGlobalForceGenerator(&gravityWells.back());
 	}
-
-	// Register gravity
 }
 
 void ParticleGravityWellDemo::initGraphics()

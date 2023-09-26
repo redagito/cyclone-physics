@@ -28,6 +28,8 @@ PlatformDemo::PlatformDemo()
 	MassAggregateApplication(6), rods(0),
 	massPos(0, 0, 0.5f)
 {
+	camera.position = cyclone::Vector3{0.0, 5.0, 8.0};
+
 	// Create the masses and connections.
 	particleArray[0].setPosition(0, 0, 1);
 	particleArray[1].setPosition(0, 0, -1);

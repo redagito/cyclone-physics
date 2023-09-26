@@ -10,9 +10,12 @@
  */
 class ExplosionDemo : public RigidBodyApplication
 {
+	cyclone::Explosion explosion;
+	bool fired = false;
+
 	bool editMode, upMode;
 
-	static constexpr unsigned int OBJECTS = 10;
+	static constexpr unsigned int OBJECTS = 20;
 	/**
 	 * Holds the number of boxes in the simulation.
 	 */
@@ -28,7 +31,6 @@ class ExplosionDemo : public RigidBodyApplication
 
 	/** Holds the ball data. */
 	Ball ballData[balls];
-
 
 	/** Detonates the explosion. */
 	void fire();

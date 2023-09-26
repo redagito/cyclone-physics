@@ -38,9 +38,13 @@ void MassAggregateApplication::display()
 	// Clear the view port and set the camera direction
 	glClear(GL_COLOR_BUFFER_BIT | GL_DEPTH_BUFFER_BIT);
 	glLoadIdentity();
-	gluLookAt(0.0, 5.0, -50.0,
-		0.0, 0.0, 0.0,
-		0.0, 1.0, 0.0);
+	gluLookAt(
+		camera.position.x, camera.position.y, camera.position.z,
+		camera.lookAt.x, camera.lookAt.y, camera.lookAt.z,
+		camera.up.x, camera.up.y, camera.up.z);
+
+	glRotatef(-phi, 0, 0, 1);
+	glRotatef(theta, 0, 1, 0);
 
 	// Set particle color and draw all particles in the world
 	glColor3f((GLfloat)particleColor.x, (GLfloat)particleColor.y, (GLfloat)particleColor.z);

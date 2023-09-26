@@ -44,14 +44,14 @@ const char* ExplosionDemo::getTitle()
 
 void ExplosionDemo::fire()
 {
-	cyclone::Vector3 pos = ballData[0].body->getPosition();
-	pos.normalise();
-
-	ballData[0].body->addForce(pos * -10000.0f);
+	explosion.reset();
+	fired = true;
 }
 
 void ExplosionDemo::reset()
 {
+	fired = false;
+	explosion.reset();
 	Box* box = boxData;
 
 	box++->setState(cyclone::Vector3(0, 3, 0),
@@ -149,6 +149,9 @@ void ExplosionDemo::updateObjects(double duration)
 	// Update the physics of each box in turn
 	for (Box* box = boxData; box < boxData + boxes; box++)
 	{
+		// Update force
+		if (fired) explosion.updateForce(box->body, duration);
+
 		// Run the physics
 		box->body->integrate(duration);
 		box->calculateInternals();
@@ -158,9 +161,17 @@ void ExplosionDemo::updateObjects(double duration)
 	// Update the physics of each ball in turn
 	for (Ball* ball = ballData; ball < ballData + balls; ball++)
 	{
+		// Update force
+		if (fired) explosion.updateForce(ball->body, duration);
+
 		// Run the physics
 		ball->body->integrate(duration);
 		ball->calculateInternals();
+	}
+
+	if (fired)
+	{
+		explosion.updateTimePassed(duration);
 	}
 }
 

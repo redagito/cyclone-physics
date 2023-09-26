@@ -7,9 +7,6 @@
 RigidBodyApplication::RigidBodyApplication()
 	:
 	resolver(maxContacts * 8),
-	theta(0.0f),
-	phi(15.0f),
-
 	renderDebugInfo(false),
 	pauseSimulation(true),
 	autoPauseSimulation(false)
@@ -56,7 +53,9 @@ void RigidBodyApplication::display()
 {
 	glClear(GL_COLOR_BUFFER_BIT | GL_DEPTH_BUFFER_BIT);
 	glLoadIdentity();
-	gluLookAt(18.0f, 0, 0, 0, 0, 0, 0, 1.0f, 0);
+	gluLookAt(28.0f, 0, 0, 
+		0, 0, 0, 
+		0, 1.0f, 0);
 	glRotatef(-phi, 0, 0, 1);
 	glRotatef(theta, 0, 1, 0);
 	glTranslatef(0, -5.0f, 0);
@@ -90,28 +89,6 @@ void RigidBodyApplication::drawDebug()
 	}
 
 	glEnd();
-}
-
-void RigidBodyApplication::mouse(int /*button*/, int /*state*/, int x, int y)
-{
-	// Set the position
-	last_x = x;
-	last_y = y;
-}
-
-void RigidBodyApplication::mouseDrag(int x, int y)
-{
-	// Update the camera
-	theta += (x - last_x) * 0.25f;
-	phi += (y - last_y) * 0.25f;
-
-	// Keep it in bounds
-	if (phi < -20.0f) phi = -20.0f;
-	else if (phi > 80.0f) phi = 80.0f;
-
-	// Remember the position
-	last_x = x;
-	last_y = y;
 }
 
 void RigidBodyApplication::key(unsigned char key)

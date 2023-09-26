@@ -10,6 +10,9 @@ ParticleGravityDemo::ParticleGravityDemo()
 	MassAggregateApplication(1000),
 	gravity(cyclone::Vector3{ 0.0, -5.0, 0.0 })
 {
+	// Camera
+	camera.position = cyclone::Vector3{ 0.0, 5.0, -10.0 };
+
 	// Setup particles
 	cyclone::Random rand;
 	for (auto particle : world.getParticles())

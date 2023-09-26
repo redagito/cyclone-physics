@@ -28,13 +28,16 @@ BridgeDemo::BridgeDemo()
 	MassAggregateApplication(12), cables(0), supports(0), rods(0),
 	massPos(0, 0, 0.5f)
 {
+	// Camera
+	camera.position = cyclone::Vector3{ 0.0, 5.0, 10.0 };
+
 	// Create the masses and connections.
 	for (unsigned i = 0; i < 12; i++)
 	{
 		unsigned x = (i % 12) / 2;
 		particleArray[i].setPosition(
 			double(i / 2) * 2.0f - 5.0f,
-			4,
+			2,
 			double(i % 2) * 2.0f - 1.0f
 		);
 		particleArray[i].setVelocity(0, 0, 0);
@@ -60,7 +63,7 @@ BridgeDemo::BridgeDemo()
 		supports[i].particle = particleArray + i;
 		supports[i].anchor = cyclone::Vector3(
 			double(i / 2) * 2.2f - 5.5f,
-			6,
+			4,
 			double(i % 2) * 1.6f - 0.8f
 		);
 		if (i < 6) supports[i].maxLength = double(i / 2) * 0.5f + 3.0f;

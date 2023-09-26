@@ -36,20 +36,20 @@ namespace cyclone
 		 * The radius up to which objects implode in the first stage
 		 * of the explosion.
 		 */
-		double implosionMaxRadius = 2.f;
+		double implosionMaxRadius = 100.f;
 
 		/**
 		 * The radius within which objects don't feel the implosion
 		 * force. Objects near to the detonation aren't sucked in by
 		 * the air implosion.
 		 */
-		double implosionMinRadius = 0.1f;
+		double implosionMinRadius = 1.f;
 
 		/**
 		 * The length of time that objects spend imploding before the
 		 * concussion phase kicks in.
 		 */
-		double implosionDuration = 0.1f;
+		double implosionDuration = 0.5f;
 
 		/**
 		 * The maximal force that the implosion can apply. This should
@@ -57,7 +57,7 @@ namespace cyclone
 		 * through the detonation point and out the other side before
 		 * the concussion wave kicks in.
 		 */
-		double implosionForce = 10.f;
+		double implosionForce = 20000.f;
 
 		/**
 		 * The speed that the shock wave is traveling, this is related
@@ -82,20 +82,20 @@ namespace cyclone
 		 * force. Objects moving in towards the centre get
 		 * proportionally more force.
 		 */
-		double peakConcussionForce = 50.f;
+		double peakConcussionForce = 50000.f;
 
 		/**
 		 * The length of time that the concussion wave is active.
 		 * As the wave nears this, the forces it applies reduces.
 		 */
-		double concussionDuration = 0.3f;
+		double concussionDuration = 0.1f;
 
 		/**
 		 * This is the peak force for stationary objects in
 		 * the centre of the convection chimney. Force calculations
 		 * for this value are the same as for peakConcussionForce.
 		 */
-		double peakConvectionForce = 5.f;
+		double peakConvectionForce = 500.f;
 
 		/**
 		 * The radius of the chimney cylinder in the xz plane.
@@ -120,6 +120,9 @@ namespace cyclone
 		 * Creates a new explosion with sensible default values.
 		 */
 		Explosion() = default;
+
+		void updateTimePassed(double duration);
+		void reset();
 
 		/**
 		 * Calculates and applies the force that the explosion
