@@ -1,23 +1,20 @@
 #pragma once
 
+#include <vector>
+
 #include <cyclonedemo/MassAggregateApplication.h>
 
-class ParticlesDemo : public MassAggregateApplication
+class ParticleGravityWellDemo : public MassAggregateApplication
 {
 private:
-	cyclone::ParticleGravity gravity;
+	std::vector<cyclone::ParticleGravityWell> gravityWells;
 
 public:
-	ParticlesDemo();
-	~ParticlesDemo();
+	ParticleGravityWellDemo();
 
 	virtual void initGraphics();
 
 	virtual const char* getTitle();
-
-	virtual void update();
-
-	virtual void display();
 
 	virtual void key(unsigned char key);
 };

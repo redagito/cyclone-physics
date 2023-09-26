@@ -85,6 +85,7 @@ namespace cyclone {
          * Returns a random integer less than the given value.
          */
         unsigned randomInt(unsigned max);
+        unsigned randomInt(unsigned min, unsigned max);
 
         /**
          * Returns a random binomially distributed number between -scale

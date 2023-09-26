@@ -131,6 +131,11 @@ unsigned Random::randomInt(unsigned max)
 	return randomBits() % max;
 }
 
+unsigned Random::randomInt(unsigned min, unsigned max)
+{
+	return min + randomBits() % (max - min);
+}
+
 double Random::randomBinomial(double scale)
 {
 	return (randomReal() - randomReal()) * scale;

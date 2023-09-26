@@ -113,3 +113,11 @@ ParticleForceRegistry& ParticleWorld::getForceRegistry()
 {
     return registry;
 }
+
+void ParticleWorld::registerGlobalForceGenerator(ParticleForceGenerator* generator)
+{
+    for (auto particle : getParticles())
+    {
+        getForceRegistry().add(particle, generator);
+    }
+}

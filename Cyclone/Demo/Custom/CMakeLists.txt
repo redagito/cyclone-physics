@@ -1,1 +1,2 @@
-add_subdirectory(Particles)
+add_subdirectory(ParticleGravityDemo)
+add_subdirectory(ParticleGravityWellDemo)

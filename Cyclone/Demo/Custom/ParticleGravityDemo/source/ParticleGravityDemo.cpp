@@ -5,25 +5,28 @@
 #include <cyclonedemo/Timing.h>
 
 // Method definitions
-ParticlesDemo::ParticlesDemo()
+ParticleGravityDemo::ParticleGravityDemo()
 	:
 	MassAggregateApplication(1000),
-	gravity(cyclone::Vector3{0.0, -1.0, 0.0})
+	gravity(cyclone::Vector3{ 0.0, -5.0, 0.0 })
 {
+	// Setup particles
 	cyclone::Random rand;
 	for (auto particle : world.getParticles())
 	{
 		particle->setMass(rand.randomReal(0.1, 100.0));
 		particle->setPosition(rand.randomVector(cyclone::Vector3{ -5.0, 0.0, -5.0 }, cyclone::Vector3{ 5.0, 20.0, 5.0 }));
-		world.getForceRegistry().add(particle, &gravity);
 	}
+
+	// Register gravity
+	world.registerGlobalForceGenerator(&gravity);
 }
 
-ParticlesDemo::~ParticlesDemo()
+ParticleGravityDemo::~ParticleGravityDemo()
 {
 }
 
-void ParticlesDemo::initGraphics()
+void ParticleGravityDemo::initGraphics()
 {
 	// Call the superclass
 	MassAggregateApplication::initGraphics();
@@ -32,22 +35,22 @@ void ParticlesDemo::initGraphics()
 	glClearColor(0.6f, 0.9f, 0.95f, 1.0f);
 }
 
-const char* ParticlesDemo::getTitle()
+const char* ParticleGravityDemo::getTitle()
 {
-	return "Cyclone > Fireworks Demo";
+	return "Cyclone > Particle Gravity Demo";
 }
 
-void ParticlesDemo::update()
+void ParticleGravityDemo::update()
 {
 	MassAggregateApplication::update();
 }
 
-void ParticlesDemo::display()
+void ParticleGravityDemo::display()
 {
 	MassAggregateApplication::display();
 }
 
-void ParticlesDemo::key(unsigned char key)
+void ParticleGravityDemo::key(unsigned char key)
 {
 	switch (key)
 	{
@@ -61,5 +64,5 @@ void ParticlesDemo::key(unsigned char key)
  */
 Application* getApplication()
 {
-	return new ParticlesDemo();
+	return new ParticleGravityDemo();
 }

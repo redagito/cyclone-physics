@@ -128,6 +128,11 @@ namespace cyclone {
          * Returns the force registry.
          */
         ParticleForceRegistry& getForceRegistry();
+
+        /**
+        * Registers the force generator to affect ALL particles in the world
+        */
+        void registerGlobalForceGenerator(ParticleForceGenerator* generator);
     };
 
 } // namespace cyclone

@@ -40,3 +40,4 @@
 #include "cyclone/force/ForceRegistry.h"
 #include "cyclone/force/ParticleForceGenerator.h"
 #include "cyclone/force/ParticleGravity.h"
+#include "cyclone/force/ParticleGravityWell.h"

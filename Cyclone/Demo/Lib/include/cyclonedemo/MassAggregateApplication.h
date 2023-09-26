@@ -12,11 +12,10 @@ protected:
 	cyclone::ParticleWorld world;
 	cyclone::Particle* particleArray = nullptr;
 	cyclone::GroundContacts groundContactGenerator;
-	cyclone::ParticleGravity gravity;
 	cyclone::Vector3 particleColor;
 
 public:
-	MassAggregateApplication(unsigned int particleCount, const cyclone::Vector3& particleColor = cyclone::Vector3{0.9, 0.1, 0.1});
+	MassAggregateApplication(unsigned int particleCount, const cyclone::Vector3& particleColor = cyclone::Vector3{0.9, 0.1, 0.1}, bool withGround = true);
 	virtual ~MassAggregateApplication();
 
 	/** Update the particle positions. */

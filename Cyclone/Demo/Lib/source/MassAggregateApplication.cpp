@@ -4,11 +4,10 @@
 
 #include "cyclonedemo/Timing.h"
 
-MassAggregateApplication::MassAggregateApplication(unsigned int particleCount, const cyclone::Vector3& particleColor)
+MassAggregateApplication::MassAggregateApplication(unsigned int particleCount, const cyclone::Vector3& particleColor, bool withGround)
 	:
 	world(particleCount * 10),
-	particleColor(particleColor),
-	gravity(cyclone::Vector3::GRAVITY)
+	particleColor(particleColor)
 {
 	particleArray = new cyclone::Particle[particleCount];
 	for (unsigned i = 0; i < particleCount; i++)
@@ -16,8 +15,11 @@ MassAggregateApplication::MassAggregateApplication(unsigned int particleCount, c
 		world.getParticles().push_back(particleArray + i);
 	}
 
-	groundContactGenerator.init(&world.getParticles());
-	world.getContactGenerators().push_back(&groundContactGenerator);
+	if (withGround)
+	{
+		groundContactGenerator.init(&world.getParticles());
+		world.getContactGenerators().push_back(&groundContactGenerator);
+	}
 }
 
 MassAggregateApplication::~MassAggregateApplication()
@@ -36,8 +38,8 @@ void MassAggregateApplication::display()
 	// Clear the view port and set the camera direction
 	glClear(GL_COLOR_BUFFER_BIT | GL_DEPTH_BUFFER_BIT);
 	glLoadIdentity();
-	gluLookAt(0.0, 5.0, -10.0, 
-		0.0, 0.0, 0.0, 
+	gluLookAt(0.0, 5.0, -50.0,
+		0.0, 0.0, 0.0,
 		0.0, 1.0, 0.0);
 
 	// Set particle color and draw all particles in the world

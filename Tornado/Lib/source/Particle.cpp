@@ -2,7 +2,7 @@
 
 using namespace tornado;
 
-void Particle::integrate(float duration)
+void Particle::integrate(float /*duration*/)
 {
 
 }
