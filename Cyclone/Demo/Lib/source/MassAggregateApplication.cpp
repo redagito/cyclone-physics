@@ -18,10 +18,20 @@ void MassAggregateApplication::fillWithRandomParticles(const cyclone::Vector3& p
 	}
 }
 
+void MassAggregateApplication::reset()
+{
+	if (withGround)
+	{
+		groundContactGenerator.init(&world.getParticles());
+		world.getContactGenerators().push_back(&groundContactGenerator);
+	}
+}
+
 MassAggregateApplication::MassAggregateApplication(unsigned int particleCount, const cyclone::Vector3& particleColor, bool withGround)
 	:
 	world(particleCount * 10),
-	particleColor(particleColor)
+	particleColor(particleColor),
+	withGround(withGround)
 {
 	particleArray = new cyclone::Particle[particleCount];
 	for (unsigned i = 0; i < particleCount; i++)
@@ -29,11 +39,7 @@ MassAggregateApplication::MassAggregateApplication(unsigned int particleCount, c
 		world.getParticles().push_back(particleArray + i);
 	}
 
-	if (withGround)
-	{
-		groundContactGenerator.init(&world.getParticles());
-		world.getContactGenerators().push_back(&groundContactGenerator);
-	}
+	reset();
 }
 
 MassAggregateApplication::~MassAggregateApplication()

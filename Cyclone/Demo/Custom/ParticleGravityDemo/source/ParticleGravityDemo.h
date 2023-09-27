@@ -15,8 +15,6 @@ public:
 
 	virtual const char* getTitle();
 
-	virtual void update();
-
 	virtual void display();
 
 	virtual void key(unsigned char key);

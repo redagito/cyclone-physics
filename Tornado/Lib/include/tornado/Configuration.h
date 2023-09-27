@@ -14,20 +14,33 @@ namespace tornado
 		// Any speed above is set to this value
 		// In [m/s]
 		// Capped at approximately light speed by default
-		double maxSpeed = 299790000.0;
+		float maxSpeed = 299790000.f;
 
 		// Minimum achievable movement speed
 		// Any speed below is set to 0
 		// In [m/s]
-		double minSpeed = 10.0e-20;
+		float minSpeed = 10.0e-20f;
 
 		// Minimum mass for any object
 		// Any mass below is set to this value
-		// [kg]
+		// In [kg]
 		// Default at 1 mg 
-		double minMass = 1.0e-6;
+		float minMass = 1.0e-6f;
 
-		// The default damping value
-		double defaultDamping = 0.9995;
+		// The default damping value (friction)
+		// No unit
+		// TODO Usage
+		float defaultDamping = 0.9995f;
+
+		// The maximum timestep allowed for the physic simulation
+		// Anything higher would affect simulation stability
+		// In [s]
+		// Default at 1/20 second
+		float maxTimeStep = 0.05f;
+
+		// The default timestep
+		// In [s]
+		// Default at 1/30 second (30 fps)
+		float defaultTimeStep = 0.033333f;
 	};
 }

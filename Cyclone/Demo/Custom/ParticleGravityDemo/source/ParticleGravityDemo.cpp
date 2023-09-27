@@ -43,11 +43,6 @@ const char* ParticleGravityDemo::getTitle()
 	return "Cyclone > Particle Gravity Demo";
 }
 
-void ParticleGravityDemo::update()
-{
-	MassAggregateApplication::update();
-}
-
 void ParticleGravityDemo::display()
 {
 	MassAggregateApplication::display();

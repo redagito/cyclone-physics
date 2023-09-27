@@ -17,8 +17,11 @@ protected:
 	cyclone::Vector3 particleColor;
 
 	Camera camera;
+	bool withGround = true;
 
 	void fillWithRandomParticles(const cyclone::Vector3& posFrom = cyclone::Vector3{ 20.0 }, const cyclone::Vector3& posTo = cyclone::Vector3{ -20.0 }, double massFrom = 0.1, double massTo = 100.0);
+
+	virtual void reset();
 public:
 	MassAggregateApplication(unsigned int particleCount, const cyclone::Vector3& particleColor = cyclone::Vector3{ 0.9, 0.1, 0.1 }, bool withGround = true);
 	virtual ~MassAggregateApplication();
