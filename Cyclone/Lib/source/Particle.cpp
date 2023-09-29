@@ -26,7 +26,7 @@ using namespace cyclone;
 
 void Particle::integrate(double duration)
 {
-    // We don't integrate things with zero mass.
+    // We don't integrate things with infinite mass.
     if (inverseMass <= 0.0f) return;
 
     assert(duration > 0.0);

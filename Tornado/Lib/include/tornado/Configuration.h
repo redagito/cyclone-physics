@@ -16,11 +16,6 @@ namespace tornado
 		// Capped at approximately light speed by default
 		float maxSpeed = 299790000.f;
 
-		// Minimum achievable movement speed
-		// Any speed below is set to 0
-		// In [m/s]
-		float minSpeed = 10.0e-20f;
-
 		// Minimum mass for any object
 		// Any mass below is set to this value
 		// In [kg]
