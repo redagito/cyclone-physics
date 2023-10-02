@@ -1,5 +1,7 @@
 # Cyclone Physics
 
+![banner 1](./doc/banner1.jpg)
+
 The Physics engine that accompanies the book "Game Physics Engine Development" by Ian Millington.
 This version uses a modern conan/cmake based build system and should build out of the box on Windows and Linux systems.
 
@@ -16,6 +18,8 @@ Development is done with
 * Linux: Make
 
 ## Building
+
+![banner 1](./doc/banner2.jpg)
 
 Conan install for debug and release builds
 ```
