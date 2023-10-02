@@ -31,7 +31,7 @@ IceMeltingDemo::IceMeltingDemo(const unsigned depth)
 		+ cubeDepth * cubeDepth * (cubeDepth - 1)
 		+ 3 * cubeDepth * (cubeDepth - 1) * (cubeDepth - 1)),
 	moleculeCount(depth* depth* depth),
-	world_((depth* depth* depth) * 10)
+	world((depth* depth* depth) * 10)
 {
 	// initialize non-const variables
 	molecules = new Molecule[moleculeCount];
@@ -46,9 +46,9 @@ IceMeltingDemo::IceMeltingDemo(const unsigned depth)
 	const unsigned c = cubeDepth - 1;
 
 	// add molecules to world
-	for (unsigned i = 0; i < moleculeCount; i++) world_.getParticles().push_back(molecules + i);
-	groundContactGenerator_.init(&world_.getParticles());
-	world_.getContactGenerators().push_back(&groundContactGenerator_);
+	for (unsigned i = 0; i < moleculeCount; i++) world.getParticles().push_back(molecules + i);
+	groundContactGenerator_.init(&world.getParticles());
+	world.getContactGenerators().push_back(&groundContactGenerator_);
 
 	int count = 0;
 	for (unsigned i = 0; i < cubeDepth; i++) {
@@ -147,10 +147,10 @@ IceMeltingDemo::IceMeltingDemo(const unsigned depth)
 	for (unsigned i = 0; i < bondCount; i++) {
 		bonds[i].setConductivity(BOND_CONDUCTIVITY); // set all bonds to have the same conductivity
 		bondsOrig[i] = bonds[i]; // store original state
-		world_.getContactGenerators().push_back(&bonds[i]);
+		world.getContactGenerators().push_back(&bonds[i]);
 	}
 
-	origContactGenerators = world_.getContactGenerators(); // store original state
+	origContactGenerators = world.getContactGenerators(); // store original state
 }
 
 IceMeltingDemo::~IceMeltingDemo() 
@@ -175,54 +175,48 @@ void IceMeltingDemo::initGraphics()
 
 void IceMeltingDemo::update()
 {
-	world_.startFrame(); // clear accumulators
+	world.startFrame();
 
-	duration = (float)TimingData::get().lastFrameDuration * 0.001f; // duration of the last frame in seconds
-	if (duration <= 0.0f) return; // duration can't be negative
+	duration = (float)TimingData::get().lastFrameDuration * 0.001f;
+	if (duration <= 0.0f) return;
 
 	if (zeroFlag)
-		duration = forcedDuration; // override actual duration
+		duration = forcedDuration; 
 
-	// add and remove contact generators as needed
-	auto* cgs = &world_.getContactGenerators();
+	auto* cgs = &world.getContactGenerators();
 	cyclone::ParticleWorld::ContactGenerators::iterator g;
 	for (unsigned i = 0; i < bondCount; i++) {
 		g = std::find(cgs->begin(), cgs->end(), &bonds[i]);
-		if (g == cgs->end()) { // isn't in cgs
-			if (bonds[i].getState()) // has state of 1
-				cgs->push_back(&bonds[i]); // add Bond contact generator to vector of contact generators
+		if (g == cgs->end()) { 
+			if (bonds[i].getState()) 
+				cgs->push_back(&bonds[i]);
 		}
-		else { // is in cgs
-			if (!bonds[i].getState()) // has state of 0
-				cgs->erase(g); // remove Bond contact generator from vector of contact generators
+		else { 
+			if (!bonds[i].getState()) 
+				cgs->erase(g);
 		}
 	}
 
-	world_.runPhysics(duration); // run the simulation
+	world.runPhysics(duration);
 	Application::update();
 
-	// update molecules
 	for (unsigned i = 0; i < moleculeCount; i++)
 		if (molecules[i].getState()) molecules[i].update(duration);
 
-	// update bonds
 	for (unsigned i = 0; i < bondCount; i++)
 		if (bonds[i].getState()) bonds[i].update(duration);
 }
 
-// DRAW
-void IceMeltingDemo::display() {
-	// Clear the view port and set the camera direction
+void IceMeltingDemo::display() 
+{
 	glClear(GL_COLOR_BUFFER_BIT | GL_DEPTH_BUFFER_BIT);
 	glLoadIdentity();
 	float zoom = cubeDepth * ICE_DIST * 1.60f;
 	gluLookAt(zoom, (zoom * 0.75f), zoom, 0.0, ICE_DIST, 0.0, 0.0, 1.0, 0.0);
 
-	// draw the molecules
 	for (unsigned i = 0; i < moleculeCount; i++)
 		if (molecules[i].getState()) molecules[i].draw();
 
-	// draw the bonds
 	if (DRAW_BONDS)
 		for (unsigned i = 0; i < bondCount; i++)
 			if (bonds[i].getState()) bonds[i].draw();
@@ -235,35 +229,36 @@ void IceMeltingDemo::display() {
 }
 
 // detect key press
-void IceMeltingDemo::key(unsigned char key) {
+void IceMeltingDemo::key(unsigned char key) 
+{
 	switch (key) {
-	case ' ': // spacebar: change molecule acceleration (press once, don't press and hold)
+	case ' ':
 		for (unsigned i = 0; i < moleculeCount; i++) {
 			Molecule& m = molecules[i];
 
 			if (spaceFlag)
 				m.setAcceleration(BASE_GRAVITY);
 			else
-				m.setAcceleration(cyclone::Vector3(0, (i % 2), 0)); // mod causes a small amount of tilt
+				m.setAcceleration(cyclone::Vector3(0, (i % 2), 0));
 		}
 		spaceFlag = (spaceFlag ? false : true);
 		break;
-	case '1': // #1: reset
-		spaceFlag = false; // spacebar effect gets removed
+	case '1':
+		spaceFlag = false;
 		for (unsigned i = 0; i < moleculeCount; i++) molecules[i] = moleculesOrig[i]; // restore original state
 		for (unsigned i = 0; i < bondCount; i++) bonds[i] = bondsOrig[i]; // restore original state
-		world_.getContactGenerators().assign(origContactGenerators.begin(), origContactGenerators.end()); // restore original state
+		world.getContactGenerators().assign(origContactGenerators.begin(), origContactGenerators.end()); // restore original state
 		break;
-	case '9': // 0: reset forced duration
+	case '9':
 		forcedDuration = FORCED_DURATION;
 		break;
-	case '0': // 0: override duration
+	case '0': 
 		zeroFlag = (zeroFlag ? false : true);
 		break;
-	case '=': // =: increment duration
+	case '=': 
 		forcedDuration += 0.001f;
 		break;
-	case '-': // -: decrement duration
+	case '-':
 		if (forcedDuration > 0.001f)
 			forcedDuration -= 0.001f;
 		else
@@ -271,15 +266,14 @@ void IceMeltingDemo::key(unsigned char key) {
 
 		if (forcedDuration <= 0.0f) forcedDuration = 0.0001f; // avoid zero duration
 		break;
-	case '5': // 5: tests reinstantiation of Bond between two Molecules
+	case '5':
 		unsigned i = 9;
-		// set this Bond's first particle to a random particle
 		bonds[i].particle[0] = &molecules[rand() % moleculeCount];
-		// reset the Bond
-		dynamic_cast<Molecule*>(bonds[i].particle[0])->setTemp(0); // reset temperature of first molecule
-		dynamic_cast<Molecule*>(bonds[i].particle[1])->setTemp(0.5f); // set temperature of second molecule
-		bonds[i].setState(1); // reset state of rod
-		bonds[i].setTemp(0); // reset temperature of rod
+
+		dynamic_cast<Molecule*>(bonds[i].particle[0])->setTemp(0); 
+		dynamic_cast<Molecule*>(bonds[i].particle[1])->setTemp(0.5f); 
+		bonds[i].setState(1);
+		bonds[i].setTemp(0); 
 		break;
 	}
 }

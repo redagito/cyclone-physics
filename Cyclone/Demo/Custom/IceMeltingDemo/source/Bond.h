@@ -6,12 +6,9 @@ class Bond : public cyclone::ParticleRod
 {
 	double conductivity = 0.0;
 	double temp = 0.0;
-	// if 0, the world should delete this and remove any references to it
 	unsigned int state = 0;
 
 public:
-	// Constructors:
-
 	Bond() : conductivity(0.001), temp(0.0), state(1) {}
 	~Bond() = default;
 
